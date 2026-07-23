@@ -255,10 +255,17 @@ export function SiteHeader() {
         ref={searchPanelRef}
         id={searchId}
         onBlur={(e) => {
+          // Only collapse when focus actually moves to another element (e.g.
+          // keyboard Tab). On touch (iOS Safari) tapping a link/button does NOT
+          // focus it, so relatedTarget is null — closing here would cancel the
+          // tap before the link/button activates. Outside taps still close via
+          // the document mousedown listener.
+          const next = e.relatedTarget as Node | null;
           if (
             searchOpen &&
-            !e.currentTarget.contains(e.relatedTarget as Node) &&
-            e.relatedTarget !== searchButtonRef.current
+            next &&
+            !e.currentTarget.contains(next) &&
+            next !== searchButtonRef.current
           ) {
             setSearchOpen(false);
           }
