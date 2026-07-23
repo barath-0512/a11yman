@@ -1,0 +1,112 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --radius: 0.75rem;
+
+    /* Light theme — Apple inspired */
+    --background: 0 0% 100%; /* #FFFFFF */
+    --foreground: 240 6% 12%; /* #1D1D1F */
+    --card: 0 0% 100%;
+    --card-foreground: 240 6% 12%;
+    --secondary: 240 14% 96%; /* #F5F5F7 */
+    --secondary-foreground: 240 6% 12%;
+    --muted: 240 14% 96%;
+    --muted-foreground: 240 4% 32%; /* darkened from easyalt for 4.5:1 body text */
+    --accent: 211 100% 45%; /* darkened #007AFF for AA contrast on white */
+    --accent-foreground: 0 0% 100%;
+    /* Separate, darker token for accent-colored TEXT on light tint
+       backgrounds (badges) — --accent itself is tuned for white text on a
+       solid accent fill, and only reaches ~3.8:1 against a 15% tint. */
+    --accent-text: 211 100% 32%;
+    --destructive: 4 78% 42%;
+    --destructive-foreground: 0 0% 100%;
+    --destructive-text: 4 78% 38%;
+    --success: 145 63% 30%;
+    --success-foreground: 0 0% 100%;
+    /* Darker than --success itself, same reasoning as --accent-text: the
+       base token is tuned for white text on a solid fill and only reaches
+       ~4.2:1 (below the 4.5:1 minimum) as text on a 15% tint background. */
+    --success-text: 145 70% 22%;
+    --warning: 32 90% 32%;
+    --warning-foreground: 0 0% 100%;
+    --warning-text: 32 90% 28%;
+    --border: 240 6% 85%;
+    --input: 240 6% 85%;
+    --ring: 211 100% 40%;
+  }
+
+  .dark {
+    --background: 0 0% 0%; /* #000000 */
+    --foreground: 0 0% 100%; /* #FFFFFF */
+    --card: 240 4% 11%; /* #1C1C1E */
+    --card-foreground: 0 0% 100%;
+    --secondary: 240 4% 11%; /* #1C1C1E */
+    --secondary-foreground: 0 0% 100%;
+    --muted: 240 4% 14%;
+    --muted-foreground: 240 5% 72%;
+    --accent: 211 100% 65%; /* #66B2FF, AA on black */
+    --accent-foreground: 0 0% 0%;
+    --accent-text: 211 100% 72%; /* light enough for AA against a dark 15% tint */
+    --destructive: 4 90% 68%;
+    --destructive-foreground: 0 0% 0%;
+    --destructive-text: 4 90% 75%;
+    --success: 145 55% 55%;
+    --success-foreground: 0 0% 0%;
+    --success-text: 145 55% 65%; /* light enough for AA against a dark 15% tint */
+    --warning: 38 92% 58%;
+    --warning-foreground: 0 0% 0%;
+    --warning-text: 38 92% 68%;
+    --border: 240 4% 24%;
+    --input: 240 4% 24%;
+    --ring: 211 100% 65%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "cv11", "ss01";
+  }
+
+  /* Visible, accessible focus indicators: >=2px outline, 3:1 contrast, offset so it
+     never hides under the element it's focusing (SC 2.4.7 / 2.4.13). */
+  :focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+}
+
+@layer utilities {
+  .glass {
+    @apply bg-card/70 backdrop-blur-xl backdrop-saturate-150;
+  }
+  .text-balance {
+    text-wrap: balance;
+  }
+  .sr-only-focusable {
+    @apply sr-only focus:not-sr-only;
+  }
+}
