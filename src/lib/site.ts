@@ -33,6 +33,7 @@ export const WCAG_VERSION = "WCAG 2.2";
 // - Google Search Console: Settings → Ownership verification → HTML tag.
 // - Bing Webmaster Tools: Verify ownership → Option 1 (HTML meta tag).
 export const GOOGLE_SITE_VERIFICATION =
-  process.env.GOOGLE_SITE_VERIFICATION || undefined;
+  process.env.GOOGLE_SITE_VERIFICATION ||
+  "xgUCplAEIK1-2SpDD0l9oMa9kCcg79FNyzqAZbEx8So";
 export const BING_SITE_VERIFICATION =
   process.env.BING_SITE_VERIFICATION || undefined;
