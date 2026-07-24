@@ -142,7 +142,7 @@ function ColourField({
           disabled={!supportsEyedropper}
           aria-label={`Pick ${label.toLowerCase()} from screen`}
           title={supportsEyedropper ? "Eyedropper" : "Eyedropper not supported in this browser"}
-          className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-border text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground disabled:opacity-40"
+          className="hidden h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-border text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground disabled:opacity-40 lg:inline-flex"
         >
           <Pipette className="h-4 w-4" aria-hidden="true" />
         </button>
