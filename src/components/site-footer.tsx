@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Heart, Mail } from "lucide-react";
 import { AppLogo } from "@/components/app-logo";
-import { SITE_TAGLINE, WCAG_VERSION, APG_VERSION } from "@/lib/site";
+import { SITE_TAGLINE } from "@/lib/site";
 
 const COLUMNS: { heading: string; links: { label: string; href: string }[] }[] = [
   {
@@ -42,7 +42,7 @@ export function SiteFooter() {
               className="inline-flex items-center gap-1.5 rounded-lg text-base"
               aria-label="a11yman home"
             >
-              <AppLogo className="h-[2.3em] w-auto shrink-0" />
+              <AppLogo className="h-[3em] w-auto shrink-0" />
               <span className="flex flex-col leading-tight">
                 <span className="text-base font-semibold tracking-tight">
                   a<span className="text-accent">11</span>yman
@@ -50,10 +50,6 @@ export function SiteFooter() {
                 <span className="text-xs text-muted-foreground">{SITE_TAGLINE}</span>
               </span>
             </Link>
-            <p className="max-w-xs text-sm text-muted-foreground">
-              A practical, test-oriented reference for building, testing, and
-              understanding accessible UI — {WCAG_VERSION} AA and {APG_VERSION}.
-            </p>
             <div className="flex items-center gap-2">
               <a
                 href="mailto:hello@a11yman.com"
