@@ -2,11 +2,6 @@ import { pageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import {
   ArrowRight,
-  Component,
-  Accessibility,
-  Keyboard,
-  Volume2,
-  BookOpen,
   Zap,
   Code2,
   ShieldCheck,
@@ -30,14 +25,6 @@ export const metadata = pageMetadata({
     "a11yman is a fast, practical reference for building, testing, and understanding accessible UI components — hand-coded patterns, ARIA, keyboard models, screen reader output, and WCAG mapping.",
   path: "/",
 });
-
-const FEATURES = [
-  { icon: Component, title: "Components", body: "Accessible UI patterns with code, behavior, and examples.", href: "/components", cta: "Browse" },
-  { icon: Accessibility, title: "ARIA Reference", body: "Complete guide to ARIA roles, attributes, and relationships.", href: "/aria", cta: "Explore" },
-  { icon: Keyboard, title: "Keyboard Reference", body: "Keyboard interactions for components and UI patterns.", href: "/keyboard-reference", cta: "Learn" },
-  { icon: Volume2, title: "Screen Reader Guide", body: "Expected announcements for NVDA, JAWS, VoiceOver & more.", href: "/screen-reader-guide", cta: "Open" },
-  { icon: BookOpen, title: "WCAG Index", body: "Search WCAG 2.2 success criteria with practical examples.", href: "/wcag", cta: "Browse" },
-];
 
 const WHY = [
   { icon: Zap, title: "Faster than documentation", body: "Stop digging through long specs. Find how to build — and how to test — exactly what you need, instantly.", list: [] as string[] },
@@ -115,26 +102,33 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* ── Feature cards ── */}
-        <section aria-label="What's inside" className="container -mt-8 pb-16">
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-            {FEATURES.map((f) => (
-              <Link
-                key={f.href}
-                href={f.href}
-                className="group flex flex-col rounded-2xl border border-border bg-card p-5 shadow-soft transition-colors hover:border-accent"
-              >
-                <span className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-secondary">
-                  <f.icon className="h-5 w-5 text-accent" aria-hidden="true" />
-                </span>
-                <h2 className="font-medium">{f.title}</h2>
-                <p className="mt-1 flex-1 text-sm text-muted-foreground">{f.body}</p>
-                <span className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-accent-text">
-                  {f.cta}
-                  <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
-                </span>
-              </Link>
-            ))}
+        {/* ── Color contrast checker banner (directly below the hero) ── */}
+        <section aria-labelledby="contrast-banner" className="container pb-16 pt-10">
+          <div className="flex flex-col gap-4 rounded-2xl border border-border bg-gradient-to-br from-accent/[0.1] via-accent/[0.04] to-transparent p-5 shadow-soft sm:flex-row sm:items-center sm:justify-between sm:p-6">
+            <div className="flex items-center gap-3">
+              <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-accent/15 text-accent-text">
+                <Pipette className="h-5 w-5" aria-hidden="true" />
+              </span>
+              <div>
+                <h2
+                  id="contrast-banner"
+                  className="text-base font-semibold tracking-tight sm:text-lg"
+                >
+                  Try the new smart contrast checker
+                </h2>
+                <p className="text-sm text-muted-foreground">
+                  Check any colour pair against WCAG 2.2, right in your browser —
+                  free.
+                </p>
+              </div>
+            </div>
+            <Link
+              href="/contrast-checker"
+              className="inline-flex h-10 shrink-0 items-center justify-center gap-2 rounded-full bg-accent px-5 text-sm font-medium text-accent-foreground transition-colors hover:bg-accent/90"
+            >
+              <Contrast className="h-4 w-4" aria-hidden="true" />
+              Open
+            </Link>
           </div>
         </section>
 
@@ -168,53 +162,37 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* ── Color contrast checker banner (compact) ── */}
-        <section aria-labelledby="contrast-banner" className="container mt-12 pb-16">
-          <div className="flex flex-col gap-4 rounded-2xl border border-border bg-gradient-to-br from-accent/[0.1] via-accent/[0.04] to-transparent p-4 shadow-soft sm:flex-row sm:items-center sm:justify-between sm:p-5">
-            <div className="flex items-center gap-3">
-              <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-accent/15 text-accent-text">
-                <Pipette className="h-4 w-4" aria-hidden="true" />
-              </span>
-              <div>
-                <h2
-                  id="contrast-banner"
-                  className="text-base font-semibold tracking-tight"
-                >
-                  Color contrast checker
-                </h2>
-                <p className="text-sm text-muted-foreground">
-                  Check any colour pair against WCAG 2.2 — free.
-                </p>
-              </div>
-            </div>
-            <Link
-              href="/contrast-checker"
-              className="inline-flex h-10 shrink-0 items-center justify-center gap-2 rounded-full bg-accent px-4 text-sm font-medium text-accent-foreground transition-colors hover:bg-accent/90"
-            >
-              <Contrast className="h-4 w-4" aria-hidden="true" />
-              Open
-            </Link>
-          </div>
-        </section>
-
         {/* ── Why a11yman ── */}
         <section aria-labelledby="why" className="container py-16">
           <h2 id="why" className="text-center text-3xl font-semibold tracking-tight">
             Why a11yman?
           </h2>
-          <div className="mt-8 grid gap-4 md:grid-cols-3">
-            {WHY.map((w) => (
-              <div key={w.title} className="rounded-2xl border border-border bg-card p-6 shadow-soft">
-                <span className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-accent/10">
-                  <w.icon className="h-5 w-5 text-accent" aria-hidden="true" />
-                </span>
-                <h3 className="mt-4 font-semibold">{w.title}</h3>
-                {w.body && <p className="mt-1.5 text-sm text-muted-foreground">{w.body}</p>}
+          <div className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-3">
+            {WHY.map((w, i) => (
+              <div
+                key={w.title}
+                className={`rounded-2xl border border-border bg-card p-4 shadow-soft md:p-6 ${
+                  i === 0 ? "col-span-2 md:col-span-1" : ""
+                }`}
+              >
+                <div className="flex items-center gap-2.5 md:block">
+                  <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-accent/10 md:h-11 md:w-11 md:rounded-xl">
+                    <w.icon className="h-4 w-4 text-accent md:h-5 md:w-5" aria-hidden="true" />
+                  </span>
+                  <h3 className="text-sm font-semibold leading-tight md:mt-4 md:text-base md:leading-normal">
+                    {w.title}
+                  </h3>
+                </div>
+                {w.body && (
+                  <p className="mt-2 text-xs leading-relaxed text-muted-foreground md:mt-1.5 md:text-sm">
+                    {w.body}
+                  </p>
+                )}
                 {w.list.length > 0 && (
-                  <ul className="mt-3 space-y-2">
+                  <ul className="mt-2.5 space-y-1.5 md:mt-3 md:space-y-2">
                     {w.list.map((item) => (
-                      <li key={item} className="flex items-center gap-2 text-sm text-muted-foreground">
-                        <Check className="h-4 w-4 shrink-0 text-success" aria-hidden="true" />
+                      <li key={item} className="flex items-center gap-1.5 text-xs text-muted-foreground md:gap-2 md:text-sm">
+                        <Check className="h-3.5 w-3.5 shrink-0 text-success md:h-4 md:w-4" aria-hidden="true" />
                         {item}
                       </li>
                     ))}
@@ -248,28 +226,23 @@ export default function HomePage() {
               <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </Link>
           </div>
-          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-            {POPULAR.map((slug, i) => {
+          <div className="mt-6 grid grid-cols-2 gap-4 lg:grid-cols-5">
+            {POPULAR.map((slug) => {
               const c = getComponent(slug);
               if (!c) return null;
               return (
                 <Link
                   key={slug}
                   href={`/components/${slug}`}
-                  className="group flex flex-col rounded-2xl border border-border bg-card p-5 shadow-soft transition-colors hover:border-accent"
+                  className="group flex aspect-square flex-col overflow-hidden rounded-2xl border border-border bg-card p-4 shadow-soft transition-colors hover:border-accent md:aspect-auto md:overflow-visible md:p-5"
                 >
-                  {/* Reserve the badge row on every card so all headings start
-                      at the same Y, whether or not the card has a tag. */}
-                  <div className="mb-2 flex h-5 items-start">
-                    {i === 0 && (
-                      <span className="inline-flex w-fit rounded-full bg-accent/10 px-2 py-0.5 text-xs font-medium text-accent-text">
-                        Most visited
-                      </span>
-                    )}
-                  </div>
-                  <h3 className="font-medium group-hover:text-accent">{c.name}</h3>
-                  <p className="mt-1 flex-1 text-sm text-muted-foreground">{c.definition}</p>
-                  <span className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-accent-text">
+                  <h3 className="line-clamp-2 font-medium group-hover:text-accent md:line-clamp-none">
+                    {c.name}
+                  </h3>
+                  <p className="mt-1 line-clamp-2 text-sm text-muted-foreground md:line-clamp-none md:flex-1">
+                    {c.definition}
+                  </p>
+                  <span className="mt-auto inline-flex items-center gap-1 pt-2 text-sm font-medium text-accent-text md:mt-3 md:pt-0">
                     Open
                     <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
                   </span>
