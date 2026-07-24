@@ -7,6 +7,7 @@ import { ToastProvider } from "@/components/toast-provider";
 import { Onboarding } from "@/components/onboarding";
 import { BookmarkPrompt } from "@/components/bookmark-prompt";
 import { GoogleAnalytics } from "@/components/google-analytics";
+import { StructuredData } from "@/components/structured-data";
 import {
   SITE_URL,
   SITE_NAME,
@@ -83,6 +84,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.variable} font-sans`}>
+        <StructuredData />
         <ThemeProvider
           attribute="class"
           defaultTheme="light"
