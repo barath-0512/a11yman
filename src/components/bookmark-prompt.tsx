@@ -136,6 +136,7 @@ export function BookmarkPrompt() {
 
       {open && (
         <div
+          data-nosnippet
           role="dialog"
           aria-modal="false"
           aria-labelledby="bookmark-prompt-title"

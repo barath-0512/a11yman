@@ -118,7 +118,10 @@ export function Onboarding() {
   if (!active) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+    <div
+      data-nosnippet
+      className="fixed inset-0 z-50 flex items-center justify-center p-4"
+    >
       {/* Blur + dim everything behind the dialog. */}
       <div
         className="absolute inset-0 bg-background/60 backdrop-blur-md"

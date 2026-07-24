@@ -77,6 +77,7 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
           content injected into it is reliably announced — many screen readers
           ignore a region that is added and populated in the same paint. */}
       <div
+        data-nosnippet
         aria-live="polite"
         aria-atomic="false"
         style={{ top: topOffset }}
