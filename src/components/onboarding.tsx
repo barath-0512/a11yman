@@ -137,7 +137,7 @@ export function Onboarding() {
         className="relative z-10 w-full max-w-lg rounded-2xl border border-border bg-card p-6 shadow-soft-lg sm:p-8"
       >
         <div className="mb-5 flex items-center gap-2 text-xl">
-          <AppLogo className="h-[1.6em] w-auto shrink-0" />
+          <AppLogo className="h-[1.15em] w-auto shrink-0" />
           <h2
             id="onboarding-title"
             className="text-xl font-semibold tracking-tight"

@@ -42,7 +42,7 @@ export function SiteFooter() {
               className="inline-flex items-center gap-1.5 rounded-lg text-base"
               aria-label="a11yman home"
             >
-              <AppLogo className="h-[3em] w-auto shrink-0" />
+              <AppLogo className="h-[2.1em] w-auto shrink-0" />
               <span className="flex flex-col leading-tight">
                 <span className="text-base font-semibold tracking-tight">
                   a<span className="text-accent">11</span>yman
