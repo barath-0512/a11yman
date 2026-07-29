@@ -39,7 +39,7 @@ export function SiteFooter() {
           <div className="space-y-3">
             <Link
               href="/"
-              className="inline-flex items-center gap-1.5 rounded-lg text-base"
+              className="inline-flex items-center gap-2.5 rounded-lg text-base"
               aria-label="a11yman home"
             >
               <AppLogo className="h-[2.1em] w-auto shrink-0" />

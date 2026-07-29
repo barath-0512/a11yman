@@ -177,7 +177,7 @@ export function SiteHeader() {
 
           <Link
             href="/"
-            className="flex items-center gap-1 rounded-lg text-2xl font-semibold tracking-tight"
+            className="flex items-center gap-2 rounded-lg text-2xl font-semibold tracking-tight"
             aria-label="a11yman home"
           >
             <AppLogo className="h-[1.6em] w-auto shrink-0" />
