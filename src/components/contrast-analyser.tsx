@@ -11,6 +11,7 @@ import {
   Download,
   RotateCcw,
   ShieldCheck,
+  Sparkles,
 } from "lucide-react";
 import {
   parseHex,
@@ -314,10 +315,16 @@ export function ContrastAnalyser({ initialQuote }: { initialQuote: string }) {
 
           {/* Closest colours that pass */}
           <div className="rounded-2xl border border-border bg-card p-4">
-            <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
-              <h3 className="text-lg font-semibold tracking-tight">
-                Closest colours that pass
-              </h3>
+            <div className="mb-3 flex flex-wrap items-start justify-between gap-3">
+              <div>
+                <h3 className="flex items-center gap-1.5 text-lg font-semibold tracking-tight">
+                  <Sparkles className="h-4 w-4 text-accent" aria-hidden="true" />
+                  Smart suggestions
+                </h3>
+                <p className="mt-0.5 text-xs text-muted-foreground">
+                  Closest colours that pass {level}
+                </p>
+              </div>
               <div
                 role="group"
                 aria-label="Suggestion level"
