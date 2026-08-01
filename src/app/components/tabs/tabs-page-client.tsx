@@ -21,64 +21,51 @@ import { getComponent } from "@/lib/components-data";
 
 const meta = getComponent("tabs")!;
 
-const CUSTOM_CODE = `function TabsPattern({ activationMode = "automatic" }) {
-  const [selected, setSelected] = useState(TABS[0].id);
-  const [focused, setFocused] = useState(TABS[0].id);
-  const tabRefs = useRef({});
+const HTML_CODE = `<div class="tabs">
+  <!-- The tablist. Each tab's aria-controls points at its panel; each
+       panel's aria-labelledby points back. Only the selected tab has
+       aria-selected="true" and tabindex="0" (roving tabindex). -->
+  <div role="tablist" aria-label="Account settings">
+    <button role="tab" id="tab-profile"  aria-selected="true"  aria-controls="panel-profile"  tabindex="0">Profile</button>
+    <button role="tab" id="tab-billing"  aria-selected="false" aria-controls="panel-billing"  tabindex="-1">Billing</button>
+    <button role="tab" id="tab-security" aria-selected="false" aria-controls="panel-security" tabindex="-1">Security</button>
+  </div>
 
-  function moveFocus(index) {
-    const tab = TABS[index];
-    setFocused(tab.id);
-    tabRefs.current[tab.id]?.focus();
-    // Automatic activation: selecting follows focus immediately.
-    if (activationMode === "automatic") setSelected(tab.id);
-  }
+  <div role="tabpanel" id="panel-profile"  aria-labelledby="tab-profile"  tabindex="0">…</div>
+  <div role="tabpanel" id="panel-billing"  aria-labelledby="tab-billing"  tabindex="0" hidden>…</div>
+  <div role="tabpanel" id="panel-security" aria-labelledby="tab-security" tabindex="0" hidden>…</div>
+</div>`;
 
-  function onKeyDown(e) {
-    const i = TABS.findIndex(t => t.id === focused);
-    if (e.key === "ArrowRight") { e.preventDefault(); moveFocus((i + 1) % TABS.length); }
-    if (e.key === "ArrowLeft")  { e.preventDefault(); moveFocus((i - 1 + TABS.length) % TABS.length); }
-    if (e.key === "Home") { e.preventDefault(); moveFocus(0); }
-    if (e.key === "End")  { e.preventDefault(); moveFocus(TABS.length - 1); }
-    // Manual activation: arrowing only moves focus; Enter/Space commits it.
-    if (activationMode === "manual" && (e.key === "Enter" || e.key === " ")) {
-      e.preventDefault();
-      setSelected(focused);
-    }
-  }
+const JS_CODE = `const tablist = document.querySelector('[role="tablist"]');
+const tabs = [...tablist.querySelectorAll('[role="tab"]')];
 
-  return (
-    <div role="tablist" aria-label="Account settings" onKeyDown={onKeyDown}>
-      {TABS.map(tab => (
-        <button
-          key={tab.id}
-          ref={el => (tabRefs.current[tab.id] = el)}
-          role="tab"
-          id={\`tab-\${tab.id}\`}
-          aria-selected={tab.id === selected}
-          aria-controls={\`panel-\${tab.id}\`}
-          // Roving tabindex: only the focused tab is Tab-reachable.
-          tabIndex={tab.id === focused ? 0 : -1}
-          onClick={() => { setFocused(tab.id); setSelected(tab.id); }}
-        >
-          {tab.label}
-        </button>
-      ))}
-      {TABS.map(tab => (
-        <div
-          key={tab.id}
-          role="tabpanel"
-          id={\`panel-\${tab.id}\`}
-          aria-labelledby={\`tab-\${tab.id}\`}
-          hidden={tab.id !== selected}
-          tabIndex={0}
-        >
-          {tab.content}
-        </div>
-      ))}
-    </div>
-  );
-}`;
+function select(tab) {
+  tabs.forEach((t) => {
+    const selected = t === tab;
+    t.setAttribute("aria-selected", String(selected));
+    t.tabIndex = selected ? 0 : -1; // roving tabindex: a single Tab stop
+    document.getElementById(t.getAttribute("aria-controls")).hidden = !selected;
+  });
+}
+
+tabs.forEach((tab, i) => {
+  tab.addEventListener("click", () => select(tab));
+
+  tab.addEventListener("keydown", (e) => {
+    let next = null;
+    if (e.key === "ArrowRight") next = (i + 1) % tabs.length;
+    if (e.key === "ArrowLeft") next = (i - 1 + tabs.length) % tabs.length;
+    if (e.key === "Home") next = 0;
+    if (e.key === "End") next = tabs.length - 1;
+    if (next === null) return;
+    e.preventDefault();
+    // Automatic activation: selection follows focus. For MANUAL
+    // activation, only call tabs[next].focus() here and move select()
+    // to an Enter/Space handler.
+    tabs[next].focus();
+    select(tabs[next]);
+  });
+});`;
 
 const ARIA_ROWS = [
   { target: "Tab list wrapper", attribute: 'role="tablist"', why: "Identifies the group of tab buttons as a tablist, so AT announces the total count and enables tab-specific navigation commands." },
@@ -148,7 +135,14 @@ export function TabsPageClient() {
       <PageSection id="implementation" title="Implementation">
         <div className="space-y-3">
           <TabsPattern activationMode={activation} />
-          {mode === "developer" && <CodeBlock code={CUSTOM_CODE} filename="tabs-pattern.tsx" />}
+          {mode === "developer" && (
+            <CodeBlock
+              tabs={[
+                { label: "HTML", filename: "tabs.html", code: HTML_CODE },
+                { label: "JS", filename: "tabs.js", code: JS_CODE },
+              ]}
+            />
+          )}
         </div>
       </PageSection>
       )}

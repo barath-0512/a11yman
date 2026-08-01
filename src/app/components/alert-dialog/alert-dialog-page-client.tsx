@@ -20,45 +20,61 @@ import { getComponent } from "@/lib/components-data";
 
 const meta = getComponent("alert-dialog")!;
 
-const CUSTOM_CODE = `function AlertDialogPattern({ title, confirmLabel, cancelLabel }) {
-  const [open, setOpen] = useState(false);
-  const dialogRef = useRef(null);
-  const cancelBtnRef = useRef(null); // least destructive action
-  const triggerRef = useRef(null);
+const HTML_CODE = `<button id="delete-trigger">Delete 12 items</button>
 
-  useEffect(() => {
-    if (!open) return;
-    cancelBtnRef.current?.focus(); // NEVER focus the destructive button
+<!-- role="alertdialog" (not "dialog") tells AT this needs a decision;
+     aria-describedby points at the consequence text. There is NO
+     click-outside to close — the user must choose. Starts hidden. -->
+<div id="alert-overlay" class="overlay" hidden>
+  <div id="alert" role="alertdialog" aria-modal="true"
+       aria-labelledby="alert-title" aria-describedby="alert-desc">
+    <h2 id="alert-title">Delete 12 items?</h2>
+    <p id="alert-desc">This can't be undone.</p>
+    <button id="alert-cancel">Cancel</button>
+    <button id="alert-confirm">Delete</button>
+  </div>
+</div>`;
 
-    function onKeyDown(e) {
-      if (e.key === "Escape") { close(); return; }
-      if (e.key !== "Tab") return;
-      // ...manual focus trap, same as Dialog...
-    }
-    document.addEventListener("keydown", onKeyDown);
-    return () => document.removeEventListener("keydown", onKeyDown);
-  }, [open]);
+const JS_CODE = `const trigger = document.getElementById("delete-trigger");
+const overlay = document.getElementById("alert-overlay");
+const dialog = document.getElementById("alert");
+const cancelBtn = document.getElementById("alert-cancel");
+const confirmBtn = document.getElementById("alert-confirm");
+let lastFocused = null;
 
-  function close() {
-    setOpen(false);
-    triggerRef.current?.focus();
-  }
+const FOCUSABLE = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
-  return (
-    <>
-      <button ref={triggerRef} onClick={() => setOpen(true)}>Delete 12 items</button>
-      {open && (
-        <div className="overlay"> {/* no click-outside-to-close */}
-          <div ref={dialogRef} role="alertdialog" aria-modal="true" aria-labelledby="title">
-            <h2 id="title">{title}</h2>
-            <button ref={cancelBtnRef} onClick={close}>{cancelLabel}</button>
-            <button onClick={close}>{confirmLabel}</button>
-          </div>
-        </div>
-      )}
-    </>
-  );
-}`;
+function open() {
+  lastFocused = document.activeElement;
+  overlay.hidden = false;
+  cancelBtn.focus(); // focus the LEAST destructive action — never "Delete"
+  document.addEventListener("keydown", onKeyDown);
+}
+
+function close() {
+  overlay.hidden = true;
+  document.removeEventListener("keydown", onKeyDown);
+  lastFocused?.focus();
+}
+
+function onKeyDown(e) {
+  if (e.key === "Escape") { close(); return; } // Escape cancels
+  if (e.key !== "Tab") return;
+  // Focus trap — identical to the Dialog pattern.
+  const f = [...dialog.querySelectorAll(FOCUSABLE)];
+  const first = f[0], last = f[f.length - 1];
+  if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+  else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+}
+
+trigger.addEventListener("click", open);
+cancelBtn.addEventListener("click", close);
+confirmBtn.addEventListener("click", () => {
+  // ...perform the destructive action...
+  close();
+});
+// Note: intentionally NO backdrop-click handler — an alert dialog
+// requires an explicit choice.`;
 
 const ARIA_ROWS = [
   {
@@ -188,7 +204,14 @@ export function AlertDialogPageClient() {
             title="Delete 12 items?"
             description="This action can't be undone."
           />
-          {mode === "developer" && <CodeBlock code={CUSTOM_CODE} filename="alert-dialog-pattern.tsx" />}
+          {mode === "developer" && (
+            <CodeBlock
+              tabs={[
+                { label: "HTML", filename: "alert-dialog.html", code: HTML_CODE },
+                { label: "JS", filename: "alert-dialog.js", code: JS_CODE },
+              ]}
+            />
+          )}
         </div>
       </PageSection>
       )}

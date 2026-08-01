@@ -20,66 +20,66 @@ import { getComponent } from "@/lib/components-data";
 
 const meta = getComponent("dialog")!;
 
-const CUSTOM_CODE = `function DialogPattern({ triggerLabel, title, children }) {
-  const [open, setOpen] = useState(false);
-  const dialogRef = useRef(null);
-  const closeBtnRef = useRef(null);
-  // Remember what had focus before opening so we can restore it on close.
-  const triggerRef = useRef(null);
+const HTML_CODE = `<button id="dialog-trigger">Edit profile</button>
 
-  useEffect(() => {
-    if (!open) return;
-    closeBtnRef.current?.focus(); // move focus INTO the dialog on open
+<!-- Modal dialog: role="dialog" + aria-modal="true" + aria-labelledby
+     (the title). Starts hidden. Tip: a native <dialog> opened with
+     showModal() gives you the focus trap, Escape, and an inert
+     background for free — this manual version shows what that does. -->
+<div id="dialog-overlay" class="overlay" hidden>
+  <div id="dialog" role="dialog" aria-modal="true" aria-labelledby="dialog-title">
+    <h2 id="dialog-title">Edit profile</h2>
+    <button id="dialog-close" aria-label="Close">×</button>
+    <!-- dialog content / form fields -->
+  </div>
+</div>`;
 
-    function onKeyDown(e) {
-      if (e.key === "Escape") { setOpen(false); return; }
-      if (e.key !== "Tab") return;
+const JS_CODE = `const trigger = document.getElementById("dialog-trigger");
+const overlay = document.getElementById("dialog-overlay");
+const dialog = document.getElementById("dialog");
+const closeBtn = document.getElementById("dialog-close");
+let lastFocused = null;
 
-      // Manual focus trap: cycle Tab/Shift+Tab within the dialog so focus
-      // can never reach the inert page behind it.
-      const focusables = dialogRef.current.querySelectorAll(
-        'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
-      );
-      const first = focusables[0], last = focusables[focusables.length - 1];
-      if (e.shiftKey && document.activeElement === first) {
-        e.preventDefault(); last.focus();
-      } else if (!e.shiftKey && document.activeElement === last) {
-        e.preventDefault(); first.focus();
-      }
-    }
-    document.addEventListener("keydown", onKeyDown);
-    return () => document.removeEventListener("keydown", onKeyDown);
-  }, [open]);
+const FOCUSABLE =
+  'a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex="-1"])';
 
-  function close() {
-    setOpen(false);
-    triggerRef.current?.focus(); // restore focus to the trigger
+function open() {
+  lastFocused = document.activeElement; // remember what to restore later
+  overlay.hidden = false;
+  closeBtn.focus();                     // move focus INTO the dialog
+  document.addEventListener("keydown", onKeyDown);
+}
+
+function close() {
+  overlay.hidden = true;
+  document.removeEventListener("keydown", onKeyDown);
+  lastFocused?.focus();                 // restore focus to the trigger
+}
+
+function onKeyDown(e) {
+  if (e.key === "Escape") { close(); return; }
+  if (e.key !== "Tab") return;
+
+  // Manual focus trap: keep Tab / Shift+Tab cycling inside the dialog
+  // so focus can never reach the inert page behind it.
+  const focusables = [...dialog.querySelectorAll(FOCUSABLE)];
+  const first = focusables[0];
+  const last = focusables[focusables.length - 1];
+  if (e.shiftKey && document.activeElement === first) {
+    e.preventDefault();
+    last.focus();
+  } else if (!e.shiftKey && document.activeElement === last) {
+    e.preventDefault();
+    first.focus();
   }
+}
 
-  return (
-    <>
-      <button ref={triggerRef} onClick={() => setOpen(true)}>
-        {triggerLabel}
-      </button>
-      {open && (
-        <div className="overlay" onMouseDown={(e) => {
-          if (e.target === e.currentTarget) close();
-        }}>
-          <div
-            ref={dialogRef}
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="dialog-title"
-          >
-            <h2 id="dialog-title">{title}</h2>
-            <button ref={closeBtnRef} onClick={close} aria-label="Close">×</button>
-            {children}
-          </div>
-        </div>
-      )}
-    </>
-  );
-}`;
+trigger.addEventListener("click", open);
+closeBtn.addEventListener("click", close);
+// Clicking the backdrop (but not the dialog itself) closes it.
+overlay.addEventListener("mousedown", (e) => {
+  if (e.target === overlay) close();
+});`;
 
 const ARIA_ROWS = [
   {
@@ -218,7 +218,14 @@ export function DialogPageClient() {
             Focus trap via Tab/Shift+Tab interception, Escape handling, and
             explicit focus restoration.
           </p>
-          {mode === "developer" && <CodeBlock code={CUSTOM_CODE} filename="dialog-pattern.tsx" />}
+          {mode === "developer" && (
+            <CodeBlock
+              tabs={[
+                { label: "HTML", filename: "dialog.html", code: HTML_CODE },
+                { label: "JS", filename: "dialog.js", code: JS_CODE },
+              ]}
+            />
+          )}
         </div>
       </PageSection>
       )}

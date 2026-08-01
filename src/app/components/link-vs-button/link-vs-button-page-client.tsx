@@ -20,14 +20,21 @@ import { getComponent } from "@/lib/components-data";
 
 const meta = getComponent("link-vs-button")!;
 
-const NATIVE_CODE = `<a href="/pricing">View pricing</a>
+const HTML_CODE = `<!-- Navigation → a real link. Correct role, Tab-focusable, Enter to
+     follow, and it works with middle-click / "open in new tab". -->
+<a href="/pricing">View pricing</a>
 
-<button type="button" onClick={addToCart}>
-  Add to cart
-</button>
+<!-- In-page action → a real button. Correct role, Enter AND Space to
+     activate, and it never navigates. -->
+<button type="button" id="add-to-cart">Add to cart</button>`;
 
-/* Both are fully accessible for free: correct role, correct name,
-   Tab-focusable, and the native activation keys AT users expect. */`;
+const JS_CODE = `// A link needs no JS — the browser handles navigation. Only the
+// in-page action does. Never bolt a click handler onto an <a> to
+// fake a button, or a navigation onto a <button>: keep role and
+// behaviour in sync.
+document.getElementById("add-to-cart").addEventListener("click", () => {
+  // ...add the item to the cart
+});`;
 
 const ARIA_ROWS = [
   { target: "Navigation control", attribute: "<a href> (native)", why: "The browser provides link role, accessible name from text content, Tab focusability, and Enter-to-activate — no ARIA required." },
@@ -92,7 +99,14 @@ export function LinkVsButtonPageClient() {
       <PageSection id="implementation" title="Implementation">
         <div className="space-y-3">
           <NativeLinkVsButtonPattern />
-          {mode === "developer" && <CodeBlock code={NATIVE_CODE} filename="link-vs-button-pattern.tsx" />}
+          {mode === "developer" && (
+            <CodeBlock
+              tabs={[
+                { label: "HTML", filename: "link-vs-button.html", code: HTML_CODE },
+                { label: "JS", filename: "link-vs-button.js", code: JS_CODE },
+              ]}
+            />
+          )}
         </div>
       </PageSection>
       )}

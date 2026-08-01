@@ -33,9 +33,9 @@ const NATIVE_CODE = `<nav aria-label="Main">
   </nav>
 </footer>
 
-/* Semantic HTML already covers this pattern completely — the "native" and
-   "custom" implementations are the same markup. Every <nav> gets a
-   distinguishing aria-label since a page can have more than one. */`;
+<!-- Semantic HTML already covers this pattern completely. Every <nav>
+     gets a distinguishing aria-label since a page can have more than
+     one, and the current page's link is marked with aria-current. -->`;
 
 const CUSTOM_CODE = NATIVE_CODE;
 
@@ -105,7 +105,7 @@ export function NavigationPageClient() {
         </div>
         <div className="mt-4 space-y-3">
           <NavigationPattern />
-          <CodeBlock code={CUSTOM_CODE} filename="navigation-pattern.tsx" />
+          <CodeBlock code={CUSTOM_CODE} filename="navigation.html" />
         </div>
       </PageSection>
       )}

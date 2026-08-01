@@ -20,29 +20,42 @@ import { getComponent } from "@/lib/components-data";
 
 const meta = getComponent("checkbox")!;
 
-const CUSTOM_CODE = `function CheckboxBox({ state, label, onToggle }) {
-  // state: "true" | "false" | "mixed"
-  return (
-    <button
-      type="button"
-      role="checkbox"
-      aria-checked={state === "mixed" ? "mixed" : state === "true"}
-      onClick={onToggle}
-      onKeyDown={e => {
-        if (e.key === " ") { e.preventDefault(); onToggle(); }
-      }}
-    >
-      <span aria-hidden="true" className="box">
-        {state === "true" && <CheckIcon />}
-        {state === "mixed" && <DashIcon />}
-      </span>
-      {label}
-    </button>
-  );
+const HTML_CODE = `<!-- Native checkboxes give you the role, focus, Space to toggle, and
+     label association for free. "mixed" (indeterminate) is the one
+     state with no HTML attribute — you set it from JS (see the JS tab). -->
+<ul>
+  <li>
+    <input type="checkbox" id="notify-all" />
+    <label for="notify-all">Notify me about everything</label>
+  </li>
+  <li>
+    <input type="checkbox" class="child" id="notify-email" />
+    <label for="notify-email">Email</label>
+  </li>
+  <li>
+    <input type="checkbox" class="child" id="notify-sms" />
+    <label for="notify-sms">SMS</label>
+  </li>
+</ul>`;
+
+const JS_CODE = `const parent = document.getElementById("notify-all");
+const children = [...document.querySelectorAll(".child")];
+
+// The parent's state is always DERIVED from the children, never stored
+// separately — that's what keeps "mixed" honest.
+function syncParent() {
+  const checkedCount = children.filter((c) => c.checked).length;
+  parent.checked = checkedCount === children.length;
+  // "mixed": some but not all children are checked.
+  parent.indeterminate = checkedCount > 0 && checkedCount < children.length;
 }
 
-// Parent state is always DERIVED from children, never stored separately:
-const parentState = allChecked ? "true" : noneChecked ? "false" : "mixed";`;
+parent.addEventListener("change", () => {
+  children.forEach((c) => (c.checked = parent.checked));
+});
+
+children.forEach((c) => c.addEventListener("change", syncParent));
+syncParent();`;
 
 const ARIA_ROWS = [
   { target: 'Checkbox <button>', attribute: 'role="checkbox"', why: 'Overrides the button\'s default semantics so AT announces "checkbox" and reads the state below instead of a generic pressed/not-pressed toggle.' },
@@ -107,7 +120,14 @@ export function CheckboxPageClient() {
       <PageSection id="implementation" title="Implementation">
         <div className="space-y-3">
           <CheckboxPattern />
-          {mode === "developer" && <CodeBlock code={CUSTOM_CODE} filename="checkbox-pattern.tsx" />}
+          {mode === "developer" && (
+            <CodeBlock
+              tabs={[
+                { label: "HTML", filename: "checkbox.html", code: HTML_CODE },
+                { label: "JS", filename: "checkbox.js", code: JS_CODE },
+              ]}
+            />
+          )}
         </div>
       </PageSection>
       )}

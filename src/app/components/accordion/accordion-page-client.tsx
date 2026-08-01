@@ -20,56 +20,56 @@ import { getComponent } from "@/lib/components-data";
 
 const meta = getComponent("accordion")!;
 
-const CUSTOM_CODE = `function AccordionPattern() {
-  const [openIds, setOpenIds] = useState(new Set(["shipping"]));
-  const headerRefs = useRef({});
+const HTML_CODE = `<!-- Each section: an <h3> wrapping the trigger <button>, then its
+     region panel. aria-expanded reflects the open state; aria-controls
+     and aria-labelledby wire header and panel together. Collapsed
+     panels use the hidden attribute. -->
+<div class="accordion">
+  <h3>
+    <button id="acc-shipping-header" aria-expanded="true"
+            aria-controls="acc-shipping-panel">Shipping</button>
+  </h3>
+  <div id="acc-shipping-panel" role="region"
+       aria-labelledby="acc-shipping-header">
+    <!-- panel content -->
+  </div>
 
-  function toggle(id) {
-    setOpenIds(prev => {
-      const next = new Set(prev);
-      next.has(id) ? next.delete(id) : next.add(id);
-      return next;
-    });
-  }
+  <h3>
+    <button id="acc-returns-header" aria-expanded="false"
+            aria-controls="acc-returns-panel">Returns</button>
+  </h3>
+  <div id="acc-returns-panel" role="region"
+       aria-labelledby="acc-returns-header" hidden>
+    <!-- panel content -->
+  </div>
+</div>`;
 
-  function onKeyDown(e, index) {
-    let nextIndex = null;
-    if (e.key === "ArrowDown") nextIndex = (index + 1) % SECTIONS.length;
-    if (e.key === "ArrowUp") nextIndex = (index - 1 + SECTIONS.length) % SECTIONS.length;
-    if (e.key === "Home") nextIndex = 0;
-    if (e.key === "End") nextIndex = SECTIONS.length - 1;
-    if (nextIndex !== null) {
-      e.preventDefault();
-      headerRefs.current[SECTIONS[nextIndex].id]?.focus();
-    }
-  }
+const JS_CODE = `const accordion = document.querySelector(".accordion");
+const headers = [...accordion.querySelectorAll("[aria-controls]")];
 
-  return SECTIONS.map((section, i) => {
-    const expanded = openIds.has(section.id);
-    return (
-      <h3 key={section.id}>
-        <button
-          ref={el => (headerRefs.current[section.id] = el)}
-          aria-expanded={expanded}
-          aria-controls={\`panel-\${section.id}\`}
-          id={\`header-\${section.id}\`}
-          onClick={() => toggle(section.id)}
-          onKeyDown={e => onKeyDown(e, i)}
-        >
-          {section.title}
-        </button>
-        <div
-          id={\`panel-\${section.id}\`}
-          role="region"
-          aria-labelledby={\`header-\${section.id}\`}
-          hidden={!expanded}
-        >
-          {section.body}
-        </div>
-      </h3>
-    );
+headers.forEach((header, i) => {
+  const panel = document.getElementById(header.getAttribute("aria-controls"));
+
+  // Toggle this section. Several sections may be open at once — a
+  // single-open accordion would just collapse the others here.
+  header.addEventListener("click", () => {
+    const expanded = header.getAttribute("aria-expanded") === "true";
+    header.setAttribute("aria-expanded", String(!expanded));
+    panel.hidden = expanded;
   });
-}`;
+
+  // Arrow keys move focus between headers; Home/End jump to the ends.
+  header.addEventListener("keydown", (e) => {
+    let next = null;
+    if (e.key === "ArrowDown") next = (i + 1) % headers.length;
+    if (e.key === "ArrowUp") next = (i - 1 + headers.length) % headers.length;
+    if (e.key === "Home") next = 0;
+    if (e.key === "End") next = headers.length - 1;
+    if (next === null) return;
+    e.preventDefault();
+    headers[next].focus();
+  });
+});`;
 
 const ARIA_ROWS = [
   { target: "Header <button>", attribute: "aria-expanded", why: 'Communicates whether this section\'s panel is currently visible — announced as "expanded" or "collapsed."' },
@@ -138,7 +138,14 @@ export function AccordionPageClient() {
       <PageSection id="implementation" title="Implementation">
         <div className="space-y-3">
           <AccordionPattern />
-          {mode === "developer" && <CodeBlock code={CUSTOM_CODE} filename="accordion-pattern.tsx" />}
+          {mode === "developer" && (
+            <CodeBlock
+              tabs={[
+                { label: "HTML", filename: "accordion.html", code: HTML_CODE },
+                { label: "JS", filename: "accordion.js", code: JS_CODE },
+              ]}
+            />
+          )}
         </div>
       </PageSection>
       )}

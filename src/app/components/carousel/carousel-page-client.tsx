@@ -20,44 +20,64 @@ import { getComponent } from "@/lib/components-data";
 
 const meta = getComponent("carousel")!;
 
-const CUSTOM_CODE = `function CarouselPattern() {
-  const [index, setIndex] = useState(0);
-  const [playing, setPlaying] = useState(false); // off by default
-  const [announcement, setAnnouncement] = useState("");
+const HTML_CODE = `<!-- The container is a labelled region; aria-roledescription tells AT
+     it's a "carousel". Each slide is a "slide" with a position label.
+     Autoplay is OFF by default (SC 2.2.2), toggled by a real button. -->
+<div class="carousel" role="region" aria-roledescription="carousel"
+     aria-label="Product announcements" tabindex="0">
+  <div class="slide" aria-roledescription="slide" aria-label="1 of 3"></div>
 
-  function goTo(next, userInitiated) {
-    const wrapped = (next + SLIDES.length) % SLIDES.length;
-    setIndex(wrapped);
-    if (userInitiated) {
-      // Never announce pure autoplay ticks — only user-driven changes.
-      setAnnouncement(\`Slide \${wrapped + 1} of \${SLIDES.length}: \${SLIDES[wrapped].title}\`);
-    }
+  <!-- Announces ONLY user-driven slide changes, never autoplay ticks. -->
+  <div id="carousel-status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+
+  <button id="carousel-prev" aria-label="Previous slide">‹</button>
+  <button id="carousel-next" aria-label="Next slide">›</button>
+  <button id="carousel-toggle" aria-pressed="false">Play</button>
+</div>`;
+
+const JS_CODE = `const SLIDES = ["Spring sale", "New arrivals", "Free shipping"];
+const carousel = document.querySelector(".carousel");
+const slide = carousel.querySelector(".slide");
+const status = document.getElementById("carousel-status");
+const toggle = document.getElementById("carousel-toggle");
+let index = 0;
+let timer = null;
+
+function render() {
+  slide.textContent = SLIDES[index];
+  slide.setAttribute("aria-label", (index + 1) + " of " + SLIDES.length);
+}
+
+function goTo(next, userInitiated) {
+  index = (next + SLIDES.length) % SLIDES.length;
+  render();
+  // Never announce pure autoplay ticks — only user-driven changes.
+  if (userInitiated) {
+    status.textContent =
+      "Slide " + (index + 1) + " of " + SLIDES.length + ": " + SLIDES[index];
   }
+}
 
-  useEffect(() => {
-    if (!playing) return;
-    const id = setInterval(() => setIndex(i => (i + 1) % SLIDES.length), 5000);
-    return () => clearInterval(id);
-  }, [playing]);
+function setPlaying(playing) {
+  toggle.setAttribute("aria-pressed", String(playing));
+  toggle.textContent = playing ? "Pause" : "Play";
+  clearInterval(timer);
+  if (playing) timer = setInterval(() => goTo(index + 1, false), 5000);
+}
 
-  return (
-    <div role="region" aria-roledescription="carousel" aria-label="Product announcements"
-         onKeyDown={e => {
-           if (e.key === "ArrowRight") goTo(index + 1, true);
-           if (e.key === "ArrowLeft") goTo(index - 1, true);
-         }}>
-      <div aria-roledescription="slide" aria-label={\`\${index + 1} of \${SLIDES.length}\`}>
-        {SLIDES[index].title}
-      </div>
-      <div aria-live="polite" aria-atomic="true" className="sr-only">{announcement}</div>
-      <button onClick={() => goTo(index - 1, true)} aria-label="Previous slide">‹</button>
-      <button onClick={() => goTo(index + 1, true)} aria-label="Next slide">›</button>
-      <button onClick={() => setPlaying(p => !p)} aria-pressed={playing}>
-        {playing ? "Pause" : "Play"}
-      </button>
-    </div>
-  );
-}`;
+document.getElementById("carousel-prev").addEventListener("click", () => goTo(index - 1, true));
+document.getElementById("carousel-next").addEventListener("click", () => goTo(index + 1, true));
+toggle.addEventListener("click", () =>
+  setPlaying(toggle.getAttribute("aria-pressed") !== "true")
+);
+
+// Arrow keys move slides while the carousel has focus.
+carousel.addEventListener("keydown", (e) => {
+  if (e.key === "ArrowRight") goTo(index + 1, true);
+  if (e.key === "ArrowLeft") goTo(index - 1, true);
+});
+
+render();`;
 
 const ARIA_ROWS = [
   { target: "Carousel wrapper", attribute: 'role="region" + aria-roledescription="carousel" + aria-label', why: 'There is no native ARIA carousel role, so region + roledescription gives AT a landmark plus a more specific spoken name ("carousel" instead of generic "region").' },
@@ -124,7 +144,14 @@ export function CarouselPageClient() {
       <PageSection id="implementation" title="Implementation">
         <div className="space-y-3">
           <CarouselPattern />
-          {mode === "developer" && <CodeBlock code={CUSTOM_CODE} filename="carousel-pattern.tsx" />}
+          {mode === "developer" && (
+            <CodeBlock
+              tabs={[
+                { label: "HTML", filename: "carousel.html", code: HTML_CODE },
+                { label: "JS", filename: "carousel.js", code: JS_CODE },
+              ]}
+            />
+          )}
         </div>
       </PageSection>
       )}

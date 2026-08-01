@@ -20,7 +20,7 @@ import { getCriterion } from "@/lib/wcag";
 
 const meta = getComponent("video")!;
 
-const CODE = `<figure>
+const HTML_CODE = `<figure>
   <video controls preload="metadata" poster="poster.svg"
          aria-label="A flower blooming in timelapse, with gentle music">
     <source src="flower.mp4" type="video/mp4" />
@@ -35,8 +35,22 @@ const CODE = `<figure>
 </figure>
 
 <!-- Text transcript — also the media alternative when there is no narration -->
-<button aria-expanded="false" aria-controls="transcript">Show transcript</button>
+<button id="transcript-toggle" aria-expanded="false" aria-controls="transcript">
+  Show transcript
+</button>
 <div id="transcript" role="region" aria-label="Video transcript" hidden>…</div>`;
+
+const JS_CODE = `// Native <video controls> handles play/pause/volume/captions for you.
+// The only scripting here is the transcript disclosure toggle.
+const toggle = document.getElementById("transcript-toggle");
+const transcript = document.getElementById("transcript");
+
+toggle.addEventListener("click", () => {
+  const expanded = toggle.getAttribute("aria-expanded") === "true";
+  toggle.setAttribute("aria-expanded", String(!expanded));
+  toggle.textContent = expanded ? "Show transcript" : "Hide transcript";
+  transcript.hidden = expanded;
+});`;
 
 const ARIA_ROWS = [
   { target: "<video>", attribute: "controls", why: "Exposes the browser's built-in player, whose controls are keyboard-operable and screen-reader-labelled. Prefer these native controls over hand-built ones unless you can fully re-create their accessibility." },
@@ -120,7 +134,12 @@ export function VideoPageClient() {
           <div className="space-y-3">
             <VideoPattern />
             {mode === "developer" && (
-              <CodeBlock code={CODE} filename="video-pattern.tsx" />
+              <CodeBlock
+                tabs={[
+                  { label: "HTML", filename: "video.html", code: HTML_CODE },
+                  { label: "JS", filename: "video.js", code: JS_CODE },
+                ]}
+              />
             )}
             <p className="text-sm text-muted-foreground">
               Reach for the native <code className="font-mono">&lt;video controls&gt;</code>{" "}
