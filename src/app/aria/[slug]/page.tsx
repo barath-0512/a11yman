@@ -147,18 +147,24 @@ function SidebarNav({
 
   return (
     <aside className="hidden lg:block">
-      <div className="lg:sticky lg:top-20 lg:-mx-2 lg:-my-1 lg:max-h-[calc(100dvh-6rem)] lg:overflow-y-auto lg:px-2 lg:py-1">
-        <div className="mb-3">
-          <p className="text-lg font-semibold tracking-tight">{heading}</p>
-          <p className="text-sm text-muted-foreground">{items.length} in total</p>
+      <div className="lg:sticky lg:top-20 lg:flex lg:max-h-[calc(100dvh-6rem)] lg:flex-col">
+        {/* Pinned header: stays put while only the list below scrolls. */}
+        <div className="lg:shrink-0">
+          <div className="mb-3">
+            <p className="text-lg font-semibold tracking-tight">{heading}</p>
+            <p className="text-sm text-muted-foreground">{items.length} in total</p>
+          </div>
+          <Link
+            href={`/aria${backHash}`}
+            className="mb-3 inline-flex items-center gap-1.5 rounded text-sm font-medium text-muted-foreground hover:text-foreground"
+          >
+            <ArrowLeft className="h-4 w-4" aria-hidden="true" />
+            {allLabel}
+          </Link>
         </div>
-        <Link
-          href={`/aria${backHash}`}
-          className="mb-3 inline-flex items-center gap-1.5 rounded text-sm font-medium text-muted-foreground hover:text-foreground"
-        >
-          <ArrowLeft className="h-4 w-4" aria-hidden="true" />
-          {allLabel}
-        </Link>
+        {/* Scrollable region — negative margin + padding keep focus rings
+            from being clipped by the overflow. */}
+        <div className="lg:-mx-2 lg:min-h-0 lg:flex-1 lg:overflow-y-auto lg:px-2 lg:py-1">
         <ul className="space-y-0.5">
           {items.map((it) => {
             const active = it.name === activeName;
@@ -195,6 +201,7 @@ function SidebarNav({
             Get started
             <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
           </a>
+        </div>
         </div>
       </div>
     </aside>
