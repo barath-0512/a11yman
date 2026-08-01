@@ -29,9 +29,9 @@ const NATIVE_CODE = `<nav aria-label="Breadcrumb">
   </ol>
 </nav>
 
-/* Semantic HTML already covers this pattern completely — the "native" and
-   "custom" implementations are the same markup. Separators (/, chevrons)
-   are CSS content or aria-hidden icons, never text nodes in the DOM. */`;
+<!-- Semantic HTML already covers this pattern completely. Separators
+     (/, chevrons) are CSS content or aria-hidden icons, never text
+     nodes in the DOM. The current page is marked with aria-current. -->`;
 
 const CUSTOM_CODE = NATIVE_CODE;
 
@@ -102,7 +102,7 @@ export function BreadcrumbPageClient() {
         </div>
         <div className="mt-4 space-y-3">
           <BreadcrumbPattern />
-          <CodeBlock code={CUSTOM_CODE} filename="breadcrumb-pattern.tsx" />
+          <CodeBlock code={CUSTOM_CODE} filename="breadcrumb.html" />
         </div>
       </PageSection>
       )}

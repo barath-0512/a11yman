@@ -20,39 +20,44 @@ import { getComponent } from "@/lib/components-data";
 
 const meta = getComponent("listbox")!;
 
-const CUSTOM_CODE = `function ListboxPattern() {
-  const [selected, setSelected] = useState(0);
-  const optionRefs = useRef([]);
+const HTML_CODE = `<span id="sort-label">Sort by</span>
 
-  function moveTo(index) {
-    const clamped = Math.max(0, Math.min(index, OPTIONS.length - 1));
-    setSelected(clamped);        // single-select: selection follows focus
-    optionRefs.current[clamped]?.focus();
-  }
+<!-- role="listbox" wraps role="option" items. Single-select: the chosen
+     option has aria-selected="true" and is the only Tab stop (roving
+     tabindex); the rest are tabindex="-1". -->
+<ul role="listbox" aria-labelledby="sort-label">
+  <li role="option" aria-selected="true"  tabindex="0">Relevance</li>
+  <li role="option" aria-selected="false" tabindex="-1">Newest</li>
+  <li role="option" aria-selected="false" tabindex="-1">Price: low to high</li>
+  <li role="option" aria-selected="false" tabindex="-1">Price: high to low</li>
+</ul>`;
 
-  function onKeyDown(e) {
-    if (e.key === "ArrowDown") { e.preventDefault(); moveTo(selected + 1); }
-    else if (e.key === "ArrowUp") { e.preventDefault(); moveTo(selected - 1); }
-    else if (e.key === "Home") { e.preventDefault(); moveTo(0); }
-    else if (e.key === "End") { e.preventDefault(); moveTo(OPTIONS.length - 1); }
-  }
+const JS_CODE = `const listbox = document.querySelector('[role="listbox"]');
+const options = [...listbox.querySelectorAll('[role="option"]')];
 
-  return (
-    <ul role="listbox" aria-labelledby="sort-label" tabIndex={-1} onKeyDown={onKeyDown}>
-      {OPTIONS.map((option, i) => (
-        <li
-          key={option}
-          role="option"
-          aria-selected={i === selected}
-          tabIndex={i === selected ? 0 : -1} // roving tabindex
-          onClick={() => moveTo(i)}
-        >
-          {option}
-        </li>
-      ))}
-    </ul>
-  );
-}`;
+function select(index) {
+  const clamped = Math.max(0, Math.min(index, options.length - 1));
+  options.forEach((opt, i) => {
+    const selected = i === clamped;
+    opt.setAttribute("aria-selected", String(selected));
+    opt.tabIndex = selected ? 0 : -1; // roving tabindex
+  });
+  options[clamped].focus(); // single-select: selection follows focus
+}
+
+options.forEach((option, i) => {
+  option.addEventListener("click", () => select(i));
+  option.addEventListener("keydown", (e) => {
+    let next = null;
+    if (e.key === "ArrowDown") next = i + 1;
+    if (e.key === "ArrowUp") next = i - 1;
+    if (e.key === "Home") next = 0;
+    if (e.key === "End") next = options.length - 1;
+    if (next === null) return;
+    e.preventDefault();
+    select(next);
+  });
+});`;
 
 const ARIA_ROWS = [
   { target: "List container", attribute: 'role="listbox"', why: "Identifies the element as a listbox so AT announces it as a selectable list, not a generic group of text." },
@@ -125,7 +130,14 @@ export function ListboxPageClient() {
         <div className="space-y-6">
           <ListboxPattern />
           <MultiListboxPattern />
-          {mode === "developer" && <CodeBlock code={CUSTOM_CODE} filename="listbox-pattern.tsx" />}
+          {mode === "developer" && (
+            <CodeBlock
+              tabs={[
+                { label: "HTML", filename: "listbox.html", code: HTML_CODE },
+                { label: "JS", filename: "listbox.js", code: JS_CODE },
+              ]}
+            />
+          )}
         </div>
       </PageSection>
       )}

@@ -20,31 +20,69 @@ import { getComponent } from "@/lib/components-data";
 
 const meta = getComponent("forms")!;
 
-const CUSTOM_CODE = `function handleSubmit(e) {
-  e.preventDefault();
-  const nextErrors = validate(values);
-  setErrors(nextErrors);
-  setSubmitted(true);
-  if (Object.keys(nextErrors).length > 0) {
-    // Move focus into the summary so SR users hear it immediately.
-    requestAnimationFrame(() => summaryRef.current?.focus());
-  }
+const HTML_CODE = `<form id="signup" novalidate>
+  <!-- Error summary: hidden until submit fails, then focused so screen
+       reader users hear it immediately. role="alert" announces it; each
+       item links to the field it describes. -->
+  <div id="error-summary" tabindex="-1" role="alert" hidden>
+    <p>There are problems with your submission:</p>
+    <ul></ul>
+  </div>
+
+  <label for="name">Full name</label>
+  <input id="name" name="name" aria-describedby="name-error" />
+  <p id="name-error" class="error" hidden>Enter your full name.</p>
+
+  <label for="email">Email</label>
+  <input id="email" name="email" type="email" aria-describedby="email-error" />
+  <p id="email-error" class="error" hidden>Enter a valid email address.</p>
+
+  <button type="submit">Create account</button>
+</form>`;
+
+const JS_CODE = `const form = document.getElementById("signup");
+const summary = document.getElementById("error-summary");
+const summaryList = summary.querySelector("ul");
+const fields = ["name", "email"].map((id) => form.elements[id]);
+
+// Each rule returns true when valid, or the error message when not.
+function ruleFor(field) {
+  if (field.name === "name") return field.value.trim() !== "" || "Enter your full name.";
+  return field.value.includes("@") || "Enter a valid email address.";
 }
 
-<div ref={summaryRef} tabIndex={-1} role="alert">
-  <p>There are 2 problems with your submission</p>
-  <ul>
-    <li><button onClick={() => focusField("name")}>Enter your full name.</button></li>
-    <li><button onClick={() => focusField("email")}>Enter a valid email address.</button></li>
-  </ul>
-</div>
+form.addEventListener("submit", (e) => {
+  const errors = [];
 
-<input
-  id="email"
-  aria-invalid={submitted && !!errors.email}
-  aria-describedby={submitted && errors.email ? "email-error" : undefined}
-/>
-{submitted && errors.email && <p id="email-error">Error: {errors.email}</p>}`;
+  fields.forEach((field) => {
+    const result = ruleFor(field);
+    const invalid = result !== true;
+    // aria-invalid marks the field; the -error text is tied to it via
+    // aria-describedby, so unhiding it makes the SR read the message.
+    field.setAttribute("aria-invalid", String(invalid));
+    document.getElementById(field.id + "-error").hidden = !invalid;
+    if (invalid) errors.push({ field, msg: result });
+  });
+
+  if (errors.length === 0) {
+    summary.hidden = true;
+    return; // valid — let the form submit
+  }
+
+  e.preventDefault();
+  summaryList.replaceChildren(
+    ...errors.map(({ field, msg }) => {
+      const li = document.createElement("li");
+      const a = document.createElement("a");
+      a.href = "#" + field.id; // clicking moves focus to the field
+      a.textContent = msg;
+      li.append(a);
+      return li;
+    })
+  );
+  summary.hidden = false;
+  summary.focus(); // move focus so the alert is announced immediately
+});`;
 
 const ARIA_ROWS = [
   { target: "Every input", attribute: "<label htmlFor> associated by id", why: "The only reliable way to give an input a persistent accessible name — placeholder text disappears on input and isn't treated as a label by many screen readers." },
@@ -115,7 +153,14 @@ export function FormsPageClient() {
             Field-level aria-invalid/aria-describedby, a focus-managed error
             summary, and non-color error signaling.
           </p>
-          {mode === "developer" && <CodeBlock code={CUSTOM_CODE} filename="forms-pattern.tsx" />}
+          {mode === "developer" && (
+            <CodeBlock
+              tabs={[
+                { label: "HTML", filename: "forms.html", code: HTML_CODE },
+                { label: "JS", filename: "forms.js", code: JS_CODE },
+              ]}
+            />
+          )}
         </div>
       </PageSection>
       )}

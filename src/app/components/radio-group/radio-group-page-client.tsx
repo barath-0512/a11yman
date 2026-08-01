@@ -20,43 +20,39 @@ import { getComponent } from "@/lib/components-data";
 
 const meta = getComponent("radio-group")!;
 
-const CUSTOM_CODE = `function RadioGroupPattern() {
-  const [selected, setSelected] = useState("standard");
-  const optionRefs = useRef({});
+const HTML_CODE = `<!-- Prefer native <input type="radio"> in a <fieldset>. Use this custom
+     version only when the native control can't be styled to spec.
+     role="radiogroup" + role="radio" recreate the semantics; the roving
+     tabindex makes the whole group a single Tab stop. -->
+<div role="radiogroup" aria-label="Shipping speed">
+  <button role="radio" aria-checked="true"  tabindex="0"  data-value="standard">Standard</button>
+  <button role="radio" aria-checked="false" tabindex="-1" data-value="express">Express</button>
+  <button role="radio" aria-checked="false" tabindex="-1" data-value="overnight">Overnight</button>
+</div>`;
 
-  function onKeyDown(e, index) {
-    let nextIndex = null;
-    if (e.key === "ArrowDown" || e.key === "ArrowRight") nextIndex = (index + 1) % OPTIONS.length;
-    if (e.key === "ArrowUp" || e.key === "ArrowLeft") nextIndex = (index - 1 + OPTIONS.length) % OPTIONS.length;
-    if (nextIndex !== null) {
-      e.preventDefault();
-      const next = OPTIONS[nextIndex];
-      setSelected(next.id); // arrowing selects immediately — no separate activation step
-      optionRefs.current[next.id]?.focus();
-    }
-  }
+const JS_CODE = `const group = document.querySelector('[role="radiogroup"]');
+const radios = [...group.querySelectorAll('[role="radio"]')];
 
-  return (
-    <div role="radiogroup" aria-label="Shipping speed">
-      {OPTIONS.map((option, i) => {
-        const checked = selected === option.id;
-        return (
-          <button
-            key={option.id}
-            ref={el => (optionRefs.current[option.id] = el)}
-            role="radio"
-            aria-checked={checked}
-            tabIndex={checked ? 0 : -1} // roving tabindex: only the checked option is a Tab stop
-            onClick={() => setSelected(option.id)}
-            onKeyDown={e => onKeyDown(e, i)}
-          >
-            {option.label}
-          </button>
-        );
-      })}
-    </div>
-  );
-}`;
+function select(radio) {
+  radios.forEach((r) => {
+    const checked = r === radio;
+    r.setAttribute("aria-checked", String(checked));
+    r.tabIndex = checked ? 0 : -1; // roving tabindex: only one Tab stop
+  });
+  radio.focus();
+}
+
+radios.forEach((radio, i) => {
+  radio.addEventListener("click", () => select(radio));
+  radio.addEventListener("keydown", (e) => {
+    let next = null;
+    if (e.key === "ArrowDown" || e.key === "ArrowRight") next = (i + 1) % radios.length;
+    if (e.key === "ArrowUp" || e.key === "ArrowLeft") next = (i - 1 + radios.length) % radios.length;
+    if (next === null) return;
+    e.preventDefault();
+    select(radios[next]); // arrowing selects immediately — no separate step
+  });
+});`;
 
 const ARIA_ROWS = [
   { target: "Group wrapper", attribute: 'role="radiogroup"', why: "Identifies the container as a set of mutually exclusive options, distinct from an unrelated list of buttons." },
@@ -122,7 +118,14 @@ export function RadioGroupPageClient() {
       <PageSection id="implementation" title="Implementation">
         <div className="space-y-3">
           <RadioGroupPattern />
-          {mode === "developer" && <CodeBlock code={CUSTOM_CODE} filename="radio-group-pattern.tsx" />}
+          {mode === "developer" && (
+            <CodeBlock
+              tabs={[
+                { label: "HTML", filename: "radio-group.html", code: HTML_CODE },
+                { label: "JS", filename: "radio-group.js", code: JS_CODE },
+              ]}
+            />
+          )}
         </div>
       </PageSection>
       )}

@@ -20,39 +20,63 @@ import { getComponent } from "@/lib/components-data";
 
 const meta = getComponent("date-picker")!;
 
-const CUSTOM_CODE = `function onGridKeyDown(e) {
-  switch (e.key) {
-    case "ArrowRight": moveFocus(1); break;   // next day
-    case "ArrowLeft":  moveFocus(-1); break;  // previous day
-    case "ArrowDown":  moveFocus(7); break;   // next week
-    case "ArrowUp":    moveFocus(-7); break;  // previous week
-    case "Home":       setFocusedDate(startOfWeek(focused)); break;
-    case "End":         /* last day of current week */ break;
-    case "PageUp":      e.shiftKey ? moveYears(-1) : moveMonths(-1); break;
-    case "PageDown":    e.shiftKey ? moveYears(1) : moveMonths(1); break;
-    case "Enter": case " ": selectDate(focusedDate); break;
-  }
-}
+const HTML_CODE = `<button id="date-trigger" aria-haspopup="dialog" aria-expanded="false">
+  Choose date
+</button>
 
-<div role="dialog" aria-modal="true" aria-label="Choose date, July 2026">
-  <div role="grid" onKeyDown={onGridKeyDown}>
+<!-- The calendar popup IS a dialog. Inside, a role="grid" holds the day
+     buttons: one owns tabindex="0" (roving), the selected day carries
+     aria-selected, and each has a full aria-label so it reads as a date,
+     not just a bare number. -->
+<div id="date-dialog" role="dialog" aria-modal="true"
+     aria-label="Choose date, July 2026" hidden>
+  <div role="grid">
     <div role="row">
-      {week.map(day => (
-        <button
-          role="gridcell"
-          tabIndex={isSameDay(day, focusedDate) ? 0 : -1}
-          aria-selected={isSameDay(day, selected)}
-          aria-label={isToday(day) ? \`Today, \${formatLong(day)}\` : formatLong(day)}
-        >
-          {day.getDate()}
-        </button>
-      ))}
+      <button role="gridcell" tabindex="0"  aria-label="Wednesday, 1 July 2026">1</button>
+      <button role="gridcell" tabindex="-1" aria-label="Thursday, 2 July 2026">2</button>
+      <!-- … the rest of the week / month … -->
     </div>
   </div>
-</div>
+</div>`;
 
-/* Focus trap / Escape / focus-restore-to-trigger reuse the exact same
-   logic as dialog-pattern.tsx — this popup IS a specialized dialog. */`;
+const JS_CODE = `const grid = document.querySelector('#date-dialog [role="grid"]');
+const days = [...grid.querySelectorAll('[role="gridcell"]')];
+let focused = 0;
+
+function focusDay(index) {
+  // Real code rolls into the previous/next month at the edges; here we
+  // just clamp within the rendered days.
+  if (index < 0 || index >= days.length) return;
+  days[focused].tabIndex = -1;
+  focused = index;
+  days[index].tabIndex = 0; // roving tabindex: the grid is one Tab stop
+  days[index].focus();
+}
+
+grid.addEventListener("keydown", (e) => {
+  const col = focused % 7;
+  switch (e.key) {
+    case "ArrowRight": focusDay(focused + 1); break; // next day
+    case "ArrowLeft":  focusDay(focused - 1); break; // previous day
+    case "ArrowDown":  focusDay(focused + 7); break; // next week
+    case "ArrowUp":    focusDay(focused - 7); break; // previous week
+    case "Home":       focusDay(focused - col); break;      // start of week
+    case "End":        focusDay(focused - col + 6); break;  // end of week
+    case "PageUp":     /* e.shiftKey ? previous year : previous month */ break;
+    case "PageDown":   /* e.shiftKey ? next year : next month */ break;
+    case "Enter":
+    case " ":
+      days.forEach((d) => d.setAttribute("aria-selected", "false"));
+      days[focused].setAttribute("aria-selected", "true");
+      break;
+    default: return;
+  }
+  e.preventDefault();
+});
+
+// Opening/closing, the focus trap, Escape, and restoring focus to the
+// trigger reuse the same logic as the Dialog pattern — this popup IS a
+// specialized dialog.`;
 
 const ARIA_ROWS = [
   { target: "Popup container", attribute: 'role="dialog" + aria-modal="true"', why: "Same reasoning as the flagship Dialog pattern: identifies the popup and marks background content inert, backed by an explicit focus trap." },
@@ -140,7 +164,14 @@ export function DatePickerPageClient() {
             focus-trap/Escape/focus-restore logic as the flagship Dialog
             pattern, plus arrow-key date navigation.
           </p>
-          {mode === "developer" && <CodeBlock code={CUSTOM_CODE} filename="date-picker-pattern.tsx" />}
+          {mode === "developer" && (
+            <CodeBlock
+              tabs={[
+                { label: "HTML", filename: "date-picker.html", code: HTML_CODE },
+                { label: "JS", filename: "date-picker.js", code: JS_CODE },
+              ]}
+            />
+          )}
         </div>
       </PageSection>
       )}
@@ -171,7 +202,7 @@ export function DatePickerPageClient() {
           <PageSection id="focus" title="Focus management rules">
             <ul className="list-disc space-y-2 pl-5 text-sm text-muted-foreground">
               <li>On open: focus moves to the selected date's cell, or today's cell if nothing is selected yet — the same "move focus into the dialog" requirement as the Dialog pattern.</li>
-              <li>While open: Tab/Shift+Tab cycle only within the dialog's focusable elements (reused focus-trap logic from dialog-pattern.tsx).</li>
+              <li>While open: Tab/Shift+Tab cycle only within the dialog's focusable elements (reused focus-trap logic from the Dialog pattern).</li>
               <li>Arrow keys, Home/End, and PageUp/PageDown move a roving tabindex within the grid — only one cell is ever a Tab stop at a time.</li>
               <li>On close (Enter/Space select, Escape, or scrim click): focus returns to the trigger button, exactly as the Dialog pattern restores focus to its trigger.</li>
             </ul>

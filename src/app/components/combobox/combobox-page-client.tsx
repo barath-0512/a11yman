@@ -20,76 +20,97 @@ import { getComponent } from "@/lib/components-data";
 
 const meta = getComponent("combobox")!;
 
-const CUSTOM_CODE = `function ComboboxPattern() {
-  const [value, setValue] = useState("");
-  const [open, setOpen] = useState(false);
-  const [activeIndex, setActiveIndex] = useState(-1);
-  const inputRef = useRef(null);
+const HTML_CODE = `<label for="fruit">Choose a fruit</label>
 
-  const options = FRUITS.filter(f =>
-    f.toLowerCase().includes(value.toLowerCase())
+<!-- Editable combobox. aria-expanded reflects the popup; aria-controls
+     points at the listbox; aria-autocomplete="list" says suggestions
+     appear as you type. aria-activedescendant (set from JS) highlights
+     an option WITHOUT moving DOM focus off the input — so the caret and
+     the screen reader's "edit text" mode are preserved. -->
+<input
+  id="fruit"
+  role="combobox"
+  aria-expanded="false"
+  aria-controls="fruit-listbox"
+  aria-autocomplete="list"
+  autocomplete="off"
+/>
+
+<ul id="fruit-listbox" role="listbox" aria-label="Fruits" hidden></ul>`;
+
+const JS_CODE = `const FRUITS = ["Apple", "Apricot", "Banana", "Cherry", "Grape", "Mango"];
+const input = document.getElementById("fruit");
+const listbox = document.getElementById("fruit-listbox");
+let matches = [];
+let activeIndex = -1;
+
+function open() {
+  input.setAttribute("aria-expanded", "true");
+  listbox.hidden = false;
+}
+
+function close() {
+  input.setAttribute("aria-expanded", "false");
+  listbox.hidden = true;
+  activeIndex = -1;
+  input.removeAttribute("aria-activedescendant");
+}
+
+function renderOptions() {
+  matches = FRUITS.filter((f) =>
+    f.toLowerCase().includes(input.value.toLowerCase())
   );
-
-  function selectOption(option) {
-    setValue(option);
-    setOpen(false);
-    setActiveIndex(-1);
-    inputRef.current?.focus(); // focus never leaves the input
-  }
-
-  function onKeyDown(e) {
-    if (e.key === "ArrowDown") {
-      e.preventDefault();
-      setOpen(true);
-      setActiveIndex(i => Math.min(i + 1, options.length - 1));
-    } else if (e.key === "ArrowUp") {
-      e.preventDefault();
-      setActiveIndex(i => Math.max(i - 1, 0));
-    } else if (e.key === "Enter" && open && activeIndex >= 0) {
-      e.preventDefault();
-      selectOption(options[activeIndex]);
-    } else if (e.key === "Escape" && open) {
-      e.preventDefault();
-      setOpen(false);
-    }
-  }
-
-  return (
-    <>
-      <input
-        ref={inputRef}
-        role="combobox"
-        aria-expanded={open}
-        aria-controls="fruit-listbox"
-        aria-autocomplete="list"
-        // Points at the visually-highlighted option WITHOUT moving real
-        // DOM focus — this is what lets the input keep the caret & keeps
-        // the screen reader in "edit text" mode while announcing options.
-        aria-activedescendant={
-          activeIndex >= 0 ? \`fruit-option-\${activeIndex}\` : undefined
-        }
-        value={value}
-        onChange={(e) => { setValue(e.target.value); setOpen(true); }}
-        onKeyDown={onKeyDown}
-      />
-      {open && (
-        <ul id="fruit-listbox" role="listbox" aria-label="Fruits">
-          {options.map((option, i) => (
-            <li
-              key={option}
-              id={\`fruit-option-\${i}\`}
-              role="option"
-              aria-selected={i === activeIndex}
-              onMouseDown={(e) => { e.preventDefault(); selectOption(option); }}
-            >
-              {option}
-            </li>
-          ))}
-        </ul>
-      )}
-    </>
+  listbox.replaceChildren(
+    ...matches.map((fruit, i) => {
+      const li = document.createElement("li");
+      li.id = "fruit-option-" + i;
+      li.setAttribute("role", "option");
+      li.textContent = fruit;
+      // mousedown, not click, so the input doesn't blur first.
+      li.addEventListener("mousedown", (e) => {
+        e.preventDefault();
+        select(i);
+      });
+      return li;
+    })
   );
-}`;
+}
+
+function highlight(i) {
+  activeIndex = i;
+  [...listbox.children].forEach((li, idx) =>
+    li.setAttribute("aria-selected", String(idx === i))
+  );
+  // Virtual focus: point at the option; real DOM focus stays in the input.
+  input.setAttribute("aria-activedescendant", "fruit-option-" + i);
+}
+
+function select(i) {
+  input.value = matches[i];
+  close();
+  input.focus(); // focus never leaves the input
+}
+
+input.addEventListener("input", () => {
+  renderOptions();
+  matches.length ? open() : close();
+});
+
+input.addEventListener("keydown", (e) => {
+  if (e.key === "ArrowDown") {
+    e.preventDefault();
+    open();
+    highlight(Math.min(activeIndex + 1, matches.length - 1));
+  } else if (e.key === "ArrowUp") {
+    e.preventDefault();
+    highlight(Math.max(activeIndex - 1, 0));
+  } else if (e.key === "Enter" && activeIndex >= 0) {
+    e.preventDefault();
+    select(activeIndex);
+  } else if (e.key === "Escape") {
+    close();
+  }
+});`;
 
 const ARIA_ROWS = [
   { target: "Text input", attribute: 'role="combobox"', why: 'Identifies the input as a combobox, not a plain textbox, so AT announces "combobox" and exposes expand/collapse state.' },
@@ -163,7 +184,14 @@ export function ComboboxPageClient() {
       <PageSection id="implementation" title="Implementation">
         <div className="space-y-3">
           <ComboboxPattern />
-          {mode === "developer" && <CodeBlock code={CUSTOM_CODE} filename="combobox-pattern.tsx" />}
+          {mode === "developer" && (
+            <CodeBlock
+              tabs={[
+                { label: "HTML", filename: "combobox.html", code: HTML_CODE },
+                { label: "JS", filename: "combobox.js", code: JS_CODE },
+              ]}
+            />
+          )}
         </div>
       </PageSection>
       )}

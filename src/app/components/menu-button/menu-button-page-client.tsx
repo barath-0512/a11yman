@@ -20,68 +20,58 @@ import { getComponent } from "@/lib/components-data";
 
 const meta = getComponent("menu-button")!;
 
-const CUSTOM_CODE = `function MenuButtonPattern() {
-  const [open, setOpen] = useState(false);
-  const [activeIndex, setActiveIndex] = useState(0);
-  const buttonRef = useRef(null);
-  const itemRefs = useRef([]);
+const HTML_CODE = `<button id="menu-btn" aria-haspopup="menu" aria-expanded="false"
+        aria-controls="actions-menu">
+  Actions
+</button>
 
-  function openMenu(focusIndex) {
-    setOpen(true);
-    setActiveIndex(focusIndex);
-  }
-  function closeMenu(restoreFocus) {
-    setOpen(false);
-    if (restoreFocus) buttonRef.current?.focus();
-  }
+<!-- Menu items are real <button>s inside role="none" <li>s. They are
+     tabindex="-1"; focus is managed with the arrow keys, not Tab. The
+     menu starts hidden. -->
+<ul id="actions-menu" role="menu" aria-label="Actions" hidden>
+  <li role="none"><button role="menuitem" tabindex="-1">Rename</button></li>
+  <li role="none"><button role="menuitem" tabindex="-1">Duplicate</button></li>
+  <li role="none"><button role="menuitem" tabindex="-1">Delete</button></li>
+</ul>`;
 
-  useEffect(() => {
-    if (open) itemRefs.current[activeIndex]?.focus();
-  }, [open, activeIndex]);
+const JS_CODE = `const button = document.getElementById("menu-btn");
+const menu = document.getElementById("actions-menu");
+const items = [...menu.querySelectorAll('[role="menuitem"]')];
 
-  function onMenuKeyDown(e) {
-    if (e.key === "ArrowDown") { e.preventDefault(); setActiveIndex(i => (i + 1) % ITEMS.length); }
-    if (e.key === "ArrowUp")   { e.preventDefault(); setActiveIndex(i => (i - 1 + ITEMS.length) % ITEMS.length); }
-    if (e.key === "Escape")    { e.preventDefault(); closeMenu(true); }
-    // Menus aren't modal — Tab closes and continues to the next element.
-    if (e.key === "Tab") closeMenu(false);
-    if (e.key === "Enter" || e.key === " ") { e.preventDefault(); closeMenu(true); }
-  }
+function openMenu(index) {
+  menu.hidden = false;
+  button.setAttribute("aria-expanded", "true");
+  items[index].focus(); // move focus into the menu
+}
 
-  return (
-    <>
-      <button
-        ref={buttonRef}
-        aria-haspopup="menu"
-        aria-expanded={open}
-        aria-controls="actions-menu"
-        onClick={() => (open ? closeMenu(false) : openMenu(0))}
-        onKeyDown={e => {
-          if (e.key === "ArrowDown" || e.key === "Enter") { e.preventDefault(); openMenu(0); }
-          if (e.key === "ArrowUp") { e.preventDefault(); openMenu(ITEMS.length - 1); }
-        }}
-      >
-        Actions
-      </button>
-      {open && (
-        <ul id="actions-menu" role="menu" aria-label="Actions" onKeyDown={onMenuKeyDown}>
-          {ITEMS.map((item, i) => (
-            <li key={item} role="none">
-              <button
-                ref={el => (itemRefs.current[i] = el)}
-                role="menuitem"
-                tabIndex={-1}
-                onClick={() => closeMenu(true)}
-              >
-                {item}
-              </button>
-            </li>
-          ))}
-        </ul>
-      )}
-    </>
-  );
-}`;
+function closeMenu({ restoreFocus }) {
+  menu.hidden = true;
+  button.setAttribute("aria-expanded", "false");
+  if (restoreFocus) button.focus();
+}
+
+// Open from the trigger: ArrowDown/Enter focus the first item, ArrowUp
+// the last. Click toggles.
+button.addEventListener("click", () => {
+  menu.hidden ? openMenu(0) : closeMenu({ restoreFocus: false });
+});
+button.addEventListener("keydown", (e) => {
+  if (e.key === "ArrowDown" || e.key === "Enter") { e.preventDefault(); openMenu(0); }
+  if (e.key === "ArrowUp") { e.preventDefault(); openMenu(items.length - 1); }
+});
+
+items.forEach((item, i) => {
+  item.addEventListener("click", () => closeMenu({ restoreFocus: true }));
+  item.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowDown") { e.preventDefault(); items[(i + 1) % items.length].focus(); }
+    if (e.key === "ArrowUp") { e.preventDefault(); items[(i - 1 + items.length) % items.length].focus(); }
+    if (e.key === "Home") { e.preventDefault(); items[0].focus(); }
+    if (e.key === "End") { e.preventDefault(); items[items.length - 1].focus(); }
+    if (e.key === "Escape") { e.preventDefault(); closeMenu({ restoreFocus: true }); }
+    if (e.key === "Tab") closeMenu({ restoreFocus: false }); // menus aren't modal
+    if (e.key === "Enter" || e.key === " ") { e.preventDefault(); item.click(); }
+  });
+});`;
 
 const ARIA_ROWS = [
   { target: "Trigger <button>", attribute: 'aria-haspopup="menu"', why: 'Tells AT this button opens a menu, so it can announce "has popup, menu" before it\'s even activated.' },
@@ -154,7 +144,14 @@ export function MenuButtonPageClient() {
       <PageSection id="implementation" title="Implementation">
         <div className="space-y-3">
           <MenuButtonPattern />
-          {mode === "developer" && <CodeBlock code={CUSTOM_CODE} filename="menu-button-pattern.tsx" />}
+          {mode === "developer" && (
+            <CodeBlock
+              tabs={[
+                { label: "HTML", filename: "menu-button.html", code: HTML_CODE },
+                { label: "JS", filename: "menu-button.js", code: JS_CODE },
+              ]}
+            />
+          )}
         </div>
       </PageSection>
       )}

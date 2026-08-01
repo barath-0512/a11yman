@@ -20,34 +20,24 @@ import { getComponent } from "@/lib/components-data";
 
 const meta = getComponent("pagination")!;
 
-const CUSTOM_CODE = `function PaginationPattern() {
-  const [page, setPage] = useState(4);
-  const pages = getVisiblePages(page, TOTAL_PAGES);
+const HTML_CODE = `<!-- A <nav> landmark labelled "Pagination". Each page is a real link
+     with its own URL — so it works without JS, and the server renders
+     the right window of numbers. The current page is marked
+     aria-current="page". The … gaps are decorative (aria-hidden),
+     never focusable controls. -->
+<nav aria-label="Pagination">
+  <a href="?page=3" rel="prev">Previous</a>
 
-  return (
-    <nav aria-label="Pagination">
-      <button disabled={page === 1} onClick={() => setPage(p => p - 1)}>
-        Previous
-      </button>
-      {pages.map((entry, i) =>
-        entry === "ellipsis" ? (
-          <span key={i} aria-hidden="true">…</span>  // decorative, not a control
-        ) : (
-          <button
-            key={entry}
-            aria-current={entry === page ? "page" : undefined}
-            onClick={() => setPage(entry)}
-          >
-            {entry}
-          </button>
-        )
-      )}
-      <button disabled={page === TOTAL_PAGES} onClick={() => setPage(p => p + 1)}>
-        Next
-      </button>
-    </nav>
-  );
-}`;
+  <a href="?page=1">1</a>
+  <span aria-hidden="true">…</span>
+  <a href="?page=3">3</a>
+  <a href="?page=4" aria-current="page">4</a>
+  <a href="?page=5">5</a>
+  <span aria-hidden="true">…</span>
+  <a href="?page=12">12</a>
+
+  <a href="?page=5" rel="next">Next</a>
+</nav>`;
 
 const ARIA_ROWS = [
   { target: "Wrapping element", attribute: '<nav aria-label="Pagination">', why: "Creates a labeled navigation landmark so AT users can jump straight to the pagination controls, distinguishing it from other <nav> landmarks on the page (e.g. primary site nav)." },
@@ -111,7 +101,7 @@ export function PaginationPageClient() {
       <PageSection id="implementation" title="Implementation">
         <div className="space-y-3">
           <PaginationPattern />
-          {mode === "developer" && <CodeBlock code={CUSTOM_CODE} filename="pagination-pattern.tsx" />}
+          {mode === "developer" && <CodeBlock code={HTML_CODE} filename="pagination.html" />}
         </div>
       </PageSection>
       )}

@@ -20,35 +20,41 @@ import { getComponent } from "@/lib/components-data";
 
 const meta = getComponent("toast")!;
 
-const CUSTOM_CODE = `function ToastPattern() {
-  const [message, setMessage] = useState(null);
-  const timeoutRef = useRef(null);
+const HTML_CODE = `<button id="save-btn">Show success toast</button>
 
-  function showToast() {
-    setMessage("Changes saved successfully.");
-    timeoutRef.current = setTimeout(() => setMessage(null), 4000);
-  }
+<!-- This live region exists BEFORE any message does — many screen
+     readers only announce live-region content if the region was already
+     in the DOM when the text changes. Keep it always present + empty. -->
+<div id="toast-live" role="status" aria-live="polite" class="sr-only"></div>
 
-  return (
-    <>
-      <button onClick={showToast}>Show success toast</button>
+<!-- The visible toast is separate from the live region. Hidden until shown. -->
+<div id="toast" class="toast" hidden>
+  <p id="toast-msg"></p>
+  <button id="toast-dismiss">Dismiss</button>
+</div>`;
 
-      {/* This node exists BEFORE any message text does — many screen
-         readers only announce live-region content if the region was
-         already present in the tree when the content changes. */}
-      <div role="status" aria-live="polite" className="sr-only">
-        {message}
-      </div>
+const JS_CODE = `const trigger = document.getElementById("save-btn");
+const live = document.getElementById("toast-live");
+const toast = document.getElementById("toast");
+const message = document.getElementById("toast-msg");
+const dismissBtn = document.getElementById("toast-dismiss");
+let hideTimer;
 
-      {message && (
-        <div className="toast">
-          <p>{message}</p>
-          <button onClick={() => setMessage(null)}>Dismiss</button>
-        </div>
-      )}
-    </>
-  );
-}`;
+function show(text) {
+  message.textContent = text;
+  toast.hidden = false;
+  live.textContent = text; // updating the pre-existing region announces it
+  clearTimeout(hideTimer);
+  hideTimer = setTimeout(hide, 4000); // auto-dismiss (keep it generous)
+}
+
+function hide() {
+  toast.hidden = true;
+  live.textContent = ""; // clear so an identical message can announce again
+}
+
+trigger.addEventListener("click", () => show("Changes saved successfully."));
+dismissBtn.addEventListener("click", hide);`;
 
 const ARIA_ROWS = [
   {
@@ -167,7 +173,14 @@ export function ToastPageClient() {
             control, non-modal (never steals focus).
           </p>
           <ToastPattern />
-          {mode === "developer" && <CodeBlock code={CUSTOM_CODE} filename="toast-pattern.tsx" />}
+          {mode === "developer" && (
+            <CodeBlock
+              tabs={[
+                { label: "HTML", filename: "toast.html", code: HTML_CODE },
+                { label: "JS", filename: "toast.js", code: JS_CODE },
+              ]}
+            />
+          )}
         </div>
       </PageSection>
       )}

@@ -20,13 +20,22 @@ import { getComponent } from "@/lib/components-data";
 
 const meta = getComponent("button")!;
 
-const NATIVE_CODE = `<button type="button">Save changes</button>
+const HTML_CODE = `<button type="button">Save changes</button>
 
-<button type="button" aria-pressed="false">Favorite</button>
+<!-- A toggle button. Focus, the button role, and Enter+Space
+     activation all come free from the native element. aria-pressed
+     is the one state you set yourself — there is no native HTML
+     "pressed" state (start it at "false"). -->
+<button type="button" id="favorite" aria-pressed="false">Favorite</button>`;
 
-/* Focusable, correct role, and Enter+Space activation all come free.
-   aria-pressed is the one attribute a toggle button still has to set
-   itself — there's no native HTML "pressed" state. */`;
+const JS_CODE = `const favorite = document.getElementById("favorite");
+
+favorite.addEventListener("click", () => {
+  // Flip the pressed state on every activation. Enter and Space both
+  // fire "click" on a native button, so no key handling is needed.
+  const pressed = favorite.getAttribute("aria-pressed") === "true";
+  favorite.setAttribute("aria-pressed", String(!pressed));
+});`;
 
 const ARIA_ROWS = [
   { target: "Plain action <button>", attribute: "(none required)", why: "Native button semantics — role, focusability, and Enter/Space activation — are exposed automatically by the browser." },
@@ -88,7 +97,14 @@ export function ButtonPageClient() {
       <PageSection id="implementation" title="Implementation">
         <div className="space-y-3">
           <ButtonPattern />
-          {mode === "developer" && <CodeBlock code={NATIVE_CODE} filename="button-pattern.tsx" />}
+          {mode === "developer" && (
+            <CodeBlock
+              tabs={[
+                { label: "HTML", filename: "button.html", code: HTML_CODE },
+                { label: "JS", filename: "button.js", code: JS_CODE },
+              ]}
+            />
+          )}
         </div>
       </PageSection>
       )}

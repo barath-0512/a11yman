@@ -20,25 +20,33 @@ import { getComponent } from "@/lib/components-data";
 
 const meta = getComponent("disclosure")!;
 
-const CUSTOM_CODE = `function DisclosurePattern() {
-  const [expanded, setExpanded] = useState(false);
-  const panelId = "disclosure-pattern-panel";
+const HTML_CODE = `<!-- The trigger is a real <button>, so it's focusable and
+     Enter/Space-activated for free. aria-controls points at the
+     panel; aria-expanded reflects its state (start collapsed). -->
+<button
+  id="disclosure-trigger"
+  aria-expanded="false"
+  aria-controls="disclosure-panel"
+>
+  Advanced options
+</button>
 
-  return (
-    <div>
-      <button
-        aria-expanded={expanded}
-        aria-controls={panelId}
-        onClick={() => setExpanded(e => !e)}
-      >
-        Advanced options
-      </button>
-      <div id={panelId} hidden={!expanded}>
-        {/* panel content */}
-      </div>
-    </div>
-  );
-}`;
+<!-- The hidden attribute removes the panel from the accessibility
+     tree AND the tab order while collapsed. -->
+<div id="disclosure-panel" hidden>
+  <!-- panel content -->
+</div>`;
+
+const JS_CODE = `const trigger = document.getElementById("disclosure-trigger");
+const panel = document.getElementById("disclosure-panel");
+
+trigger.addEventListener("click", () => {
+  // Read the current state from the DOM, then flip both the
+  // attribute and the panel's visibility together, in sync.
+  const expanded = trigger.getAttribute("aria-expanded") === "true";
+  trigger.setAttribute("aria-expanded", String(!expanded));
+  panel.hidden = expanded;
+});`;
 
 const ARIA_ROWS = [
   { target: "Trigger <button>", attribute: "aria-expanded", why: 'Communicates whether the panel is currently visible — announced as "expanded" or "collapsed." Must update synchronously with every toggle.' },
@@ -96,7 +104,14 @@ export function DisclosurePageClient() {
       <PageSection id="implementation" title="Implementation">
         <div className="space-y-3">
           <DisclosurePattern />
-          {mode === "developer" && <CodeBlock code={CUSTOM_CODE} filename="disclosure-pattern.tsx" />}
+          {mode === "developer" && (
+            <CodeBlock
+              tabs={[
+                { label: "HTML", filename: "disclosure.html", code: HTML_CODE },
+                { label: "JS", filename: "disclosure.js", code: JS_CODE },
+              ]}
+            />
+          )}
         </div>
       </PageSection>
       )}

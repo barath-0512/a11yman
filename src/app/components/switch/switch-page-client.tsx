@@ -20,30 +20,29 @@ import { getComponent } from "@/lib/components-data";
 
 const meta = getComponent("switch")!;
 
-const CUSTOM_CODE = `function SwitchPattern() {
-  const [on, setOn] = useState(true);
+const HTML_CODE = `<span id="wifi-switch-label">Wi-Fi</span>
 
-  function toggle() { setOn(v => !v); }
+<!-- role="switch" (not "checkbox") makes AT announce "switch, on/off" —
+     matching the instant-effect mental model a toggle implies, vs a
+     checkbox that often implies "apply on submit". A native <button>
+     provides focus and Enter/Space activation for free. -->
+<button
+  type="button"
+  role="switch"
+  aria-checked="true"
+  aria-labelledby="wifi-switch-label"
+>
+  <span aria-hidden="true" class="thumb"></span>
+</button>`;
 
-  return (
-    <button
-      type="button"
-      role="switch"
-      aria-checked={on}
-      aria-labelledby="wifi-switch-label"
-      onClick={toggle}
-      onKeyDown={e => {
-        if (e.key === " ") { e.preventDefault(); toggle(); }
-      }}
-    >
-      <span aria-hidden="true" className="thumb" />
-    </button>
-  );
-}
+const JS_CODE = `const toggle = document.querySelector('[role="switch"]');
 
-/* role="switch" (not "checkbox") is what makes AT announce
-   "switch, on/off" — matching the instant-effect mental model a toggle
-   switch implies, vs. a checkbox that often implies "apply on submit." */`;
+toggle.addEventListener("click", () => {
+  // A native <button> fires "click" on both Enter and Space, so
+  // flipping aria-checked here is all that's needed.
+  const on = toggle.getAttribute("aria-checked") === "true";
+  toggle.setAttribute("aria-checked", String(!on));
+});`;
 
 const ARIA_ROWS = [
   { target: "Switch <button>", attribute: 'role="switch"', why: 'Announced as "switch," distinct from role="checkbox" — communicates an instant on/off effect rather than a form value applied later.' },
@@ -106,7 +105,14 @@ export function SwitchPageClient() {
       <PageSection id="implementation" title="Implementation">
         <div className="space-y-3">
           <SwitchPattern />
-          {mode === "developer" && <CodeBlock code={CUSTOM_CODE} filename="switch-pattern.tsx" />}
+          {mode === "developer" && (
+            <CodeBlock
+              tabs={[
+                { label: "HTML", filename: "switch.html", code: HTML_CODE },
+                { label: "JS", filename: "switch.js", code: JS_CODE },
+              ]}
+            />
+          )}
         </div>
       </PageSection>
       )}

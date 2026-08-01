@@ -20,38 +20,57 @@ import { getComponent } from "@/lib/components-data";
 
 const meta = getComponent("grid")!;
 
-const IMPL_CODE = `// One cell owns tabindex=0; every other cell is tabindex=-1 (roving tabindex),
-// so the whole grid is a SINGLE Tab stop and arrow keys drive navigation.
-const [active, setActive] = useState({ row: 0, col: 0 });
-
-function onKeyDown(e, row, col) {
-  let r = row, c = col;
-  switch (e.key) {
-    case "ArrowRight": c = Math.min(col + 1, COL_COUNT - 1); break;
-    case "ArrowLeft":  c = Math.max(col - 1, 0); break;
-    case "ArrowDown":  r = Math.min(row + 1, ROW_COUNT - 1); break;
-    case "ArrowUp":    r = Math.max(row - 1, 0); break;
-    case "Home":       c = 0; if (e.ctrlKey) r = 0; break;             // start of row / grid
-    case "End":        c = COL_COUNT - 1; if (e.ctrlKey) r = ROW_COUNT - 1; break;
-    default: return;   // Tab, typing, etc. behave normally
-  }
-  e.preventDefault();
-  setActive({ row: r, col: c });
-  cellRefs.current[r][c].focus();   // move DOM focus to match the roving state
-}
-
+const HTML_CODE = `<!-- One cell owns tabindex="0"; every other is tabindex="-1" (roving
+     tabindex), so the whole grid is a SINGLE Tab stop and arrow keys
+     drive navigation. aria-readonly since this grid isn't editable. -->
 <div role="grid" aria-label="Quarterly revenue by region" aria-readonly="true">
   <div role="row">
-    <div role="columnheader">Region</div>
-    <div role="columnheader">Q1</div>
-    {/* … */}
+    <div role="columnheader" tabindex="0">Region</div>
+    <div role="columnheader" tabindex="-1">Q1</div>
+    <div role="columnheader" tabindex="-1">Q2</div>
   </div>
   <div role="row">
-    <div role="rowheader" tabIndex={isActive ? 0 : -1} onKeyDown={…}>North America</div>
-    <div role="gridcell" tabIndex={isActive ? 0 : -1} onKeyDown={…}>820</div>
-    {/* … */}
+    <div role="rowheader" tabindex="-1">North America</div>
+    <div role="gridcell"  tabindex="-1">820</div>
+    <div role="gridcell"  tabindex="-1">910</div>
+  </div>
+  <div role="row">
+    <div role="rowheader" tabindex="-1">Europe</div>
+    <div role="gridcell"  tabindex="-1">640</div>
+    <div role="gridcell"  tabindex="-1">700</div>
   </div>
 </div>`;
+
+const JS_CODE = `const grid = document.querySelector('[role="grid"]');
+// A 2-D map of the cells, row by row.
+const rows = [...grid.querySelectorAll('[role="row"]')].map((row) =>
+  [...row.querySelectorAll('[role="columnheader"], [role="rowheader"], [role="gridcell"]')]
+);
+let active = { row: 0, col: 0 };
+
+function focusCell(r, c) {
+  rows[active.row][active.col].tabIndex = -1; // give up the old Tab stop
+  active = { row: r, col: c };
+  rows[r][c].tabIndex = 0;                     // move the single Tab stop
+  rows[r][c].focus();
+}
+
+grid.addEventListener("keydown", (e) => {
+  let { row, col } = active;
+  const lastRow = rows.length - 1;
+  const lastCol = rows[row].length - 1;
+  switch (e.key) {
+    case "ArrowRight": col = Math.min(col + 1, lastCol); break;
+    case "ArrowLeft":  col = Math.max(col - 1, 0); break;
+    case "ArrowDown":  row = Math.min(row + 1, lastRow); break;
+    case "ArrowUp":    row = Math.max(row - 1, 0); break;
+    case "Home":       col = 0; if (e.ctrlKey) row = 0; break;             // row / grid start
+    case "End":        col = lastCol; if (e.ctrlKey) row = lastRow; break; // row / grid end
+    default: return;   // let Tab, typing, etc. behave normally
+  }
+  e.preventDefault();
+  focusCell(row, col);
+});`;
 
 const ARIA_ROWS = [
   { target: "Grid container", attribute: 'role="grid"', why: "Declares an interactive composite widget so assistive tech switches out of document-reading mode and lets the app's own arrow-key handling drive cell navigation. This is the one thing that distinguishes a grid from a static table." },
@@ -142,7 +161,12 @@ export function GridPageClient() {
           <div className="mt-4 space-y-3">
             <GridPattern />
             {mode === "developer" && (
-              <CodeBlock code={IMPL_CODE} filename="grid-pattern.tsx (roving tabindex + arrow keys)" />
+              <CodeBlock
+                tabs={[
+                  { label: "HTML", filename: "grid.html", code: HTML_CODE },
+                  { label: "JS", filename: "grid.js", code: JS_CODE },
+                ]}
+              />
             )}
           </div>
         </PageSection>

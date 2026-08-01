@@ -20,41 +20,51 @@ import { getComponent } from "@/lib/components-data";
 
 const meta = getComponent("tooltip")!;
 
-const CUSTOM_CODE = `function TooltipPattern({ label, tooltip }) {
-  const [visible, setVisible] = useState(false);
-  const hideTimeoutRef = useRef(null);
-  const tooltipId = useId();
+const HTML_CODE = `<span class="tooltip-wrap">
+  <button id="help-btn">Help</button>
 
-  function show() {
-    clearTimeout(hideTimeoutRef.current);
-    setVisible(true);
-  }
-  // Delay gives the pointer time to move from the trigger onto the
-  // tooltip itself (SC 1.4.13 "hoverable").
-  function scheduleHide() {
-    hideTimeoutRef.current = setTimeout(() => setVisible(false), 150);
-  }
+  <!-- role="tooltip" is linked to the trigger via aria-describedby,
+       which JS adds only while the tip is shown. Starts hidden. -->
+  <span id="help-tip" role="tooltip" hidden>
+    We'll only use this to recover your account.
+  </span>
+</span>`;
 
-  return (
-    <span style={{ position: "relative" }}>
-      <button
-        aria-describedby={visible ? tooltipId : undefined}
-        onMouseEnter={show}
-        onMouseLeave={scheduleHide}
-        onFocus={show}     // <- keyboard users MUST get this too
-        onBlur={() => setVisible(false)}
-        onKeyDown={e => { if (e.key === "Escape") setVisible(false); }}
-      >
-        {label}
-      </button>
-      {visible && (
-        <span id={tooltipId} role="tooltip" onMouseEnter={show} onMouseLeave={scheduleHide}>
-          {tooltip}
-        </span>
-      )}
-    </span>
-  );
-}`;
+const JS_CODE = `const trigger = document.getElementById("help-btn");
+const tip = document.getElementById("help-tip");
+let hideTimer;
+
+function show() {
+  clearTimeout(hideTimer);
+  tip.hidden = false;
+  trigger.setAttribute("aria-describedby", "help-tip");
+}
+
+function hide() {
+  tip.hidden = true;
+  trigger.removeAttribute("aria-describedby");
+}
+
+// Delay lets the pointer travel from the trigger onto the tooltip
+// without it vanishing (SC 1.4.13, "hoverable").
+function scheduleHide() {
+  hideTimer = setTimeout(hide, 150);
+}
+
+// Pointer users (note the tip itself is hoverable, so it stays open):
+trigger.addEventListener("mouseenter", show);
+trigger.addEventListener("mouseleave", scheduleHide);
+tip.addEventListener("mouseenter", show);
+tip.addEventListener("mouseleave", scheduleHide);
+
+// Keyboard users MUST get it too — on focus, not just hover.
+trigger.addEventListener("focus", show);
+trigger.addEventListener("blur", hide);
+
+// Escape dismisses it while focus stays on the trigger (SC 1.4.13).
+trigger.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") hide();
+});`;
 
 const ARIA_ROWS = [
   {
@@ -170,7 +180,14 @@ export function TooltipPageClient() {
             the pointer can reach the tooltip itself.
           </p>
           <TooltipPattern label="Bold" tooltip="Bold (Ctrl+B)" />
-          {mode === "developer" && <CodeBlock code={CUSTOM_CODE} filename="tooltip-pattern.tsx" />}
+          {mode === "developer" && (
+            <CodeBlock
+              tabs={[
+                { label: "HTML", filename: "tooltip.html", code: HTML_CODE },
+                { label: "JS", filename: "tooltip.js", code: JS_CODE },
+              ]}
+            />
+          )}
         </div>
       </PageSection>
       )}

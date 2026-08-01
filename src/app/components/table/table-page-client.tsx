@@ -21,25 +21,39 @@ import { getComponent } from "@/lib/components-data";
 
 const meta = getComponent("table")!;
 
-const CUSTOM_CODE = `function toggleSort(key) {
-  if (key !== sortKey) { setSortKey(key); setSortDirection("ascending"); return; }
-  setSortDirection(prev =>
-    prev === "ascending" ? "descending" : prev === "descending" ? "none" : "ascending"
-  );
-}
+const HTML_CODE = `<!-- aria-sort lives on the <th>, not the button — that's where AT looks
+     for a column's sort state. The <button> inside is what makes the
+     control keyboard-operable. Only ONE column is sorted at a time. -->
+<table>
+  <thead>
+    <tr>
+      <th scope="col" aria-sort="ascending"><button data-key="name">Name</button></th>
+      <th scope="col" aria-sort="none"><button data-key="email">Email</button></th>
+      <th scope="col" aria-sort="none"><button data-key="signup">Signed up</button></th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- data rows -->
+  </tbody>
+</table>`;
 
-<th scope="col" aria-sort={ariaSortFor("name")}>
-  <button
-    onClick={() => toggleSort("name")}
-    aria-label={\`Sort by Name, \${sortLabelText}\`}
-  >
-    Name <SortIcon />
-  </button>
-</th>
+const JS_CODE = `const headers = [...document.querySelectorAll("th[aria-sort]")];
 
-/* aria-sort lives on the <th> itself, not the button — that's where
-   assistive tech looks for a column's current sort state. The button
-   inside is what makes the control keyboard-operable. */`;
+headers.forEach((th) => {
+  th.querySelector("button").addEventListener("click", () => {
+    const current = th.getAttribute("aria-sort");
+    // Cycle this column: ascending → descending → none.
+    const next =
+      current === "ascending" ? "descending" :
+      current === "descending" ? "none" : "ascending";
+
+    // Only one column can be sorted at a time — clear the others first.
+    headers.forEach((other) => other.setAttribute("aria-sort", "none"));
+    th.setAttribute("aria-sort", next);
+
+    // ...re-order the <tbody> rows to match (skip when next === "none").
+  });
+});`;
 
 const ARIA_ROWS = [
   { target: "<table>", attribute: "<caption>", why: "Gives the table an accessible name/purpose announced before a screen reader user enters it (not itself an ARIA attribute, but the required native equivalent)." },
@@ -105,7 +119,14 @@ export function TablePageClient() {
       <PageSection id="implementation" title="Implementation">
         <div className="space-y-3">
           <TablePattern />
-          {mode === "developer" && <CodeBlock code={CUSTOM_CODE} filename="table-pattern.tsx (sort logic)" />}
+          {mode === "developer" && (
+            <CodeBlock
+              tabs={[
+                { label: "HTML", filename: "table.html", code: HTML_CODE },
+                { label: "JS", filename: "table.js", code: JS_CODE },
+              ]}
+            />
+          )}
           <p className="text-sm text-muted-foreground">
             For an <em>interactive</em> tabular widget — editable, selectable,
             or arrow-key-navigable cells — see the{" "}

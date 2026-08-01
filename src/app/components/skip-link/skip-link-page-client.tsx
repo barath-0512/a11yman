@@ -18,29 +18,31 @@ import { getComponent } from "@/lib/components-data";
 
 const meta = getComponent("skip-link")!;
 
-const CODE = `{/* The FIRST focusable element in the document, before the header/nav. */}
+const HTML_CODE = `<!-- The FIRST focusable element in the document, before header/nav. -->
 <a href="#main" class="skip-link">Skip to main content</a>
 
-<header> ...logo + site navigation... </header>
+<header> <!-- logo + site navigation --> </header>
 
+<!-- tabindex="-1" lets activating the link move keyboard FOCUS to
+     <main> (not just scroll it into view). The next Tab then continues
+     from here, past the repeated navigation. No ARIA needed — it's a
+     plain anchor. -->
 <main id="main" tabindex="-1">
   ...
-</main>
+</main>`;
 
-/* Visually hidden until it receives keyboard focus, then clearly shown:
+const CSS_CODE = `/* Visually hidden until it receives keyboard focus, then clearly shown. */
+.skip-link {
+  position: absolute;
+  left: -9999px;          /* off-screen, but still focusable */
+}
 
-   .skip-link {
-     position: absolute;
-     left: -9999px;            /* off-screen, but still focusable */
-   }
-   .skip-link:focus {
-     position: fixed;
-     left: 1rem; top: 1rem;    /* reveal on focus, with strong focus styles */
-   }
-
-   tabindex="-1" on <main> lets activating the link move keyboard FOCUS there
-   (not just the scroll position) — the next Tab then continues from main,
-   past the repeated navigation. No ARIA is needed: it's a plain anchor. */`;
+.skip-link:focus {
+  position: fixed;
+  left: 1rem;
+  top: 1rem;              /* reveal on focus, with strong focus styles */
+  z-index: 100;
+}`;
 
 const ARIA_ROWS = [
   {
@@ -126,7 +128,12 @@ export function SkipLinkPageClient() {
           </div>
           <div className="mt-4 space-y-3">
             <SkipLinkPattern />
-            <CodeBlock code={CODE} filename="skip-link.html" />
+            <CodeBlock
+              tabs={[
+                { label: "HTML", filename: "skip-link.html", code: HTML_CODE },
+                { label: "CSS", filename: "skip-link.css", code: CSS_CODE },
+              ]}
+            />
           </div>
         </PageSection>
       )}

@@ -20,33 +20,59 @@ import { getComponent } from "@/lib/components-data";
 
 const meta = getComponent("slider")!;
 
-const CUSTOM_CODE = `function SliderPattern() {
-  const [value, setValue] = useState(60);
+const HTML_CODE = `<span id="volume-label">Volume</span>
 
-  function onKeyDown(e) {
-    if (e.key === "ArrowRight" || e.key === "ArrowUp") { e.preventDefault(); setValue(v => clamp(v + STEP)); }
-    else if (e.key === "ArrowLeft" || e.key === "ArrowDown") { e.preventDefault(); setValue(v => clamp(v - STEP)); }
-    else if (e.key === "PageUp") { e.preventDefault(); setValue(v => clamp(v + BIG_STEP)); }
-    else if (e.key === "PageDown") { e.preventDefault(); setValue(v => clamp(v - BIG_STEP)); }
-    else if (e.key === "Home") { e.preventDefault(); setValue(MIN); }
-    else if (e.key === "End") { e.preventDefault(); setValue(MAX); }
-  }
+<!-- Prefer native <input type="range"> — it gives the slider role, the
+     full keyboard model, and pointer dragging for free. Use this custom
+     version only when you need styling the native control can't do.
+     aria-valuenow/min/max carry the value; aria-valuetext gives a
+     human-friendly reading ("60%"). -->
+<div class="track" id="volume-track">
+  <div
+    class="thumb"
+    id="volume-thumb"
+    role="slider"
+    tabindex="0"
+    aria-labelledby="volume-label"
+    aria-valuemin="0"
+    aria-valuemax="100"
+    aria-valuenow="60"
+    aria-valuetext="60%"
+  ></div>
+</div>`;
 
-  return (
-    <div onPointerDown={(e) => setFromClientX(e.clientX)}> {/* click-on-track jump */}
-      <div
-        role="slider"
-        tabIndex={0}
-        aria-labelledby="volume-label"
-        aria-valuemin={MIN}
-        aria-valuemax={MAX}
-        aria-valuenow={value}
-        aria-valuetext={\`\${value}%\`}
-        onKeyDown={onKeyDown}
-      />
-    </div>
-  );
-}`;
+const JS_CODE = `const MIN = 0, MAX = 100, STEP = 1, BIG_STEP = 10;
+const track = document.getElementById("volume-track");
+const thumb = document.getElementById("volume-thumb");
+
+const clamp = (v) => Math.max(MIN, Math.min(MAX, v));
+
+function setValue(v) {
+  v = clamp(v);
+  thumb.setAttribute("aria-valuenow", String(v));
+  thumb.setAttribute("aria-valuetext", v + "%");
+  thumb.style.left = ((v - MIN) / (MAX - MIN)) * 100 + "%";
+}
+
+thumb.addEventListener("keydown", (e) => {
+  const now = Number(thumb.getAttribute("aria-valuenow"));
+  const moves = {
+    ArrowRight: now + STEP, ArrowUp: now + STEP,
+    ArrowLeft: now - STEP,  ArrowDown: now - STEP,
+    PageUp: now + BIG_STEP, PageDown: now - BIG_STEP,
+    Home: MIN, End: MAX,
+  };
+  if (!(e.key in moves)) return;
+  e.preventDefault();
+  setValue(moves[e.key]);
+});
+
+// Clicking (or dragging) the track jumps the value to that position.
+track.addEventListener("pointerdown", (e) => {
+  const rect = track.getBoundingClientRect();
+  setValue(Math.round(MIN + ((e.clientX - rect.left) / rect.width) * (MAX - MIN)));
+  thumb.focus();
+});`;
 
 const ARIA_ROWS = [
   { target: "Thumb", attribute: 'role="slider"', why: "Identifies the focusable thumb element as a slider control to AT." },
@@ -115,7 +141,14 @@ export function SliderPageClient() {
       <PageSection id="implementation" title="Implementation">
         <div className="space-y-3">
           <SliderPattern />
-          {mode === "developer" && <CodeBlock code={CUSTOM_CODE} filename="slider-pattern.tsx" />}
+          {mode === "developer" && (
+            <CodeBlock
+              tabs={[
+                { label: "HTML", filename: "slider.html", code: HTML_CODE },
+                { label: "JS", filename: "slider.js", code: JS_CODE },
+              ]}
+            />
+          )}
         </div>
       </PageSection>
       )}
