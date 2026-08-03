@@ -64,7 +64,7 @@ export function CodeBlock({
   }
 
   return (
-    <div className="overflow-hidden rounded-2xl border border-border bg-secondary/40">
+    <div className="rounded-2xl border border-border bg-secondary/40">
       <div className="flex items-center justify-between gap-3 border-b border-border/60 pr-4">
         {showTabs ? (
           <div role="tablist" aria-label="Solution files" className="flex">
