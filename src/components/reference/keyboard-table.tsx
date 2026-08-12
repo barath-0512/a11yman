@@ -1,3 +1,5 @@
+import { linkifyAria } from "./linkify-aria";
+
 export interface KeyboardRow {
   keys: string;
   behavior: string;
@@ -30,7 +32,7 @@ export function KeyboardTable({ rows }: { rows: KeyboardRow[] }) {
                 </kbd>
               </th>
               <td className="px-4 py-3 text-muted-foreground">
-                {r.behavior}
+                {linkifyAria(r.behavior)}
               </td>
             </tr>
           ))}

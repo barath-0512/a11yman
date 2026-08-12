@@ -1,3 +1,5 @@
+import { linkifyAria } from "./linkify-aria";
+
 export interface ProcedureStep {
   action: string;
   expected: string;
@@ -18,11 +20,11 @@ export function TestProcedure({ steps }: { steps: ProcedureStep[] }) {
             <div className="space-y-1 text-sm">
               <p>
                 <span className="font-medium">Do: </span>
-                {step.action}
+                {linkifyAria(step.action)}
               </p>
               <p className="text-muted-foreground">
                 <span className="font-medium text-foreground">Expect: </span>
-                {step.expected}
+                {linkifyAria(step.expected)}
               </p>
             </div>
           </div>
