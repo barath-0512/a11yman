@@ -3,7 +3,7 @@ import { ComponentDetailShell } from "@/components/reference/component-detail-sh
 import { DisclosurePageClient } from "./disclosure-page-client";
 
 export const metadata = pageMetadata({
-  title: "Accessible Disclosure",
+  title: "Accessible Disclosure Example – HTML, ARIA & WCAG",
   description:
     "Learn how to build an accessible Disclosure with semantic HTML, keyboard support, focus states, accessible names, ARIA, and WCAG requirements.",
   path: "/components/disclosure",

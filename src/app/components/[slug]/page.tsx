@@ -23,7 +23,7 @@ export function generateMetadata({
   const meta = getComponent(params.slug);
   if (!meta) return {};
   return pageMetadata({
-    title: `Accessible ${meta.name}`,
+    title: `Accessible ${meta.name} Example – HTML, ARIA & WCAG`,
     description: `Learn how to build an accessible ${meta.name} with semantic HTML, keyboard support, focus states, accessible names, ARIA, and WCAG requirements.`,
     path: `/components/${params.slug}`,
   });

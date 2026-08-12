@@ -3,7 +3,7 @@ import { ComponentDetailShell } from "@/components/reference/component-detail-sh
 import { TabsPageClient } from "./tabs-page-client";
 
 export const metadata = pageMetadata({
-  title: "Accessible Tabs",
+  title: "Accessible Tabs Example – HTML, ARIA & WCAG",
   description:
     "Learn how to build an accessible Tabs with semantic HTML, keyboard support, focus states, accessible names, ARIA, and WCAG requirements.",
   path: "/components/tabs",

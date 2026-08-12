@@ -3,7 +3,7 @@ import { ComponentDetailShell } from "@/components/reference/component-detail-sh
 import { VideoPageClient } from "./video-page-client";
 
 export const metadata = pageMetadata({
-  title: "Accessible Video Player",
+  title: "Accessible Video Player Example – HTML, ARIA & WCAG",
   description:
     "Learn how to build an accessible Video Player with semantic HTML, keyboard support, focus states, accessible names, ARIA, and WCAG requirements.",
   path: "/components/video",

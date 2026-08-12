@@ -3,7 +3,7 @@ import { ComponentDetailShell } from "@/components/reference/component-detail-sh
 import { FormsPageClient } from "./forms-page-client";
 
 export const metadata = pageMetadata({
-  title: "Accessible Form patterns",
+  title: "Accessible Form patterns Example – HTML, ARIA & WCAG",
   description:
     "Learn how to build an accessible Form patterns with semantic HTML, keyboard support, focus states, accessible names, ARIA, and WCAG requirements.",
   path: "/components/forms",

@@ -3,7 +3,7 @@ import { ComponentDetailShell } from "@/components/reference/component-detail-sh
 import { SwitchPageClient } from "./switch-page-client";
 
 export const metadata = pageMetadata({
-  title: "Accessible Switch",
+  title: "Accessible Switch Example – HTML, ARIA & WCAG",
   description:
     "Learn how to build an accessible Switch with semantic HTML, keyboard support, focus states, accessible names, ARIA, and WCAG requirements.",
   path: "/components/switch",

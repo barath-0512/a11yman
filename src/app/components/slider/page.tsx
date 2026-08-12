@@ -3,7 +3,7 @@ import { ComponentDetailShell } from "@/components/reference/component-detail-sh
 import { SliderPageClient } from "./slider-page-client";
 
 export const metadata = pageMetadata({
-  title: "Accessible Slider",
+  title: "Accessible Slider Example – HTML, ARIA & WCAG",
   description:
     "Learn how to build an accessible Slider with semantic HTML, keyboard support, focus states, accessible names, ARIA, and WCAG requirements.",
   path: "/components/slider",
