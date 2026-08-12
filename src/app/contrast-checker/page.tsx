@@ -11,7 +11,7 @@ import { randomPreviewQuote } from "@/lib/preview-quotes";
 export const dynamic = "force-dynamic";
 
 export const metadata = pageMetadata({
-  title: "Color Contrast Checker",
+  title: "Color Contrast Checker – WCAG Accessibility Tool",
   description:
     "Check any foreground/background colour pair against WCAG 2.2 contrast requirements — live ratio, AA/AAA pass-fail, a preview, and the closest colours that pass.",
   path: "/contrast-checker",
