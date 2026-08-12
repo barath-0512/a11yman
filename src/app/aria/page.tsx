@@ -5,7 +5,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { AriaExplorer } from "./aria-explorer";
 
 export const metadata = pageMetadata({
-  title: "ARIA reference",
+  title: "ARIA Roles & Attributes – Accessibility Guide",
   description:
     "A searchable reference of every WAI-ARIA attribute and role — value types, plain-language descriptions, and which a11yman components demonstrate each one.",
   path: "/aria",

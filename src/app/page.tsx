@@ -19,8 +19,8 @@ import { WCAG_CRITERIA } from "@/lib/wcag";
 
 export const metadata = pageMetadata({
   // The root segment's title bypasses the layout's "%s | a11yman" template, so
-  // set the full title explicitly.
-  title: "Home | a11yman",
+  // set the full title explicitly (matches SITE_TITLE so og:title agrees).
+  title: "a11yman – Accessibility Components, ARIA & WCAG Examples",
   description:
     "a11yman is a fast, practical reference for building, testing, and understanding accessible UI components — hand-coded patterns, ARIA, keyboard models, screen reader output, and WCAG mapping.",
   path: "/",

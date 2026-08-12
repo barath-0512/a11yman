@@ -17,7 +17,7 @@ import { TESTING_GUIDES } from "@/lib/testing-guides";
 import { CHEATSHEET } from "@/lib/testing-cheatsheet";
 
 export const metadata = pageMetadata({
-  title: "How to test",
+  title: "Web Accessibility Testing Guide – WCAG, Screen Readers & Keyboard",
   description:
     "Practical accessibility testing guides and checklists — color contrast, images, keyboard operability, forms, dialogs and more — covering the cross-cutting checks beyond individual components.",
   path: "/how-to-test",
@@ -76,7 +76,7 @@ export default function HowToTestPage() {
           <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-start">
             <div className="space-y-4">
               <h1 className="text-balance text-4xl font-semibold tracking-tight sm:text-5xl">
-                How to test
+                How to Test Web Accessibility
               </h1>
               <p className="max-w-xl text-base leading-relaxed text-muted-foreground">
                 Practical guides and checklists to help you test accessibility
