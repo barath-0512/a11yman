@@ -3,9 +3,9 @@ import { ComponentDetailShell } from "@/components/reference/component-detail-sh
 import { SliderPageClient } from "./slider-page-client";
 
 export const metadata = pageMetadata({
-  title: "Slider",
+  title: "Accessible Slider",
   description:
-    "WCAG 2.2 AA reference for the Slider pattern: native input[type=range], hand-coded ARIA, keyboard model, screen reader announcements, and test cases.",
+    "Learn how to build an accessible Slider with semantic HTML, keyboard support, focus states, accessible names, ARIA, and WCAG requirements.",
   path: "/components/slider",
 });
 

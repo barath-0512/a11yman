@@ -3,9 +3,9 @@ import { ComponentDetailShell } from "@/components/reference/component-detail-sh
 import { ToastPageClient } from "./toast-page-client";
 
 export const metadata = pageMetadata({
-  title: "Toast / Status messages",
+  title: "Accessible Toast / Status messages",
   description:
-    "WCAG 2.2 AA reference for the Toast / Status messages pattern: aria-live regions, role=\"status\" vs role=\"alert\", persistent live regions, hand-coded implementation, and test cases.",
+    "Learn how to build an accessible Toast / Status messages with semantic HTML, keyboard support, focus states, accessible names, ARIA, and WCAG requirements.",
   path: "/components/toast",
 });
 

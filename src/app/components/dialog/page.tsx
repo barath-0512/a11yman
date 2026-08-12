@@ -3,9 +3,9 @@ import { ComponentDetailShell } from "@/components/reference/component-detail-sh
 import { DialogPageClient } from "./dialog-page-client";
 
 export const metadata = pageMetadata({
-  title: "Dialog (Modal)",
+  title: "Accessible Dialog (Modal)",
   description:
-    "WCAG 2.2 AA reference for the Dialog (Modal) pattern: native <dialog>, hand-coded ARIA, focus trap, keyboard model, screen reader announcements, and test cases.",
+    "Learn how to build an accessible Dialog (Modal) with semantic HTML, keyboard support, focus states, accessible names, ARIA, and WCAG requirements.",
   path: "/components/dialog",
 });
 

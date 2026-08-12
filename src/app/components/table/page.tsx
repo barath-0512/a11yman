@@ -3,9 +3,9 @@ import { ComponentDetailShell } from "@/components/reference/component-detail-sh
 import { TablePageClient } from "./table-page-client";
 
 export const metadata = pageMetadata({
-  title: "Table",
+  title: "Accessible Table",
   description:
-    "WCAG 2.2 AA reference for the sortable data Table pattern: native table with caption/scope, ARIA sort state, the div-based ARIA grid alternative, keyboard model, screen reader announcements, and test cases.",
+    "Learn how to build an accessible Table with semantic HTML, keyboard support, focus states, accessible names, ARIA, and WCAG requirements.",
   path: "/components/table",
 });
 

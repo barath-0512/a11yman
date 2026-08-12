@@ -3,9 +3,9 @@ import { ComponentDetailShell } from "@/components/reference/component-detail-sh
 import { DisclosurePageClient } from "./disclosure-page-client";
 
 export const metadata = pageMetadata({
-  title: "Disclosure",
+  title: "Accessible Disclosure",
   description:
-    "WCAG 2.2 AA reference for the Disclosure (Show/Hide) pattern: native details/summary, hand-coded ARIA, keyboard model, screen reader announcements, and test cases.",
+    "Learn how to build an accessible Disclosure with semantic HTML, keyboard support, focus states, accessible names, ARIA, and WCAG requirements.",
   path: "/components/disclosure",
 });
 

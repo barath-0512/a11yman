@@ -175,7 +175,7 @@ export function ComboboxPageClient() {
           <Badge tone="accent">Forms &amp; Controls</Badge>
           <Badge tone="neutral">Flagship guide</Badge>
         </div>
-        <h1 className="text-4xl font-semibold tracking-tight">{meta.name}</h1>
+        <h1 className="text-4xl font-semibold tracking-tight">Accessible {meta.name}</h1>
         <p className="max-w-2xl text-lg text-muted-foreground">{meta.definition}</p>
         <LastVerified date="2026-07-02" />
       </header>

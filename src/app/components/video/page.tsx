@@ -3,9 +3,9 @@ import { ComponentDetailShell } from "@/components/reference/component-detail-sh
 import { VideoPageClient } from "./video-page-client";
 
 export const metadata = pageMetadata({
-  title: "Video Player",
+  title: "Accessible Video Player",
   description:
-    "WCAG 2.2 AA reference for an accessible video player: native controls, synchronized captions (WebVTT), a text transcript, audio-description support, keyboard model, screen reader announcements, and test cases.",
+    "Learn how to build an accessible Video Player with semantic HTML, keyboard support, focus states, accessible names, ARIA, and WCAG requirements.",
   path: "/components/video",
 });
 

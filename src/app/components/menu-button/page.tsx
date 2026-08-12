@@ -3,9 +3,9 @@ import { ComponentDetailShell } from "@/components/reference/component-detail-sh
 import { MenuButtonPageClient } from "./menu-button-page-client";
 
 export const metadata = pageMetadata({
-  title: "Menu & Menu Button",
+  title: "Accessible Menu & Menu Button",
   description:
-    "WCAG 2.2 AA reference for the Menu Button pattern: hand-coded ARIA menu, keyboard model, screen reader announcements, and test cases.",
+    "Learn how to build an accessible Menu & Menu Button with semantic HTML, keyboard support, focus states, accessible names, ARIA, and WCAG requirements.",
   path: "/components/menu-button",
 });
 

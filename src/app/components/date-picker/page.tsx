@@ -3,9 +3,9 @@ import { ComponentDetailShell } from "@/components/reference/component-detail-sh
 import { DatePickerPageClient } from "./date-picker-page-client";
 
 export const metadata = pageMetadata({
-  title: "Date Picker",
+  title: "Accessible Date Picker",
   description:
-    "WCAG 2.2 AA reference for the Date Picker dialog pattern: native input type=\"date\", a hand-coded ARIA grid dialog with full keyboard support, screen reader announcements, and test cases.",
+    "Learn how to build an accessible Date Picker with semantic HTML, keyboard support, focus states, accessible names, ARIA, and WCAG requirements.",
   path: "/components/date-picker",
 });
 

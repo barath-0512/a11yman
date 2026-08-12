@@ -3,9 +3,9 @@ import { ComponentDetailShell } from "@/components/reference/component-detail-sh
 import { AlertDialogPageClient } from "./alert-dialog-page-client";
 
 export const metadata = pageMetadata({
-  title: "Alert & Alert Dialog",
+  title: "Accessible Alert & Alert Dialog",
   description:
-    "WCAG 2.2 AA reference for the Alert Dialog pattern: role=\"alertdialog\", least-destructive-action focus, hand-coded ARIA, keyboard model, screen reader announcements, and test cases.",
+    "Learn how to build an accessible Alert & Alert Dialog with semantic HTML, keyboard support, focus states, accessible names, ARIA, and WCAG requirements.",
   path: "/components/alert-dialog",
 });
 

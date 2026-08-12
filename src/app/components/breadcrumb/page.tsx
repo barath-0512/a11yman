@@ -3,9 +3,9 @@ import { ComponentDetailShell } from "@/components/reference/component-detail-sh
 import { BreadcrumbPageClient } from "./breadcrumb-page-client";
 
 export const metadata = pageMetadata({
-  title: "Breadcrumb",
+  title: "Accessible Breadcrumb",
   description:
-    "WCAG 2.2 AA reference for the Breadcrumb pattern: labeled nav landmark, ordered list of links, aria-current, and test cases.",
+    "Learn how to build an accessible Breadcrumb with semantic HTML, keyboard support, focus states, accessible names, ARIA, and WCAG requirements.",
   path: "/components/breadcrumb",
 });
 

@@ -3,9 +3,9 @@ import { ComponentDetailShell } from "@/components/reference/component-detail-sh
 import { ButtonPageClient } from "./button-page-client";
 
 export const metadata = pageMetadata({
-  title: "Button",
+  title: "Accessible Button",
   description:
-    "WCAG 2.2 AA reference for the Button pattern, including toggle buttons: native <button>, aria-pressed, keyboard model, screen reader announcements, and test cases.",
+    "Learn how to build an accessible Button with semantic HTML, keyboard support, focus states, accessible names, ARIA, and WCAG requirements.",
   path: "/components/button",
 });
 

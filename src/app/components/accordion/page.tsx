@@ -3,9 +3,9 @@ import { ComponentDetailShell } from "@/components/reference/component-detail-sh
 import { AccordionPageClient } from "./accordion-page-client";
 
 export const metadata = pageMetadata({
-  title: "Accordion",
+  title: "Accessible Accordion",
   description:
-    "WCAG 2.2 AA reference for the Accordion pattern: native details/summary, hand-coded ARIA, keyboard model, screen reader announcements, and test cases.",
+    "Learn how to build an accessible Accordion with semantic HTML, keyboard support, focus states, accessible names, ARIA, and WCAG requirements.",
   path: "/components/accordion",
 });
 
