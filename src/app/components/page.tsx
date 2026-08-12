@@ -7,7 +7,7 @@ import { SearchCombobox } from "@/components/search-combobox";
 import { COMPONENTS } from "@/lib/components-data";
 
 export const metadata = pageMetadata({
-  title: "Components",
+  title: "Accessible UI Components – WCAG & ARIA Examples",
   description:
     "Hand-coded, accessible UI component patterns — with live demos, required ARIA, keyboard models, screen reader announcements, WCAG mapping, and test cases.",
   path: "/components",

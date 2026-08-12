@@ -8,7 +8,7 @@ export const SITE_NAME = "a11yman";
 export const SITE_TAGLINE = "Build • Test • Ship Accessible";
 
 export const SITE_TITLE =
-  "a11yman — Build, Test & Ship Accessible UI Components";
+  "a11yman – Accessibility Components, ARIA & WCAG Examples";
 
 export const SITE_DESCRIPTION =
   "a11yman is a practical, test-oriented reference for building and auditing WCAG 2.2 AA compliant UI components: ARIA roles/states, keyboard models, focus management, screen reader announcements, and ready-to-use test cases.";
