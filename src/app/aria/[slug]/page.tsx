@@ -45,8 +45,13 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
   const role = getAriaRole(params.slug);
   const entry = attr ?? role;
   if (!entry) return { title: "ARIA reference" };
+  // Roles read as "ARIA Button Role …" (capitalised); attributes keep their
+  // verbatim aria-* token, e.g. "ARIA aria-label attribute …".
+  const title = attr
+    ? `ARIA ${entry.name} attribute – Accessibility & WCAG`
+    : `ARIA ${entry.name.charAt(0).toUpperCase()}${entry.name.slice(1)} Role – Accessibility & WCAG`;
   return pageMetadata({
-    title: `${entry.name} — ARIA ${attr ? "attribute" : "role"}`,
+    title,
     description: entry.description,
     path: `/aria/${params.slug}`,
   });
