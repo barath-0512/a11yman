@@ -70,7 +70,7 @@ export default function HowToTestPage() {
   return (
     <div className="flex min-h-dvh flex-col">
       <SiteHeader />
-      <main id="main" className="container flex-1 pb-16 pt-10">
+      <main id="main" tabIndex={-1} className="container flex-1 pb-16 pt-10">
         <div className="mx-auto max-w-6xl space-y-14">
           {/* Intro + "test with purpose" callout */}
           <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-start">

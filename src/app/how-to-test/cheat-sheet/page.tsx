@@ -18,7 +18,7 @@ export default function CheatSheetPage() {
   return (
     <div className="flex min-h-dvh flex-col">
       <SiteHeader />
-      <main id="main" className="container flex-1 pb-16 pt-10">
+      <main id="main" tabIndex={-1} className="container flex-1 pb-16 pt-10">
         <div className="mx-auto max-w-5xl space-y-8">
           <Link
             href="/how-to-test"

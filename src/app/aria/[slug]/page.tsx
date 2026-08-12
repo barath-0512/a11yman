@@ -257,11 +257,13 @@ export default function AriaDetailPage({ params }: { params: Params }) {
     <div className="flex min-h-dvh flex-col">
       <SiteHeader />
 
-      <main id="main" className="container flex-1 pb-16 pt-10">
+      <div className="container flex-1 pb-16 pt-10">
         <div className="mx-auto max-w-6xl lg:grid lg:grid-cols-[15rem_1fr] lg:gap-10">
           <SidebarNav kind={kind} activeName={entry.name} />
 
-          <article className="min-w-0">
+          {/* The skip link targets this. It wraps only the primary content
+              (starting with the h1), never the roles/attributes sidebar. */}
+          <main id="main" tabIndex={-1} className="min-w-0">
             {/* mobile back link */}
             <Link
               href={`/aria${isAttr ? "#aria-attributes" : "#aria-roles"}`}
@@ -472,9 +474,9 @@ export default function AriaDetailPage({ params }: { params: Params }) {
                 </ul>
               </Section>
             </div>
-          </article>
+          </main>
         </div>
-      </main>
+      </div>
 
       <SiteFooter />
     </div>

@@ -23,6 +23,7 @@ export default function ContrastAnalyserPage() {
       <SiteHeader />
       <main
         id="main"
+        tabIndex={-1}
         className="container flex min-h-[calc(100dvh-3rem)] flex-col justify-center pb-8 pt-4"
       >
         <div className="mx-auto w-full max-w-5xl space-y-3">
