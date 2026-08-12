@@ -3,7 +3,7 @@ import { ComponentDetailShell } from "@/components/reference/component-detail-sh
 import { BreadcrumbPageClient } from "./breadcrumb-page-client";
 
 export const metadata = pageMetadata({
-  title: "Accessible Breadcrumb",
+  title: "Accessible Breadcrumb Example – HTML, ARIA & WCAG",
   description:
     "Learn how to build an accessible Breadcrumb with semantic HTML, keyboard support, focus states, accessible names, ARIA, and WCAG requirements.",
   path: "/components/breadcrumb",

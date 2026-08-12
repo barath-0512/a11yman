@@ -3,7 +3,7 @@ import { ComponentDetailShell } from "@/components/reference/component-detail-sh
 import { PaginationPageClient } from "./pagination-page-client";
 
 export const metadata = pageMetadata({
-  title: "Accessible Pagination",
+  title: "Accessible Pagination Example – HTML, ARIA & WCAG",
   description:
     "Learn how to build an accessible Pagination with semantic HTML, keyboard support, focus states, accessible names, ARIA, and WCAG requirements.",
   path: "/components/pagination",

@@ -3,7 +3,7 @@ import { ComponentDetailShell } from "@/components/reference/component-detail-sh
 import { NavigationPageClient } from "./navigation-page-client";
 
 export const metadata = pageMetadata({
-  title: "Accessible Navigation",
+  title: "Accessible Navigation Example – HTML, ARIA & WCAG",
   description:
     "Learn how to build an accessible Navigation with semantic HTML, keyboard support, focus states, accessible names, ARIA, and WCAG requirements.",
   path: "/components/navigation",

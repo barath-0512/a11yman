@@ -3,7 +3,7 @@ import { ComponentDetailShell } from "@/components/reference/component-detail-sh
 import { ListboxPageClient } from "./listbox-page-client";
 
 export const metadata = pageMetadata({
-  title: "Accessible Listbox",
+  title: "Accessible Listbox Example – HTML, ARIA & WCAG",
   description:
     "Learn how to build an accessible Listbox with semantic HTML, keyboard support, focus states, accessible names, ARIA, and WCAG requirements.",
   path: "/components/listbox",

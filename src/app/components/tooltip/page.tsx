@@ -3,7 +3,7 @@ import { ComponentDetailShell } from "@/components/reference/component-detail-sh
 import { TooltipPageClient } from "./tooltip-page-client";
 
 export const metadata = pageMetadata({
-  title: "Accessible Tooltip",
+  title: "Accessible Tooltip Example – HTML, ARIA & WCAG",
   description:
     "Learn how to build an accessible Tooltip with semantic HTML, keyboard support, focus states, accessible names, ARIA, and WCAG requirements.",
   path: "/components/tooltip",

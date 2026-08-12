@@ -3,7 +3,7 @@ import { ComponentDetailShell } from "@/components/reference/component-detail-sh
 import { TablePageClient } from "./table-page-client";
 
 export const metadata = pageMetadata({
-  title: "Accessible Table",
+  title: "Accessible Table Example – HTML, ARIA & WCAG",
   description:
     "Learn how to build an accessible Table with semantic HTML, keyboard support, focus states, accessible names, ARIA, and WCAG requirements.",
   path: "/components/table",
