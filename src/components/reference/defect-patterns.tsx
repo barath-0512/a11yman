@@ -1,4 +1,5 @@
 import { Badge } from "@/components/ui/badge";
+import { linkifyAria } from "./linkify-aria";
 
 export interface DefectItem {
   defect: string;
@@ -25,13 +26,13 @@ export function DefectPatterns({ items }: { items: DefectItem[] }) {
             <Badge tone={SEVERITY_TONE[item.severity]}>
               {item.severity}
             </Badge>
-            <span className="font-medium">{item.defect}</span>
+            <span className="font-medium">{linkifyAria(item.defect)}</span>
           </div>
           <p className="text-sm text-muted-foreground">
             <span className="font-medium text-foreground">
               Sample defect text:{" "}
             </span>
-            {item.description}
+            {linkifyAria(item.description)}
           </p>
         </li>
       ))}

@@ -1,3 +1,5 @@
+import { linkifyAria } from "./linkify-aria";
+
 export interface AriaRow {
   target: string;
   attribute: string;
@@ -28,12 +30,14 @@ export function AriaTable({ rows }: { rows: AriaRow[] }) {
           {rows.map((r, i) => (
             <tr key={i} className="border-t border-border align-top">
               <td className="whitespace-nowrap px-4 py-3 font-mono text-xs">
-                {r.target}
+                {linkifyAria(r.target)}
               </td>
-              <td className="whitespace-nowrap px-4 py-3 font-mono text-xs text-accent">
-                {r.attribute}
+              <td className="whitespace-nowrap px-4 py-3 font-mono text-xs">
+                {linkifyAria(r.attribute)}
               </td>
-              <td className="px-4 py-3 text-muted-foreground">{r.why}</td>
+              <td className="px-4 py-3 text-muted-foreground">
+                {linkifyAria(r.why)}
+              </td>
             </tr>
           ))}
         </tbody>
