@@ -3,9 +3,9 @@ import { ComponentDetailShell } from "@/components/reference/component-detail-sh
 import { TooltipPageClient } from "./tooltip-page-client";
 
 export const metadata = pageMetadata({
-  title: "Tooltip",
+  title: "Accessible Tooltip",
   description:
-    "WCAG 2.2 AA reference for the Tooltip pattern: role=\"tooltip\", aria-describedby, hover-and-focus triggering, SC 1.4.13 dismissible/hoverable/persistent requirements, and test cases.",
+    "Learn how to build an accessible Tooltip with semantic HTML, keyboard support, focus states, accessible names, ARIA, and WCAG requirements.",
   path: "/components/tooltip",
 });
 

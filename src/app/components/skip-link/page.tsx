@@ -3,9 +3,9 @@ import { ComponentDetailShell } from "@/components/reference/component-detail-sh
 import { SkipLinkPageClient } from "./skip-link-page-client";
 
 export const metadata = pageMetadata({
-  title: "Skip Link",
+  title: "Accessible Skip Link",
   description:
-    "WCAG 2.2 AA reference for the Skip Link (skip to main content) pattern: implementation, keyboard model, screen reader announcements, WCAG 2.4.1 Bypass Blocks, and test cases.",
+    "Learn how to build an accessible Skip Link with semantic HTML, keyboard support, focus states, accessible names, ARIA, and WCAG requirements.",
   path: "/components/skip-link",
 });
 

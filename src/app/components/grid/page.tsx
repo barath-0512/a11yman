@@ -3,9 +3,9 @@ import { ComponentDetailShell } from "@/components/reference/component-detail-sh
 import { GridPageClient } from "./grid-page-client";
 
 export const metadata = pageMetadata({
-  title: "Grid (interactive data grid)",
+  title: "Accessible Grid (interactive data grid)",
   description:
-    "WCAG 2.2 AA reference for the ARIA grid pattern: role=\"grid\" with two-dimensional arrow-key cell navigation, roving tabindex, the keyboard model (arrows, Home/End, Ctrl+Home/End), screen reader announcements, defect patterns, and test cases — and when to use it instead of a plain Table.",
+    "Learn how to build an accessible Grid (interactive data grid) with semantic HTML, keyboard support, focus states, accessible names, ARIA, and WCAG requirements.",
   path: "/components/grid",
 });
 

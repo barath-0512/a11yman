@@ -3,9 +3,9 @@ import { ComponentDetailShell } from "@/components/reference/component-detail-sh
 import { ListboxPageClient } from "./listbox-page-client";
 
 export const metadata = pageMetadata({
-  title: "Listbox",
+  title: "Accessible Listbox",
   description:
-    "WCAG 2.2 AA reference for the Listbox pattern (single & multi-select): native select, hand-coded ARIA, keyboard model, screen reader announcements, and test cases.",
+    "Learn how to build an accessible Listbox with semantic HTML, keyboard support, focus states, accessible names, ARIA, and WCAG requirements.",
   path: "/components/listbox",
 });
 

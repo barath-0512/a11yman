@@ -3,9 +3,9 @@ import { ComponentDetailShell } from "@/components/reference/component-detail-sh
 import { LinkVsButtonPageClient } from "./link-vs-button-page-client";
 
 export const metadata = pageMetadata({
-  title: "Link vs. Button",
+  title: "Accessible Link vs. Button",
   description:
-    "WCAG 2.2 AA reference for choosing between a hyperlink and a button: the most common real-world accessibility defect pattern.",
+    "Learn how to build an accessible Link vs. Button with semantic HTML, keyboard support, focus states, accessible names, ARIA, and WCAG requirements.",
   path: "/components/link-vs-button",
 });
 

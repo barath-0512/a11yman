@@ -3,9 +3,9 @@ import { ComponentDetailShell } from "@/components/reference/component-detail-sh
 import { SwitchPageClient } from "./switch-page-client";
 
 export const metadata = pageMetadata({
-  title: "Switch",
+  title: "Accessible Switch",
   description:
-    "WCAG 2.2 AA reference for the Switch pattern: role=\"switch\" hand-coded ARIA, native checkbox caveats, keyboard model, screen reader announcements, and test cases.",
+    "Learn how to build an accessible Switch with semantic HTML, keyboard support, focus states, accessible names, ARIA, and WCAG requirements.",
   path: "/components/switch",
 });
 

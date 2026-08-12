@@ -23,8 +23,8 @@ export function generateMetadata({
   const meta = getComponent(params.slug);
   if (!meta) return {};
   return pageMetadata({
-    title: meta.name,
-    description: meta.definition,
+    title: `Accessible ${meta.name}`,
+    description: `Learn how to build an accessible ${meta.name} with semantic HTML, keyboard support, focus states, accessible names, ARIA, and WCAG requirements.`,
     path: `/components/${params.slug}`,
   });
 }
@@ -46,7 +46,7 @@ export default function ComponentStubPage({
               <Badge tone="warning">Coming soon</Badge>
             </div>
             <h1 className="text-4xl font-semibold tracking-tight">
-              {meta.name}
+              Accessible {meta.name}
             </h1>
             <p className="max-w-2xl text-lg text-muted-foreground">
               {meta.definition}

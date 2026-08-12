@@ -3,9 +3,9 @@ import { ComponentDetailShell } from "@/components/reference/component-detail-sh
 import { CheckboxPageClient } from "./checkbox-page-client";
 
 export const metadata = pageMetadata({
-  title: "Checkbox",
+  title: "Accessible Checkbox",
   description:
-    "WCAG 2.2 AA reference for the Checkbox pattern (including tri-state/mixed): native input, hand-coded ARIA, keyboard model, screen reader announcements, and test cases.",
+    "Learn how to build an accessible Checkbox with semantic HTML, keyboard support, focus states, accessible names, ARIA, and WCAG requirements.",
   path: "/components/checkbox",
 });
 

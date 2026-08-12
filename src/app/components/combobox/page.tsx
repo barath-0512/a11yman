@@ -3,9 +3,9 @@ import { ComponentDetailShell } from "@/components/reference/component-detail-sh
 import { ComboboxPageClient } from "./combobox-page-client";
 
 export const metadata = pageMetadata({
-  title: "Combobox",
+  title: "Accessible Combobox",
   description:
-    "WCAG 2.2 AA reference for the Combobox (list autocomplete) pattern: native datalist, hand-coded ARIA, keyboard model, screen reader announcements, and test cases.",
+    "Learn how to build an accessible Combobox with semantic HTML, keyboard support, focus states, accessible names, ARIA, and WCAG requirements.",
   path: "/components/combobox",
 });
 

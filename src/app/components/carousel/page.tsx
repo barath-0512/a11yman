@@ -3,9 +3,9 @@ import { ComponentDetailShell } from "@/components/reference/component-detail-sh
 import { CarouselPageClient } from "./carousel-page-client";
 
 export const metadata = pageMetadata({
-  title: "Carousel",
+  title: "Accessible Carousel",
   description:
-    "WCAG 2.2 AA reference for the Carousel pattern: no native equivalent, hand-coded ARIA with a pausable autoplay, keyboard model, screen reader announcements, and test cases.",
+    "Learn how to build an accessible Carousel with semantic HTML, keyboard support, focus states, accessible names, ARIA, and WCAG requirements.",
   path: "/components/carousel",
 });
 

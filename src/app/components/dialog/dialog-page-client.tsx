@@ -203,7 +203,7 @@ export function DialogPageClient() {
           <Badge tone="neutral">Flagship guide</Badge>
         </div>
         <h1 className="text-4xl font-semibold tracking-tight">
-          {meta.name}
+          Accessible {meta.name}
         </h1>
         <p className="max-w-2xl text-lg text-muted-foreground">
           {meta.definition}

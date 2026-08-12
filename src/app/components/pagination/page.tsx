@@ -3,9 +3,9 @@ import { ComponentDetailShell } from "@/components/reference/component-detail-sh
 import { PaginationPageClient } from "./pagination-page-client";
 
 export const metadata = pageMetadata({
-  title: "Pagination",
+  title: "Accessible Pagination",
   description:
-    "WCAG 2.2 AA reference for the Pagination pattern: server-rendered links vs. JS-driven controls, hand-coded ARIA, keyboard model, screen reader announcements, and test cases.",
+    "Learn how to build an accessible Pagination with semantic HTML, keyboard support, focus states, accessible names, ARIA, and WCAG requirements.",
   path: "/components/pagination",
 });
 

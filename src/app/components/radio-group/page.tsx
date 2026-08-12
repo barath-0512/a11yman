@@ -3,9 +3,9 @@ import { ComponentDetailShell } from "@/components/reference/component-detail-sh
 import { RadioGroupPageClient } from "./radio-group-page-client";
 
 export const metadata = pageMetadata({
-  title: "Radio Group",
+  title: "Accessible Radio Group",
   description:
-    "WCAG 2.2 AA reference for the Radio Group pattern: native input, hand-coded ARIA, keyboard model, screen reader announcements, and test cases.",
+    "Learn how to build an accessible Radio Group with semantic HTML, keyboard support, focus states, accessible names, ARIA, and WCAG requirements.",
   path: "/components/radio-group",
 });
 

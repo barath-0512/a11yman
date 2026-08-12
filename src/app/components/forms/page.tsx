@@ -3,9 +3,9 @@ import { ComponentDetailShell } from "@/components/reference/component-detail-sh
 import { FormsPageClient } from "./forms-page-client";
 
 export const metadata = pageMetadata({
-  title: "Form patterns",
+  title: "Accessible Form patterns",
   description:
-    "WCAG 2.2 AA reference for form patterns: labels, required-field indication, inline errors, a focus-managed error summary, and autocomplete attributes.",
+    "Learn how to build an accessible Form patterns with semantic HTML, keyboard support, focus states, accessible names, ARIA, and WCAG requirements.",
   path: "/components/forms",
 });
 
