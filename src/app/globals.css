@@ -97,6 +97,15 @@
     outline-offset: 2px;
     border-radius: 2px;
   }
+
+  /* The "Skip to content" target (<main id="main" tabindex="-1">) is a
+     non-interactive landing region, not a control — so it should not paint a
+     large focus ring around the whole content when the skip link moves focus
+     into it. The visible cue is the page heading it scrolls to. */
+  #main:focus,
+  #main:focus-visible {
+    outline: none;
+  }
 }
 
 @layer utilities {

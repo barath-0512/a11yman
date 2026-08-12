@@ -17,12 +17,17 @@ export function ComponentDetailShell({
   return (
     <div className="flex min-h-dvh flex-col">
       <SiteHeader />
-      <main id="main" className="container flex-1 pb-16 pt-10">
+      <div className="container flex-1 pb-16 pt-10">
         <div className="mx-auto max-w-6xl lg:grid lg:grid-cols-[15rem_1fr] lg:gap-10">
           <ComponentSidebar activeSlug={slug} />
-          <div className="min-w-0">{children}</div>
+          {/* The skip link targets this. It wraps only the primary content
+              (which starts with the page h1), never the component-list
+              sidebar — so "Skip to content" lands on the heading. */}
+          <main id="main" tabIndex={-1} className="min-w-0">
+            {children}
+          </main>
         </div>
-      </main>
+      </div>
       <SiteFooter />
     </div>
   );

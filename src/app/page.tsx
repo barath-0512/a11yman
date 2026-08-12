@@ -58,7 +58,7 @@ export default function HomePage() {
   return (
     <div className="flex min-h-dvh flex-col">
       <SiteHeader />
-      <main id="main" className="flex-1">
+      <main id="main" tabIndex={-1} className="flex-1">
         {/* ── Hero ── */}
         <section className="border-b border-border/60 bg-gradient-to-b from-accent/[0.06] to-transparent">
           <div className="container grid items-center gap-12 py-12 lg:grid-cols-2 lg:py-20">

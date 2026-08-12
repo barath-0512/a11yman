@@ -63,7 +63,7 @@ export default function AboutPage() {
     <div className="flex min-h-dvh flex-col">
       <SiteHeader />
 
-      <main id="main" className="container flex-1 pb-16 pt-10">
+      <main id="main" tabIndex={-1} className="container flex-1 pb-16 pt-10">
         <div className="mx-auto max-w-3xl space-y-12">
           {/* Why this site exists */}
           <section aria-labelledby="why" className="space-y-5">

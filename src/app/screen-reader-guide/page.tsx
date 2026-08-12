@@ -63,7 +63,7 @@ export default function ScreenReaderGuidePage() {
   return (
     <div className="flex min-h-dvh flex-col">
       <SiteHeader />
-      <main id="main" className="container flex-1 pb-16 pt-10">
+      <main id="main" tabIndex={-1} className="container flex-1 pb-16 pt-10">
         <div className="mx-auto max-w-3xl space-y-10">
           <header className="space-y-3">
             <h1 className="text-4xl font-semibold tracking-tight">

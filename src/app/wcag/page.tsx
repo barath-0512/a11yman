@@ -17,7 +17,7 @@ export default function WcagIndexPage() {
   return (
     <div className="flex min-h-dvh flex-col">
       <SiteHeader />
-      <main id="main" className="container flex-1 pb-16 pt-10">
+      <main id="main" tabIndex={-1} className="container flex-1 pb-16 pt-10">
         <div className="mx-auto max-w-4xl space-y-8">
           <header className="space-y-2">
             <h1 className="text-4xl font-semibold tracking-tight">

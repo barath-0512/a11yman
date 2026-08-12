@@ -34,10 +34,12 @@ export default function TestingGuidePage({ params }: { params: Params }) {
   return (
     <div className="flex min-h-dvh flex-col">
       <SiteHeader />
-      <main id="main" className="container flex-1 pb-16 pt-10">
+      <div className="container flex-1 pb-16 pt-10">
         <div className="mx-auto max-w-6xl lg:grid lg:grid-cols-[15rem_1fr] lg:gap-10">
           <TestingGuideSidebar activeSlug={guide.slug} />
-          <div className="min-w-0 space-y-10">
+          {/* The skip link targets this. It wraps only the primary content
+              (starting with the h1), never the testing-guides sidebar. */}
+          <main id="main" tabIndex={-1} className="min-w-0 space-y-10">
             {/* Mobile back link — the sidebar provides this on desktop */}
             <Link
               href="/how-to-test"
@@ -167,9 +169,9 @@ export default function TestingGuidePage({ params }: { params: Params }) {
             </ul>
           </PageSection>
 
-          </div>
+          </main>
         </div>
-      </main>
+      </div>
       <SiteFooter />
     </div>
   );
