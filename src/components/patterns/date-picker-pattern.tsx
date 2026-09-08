@@ -92,8 +92,12 @@ export function DatePickerPattern() {
       }
       if (e.key !== "Tab") return;
 
+      // Only elements actually in the Tab order. The calendar grid uses a
+      // roving tabindex, so all day cells except the focused one are
+      // tabindex="-1" — they must be excluded here, otherwise `last` is the
+      // (untabbable) bottom-right cell and Tab escapes the dialog.
       const focusables = dialogRef.current?.querySelectorAll<HTMLElement>(
-        'button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        'button:not([disabled]):not([tabindex="-1"]), [tabindex]:not([tabindex="-1"])'
       );
       if (!focusables || focusables.length === 0) return;
       const first = focusables[0];
