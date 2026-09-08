@@ -104,7 +104,11 @@ export default function HomePage() {
 
         {/* ── Color contrast checker banner (directly below the hero) ── */}
         <section aria-labelledby="contrast-banner" className="container pb-16 pt-10">
-          <div className="flex flex-col gap-4 rounded-2xl border border-border bg-gradient-to-br from-accent/[0.1] via-accent/[0.04] to-transparent p-5 shadow-soft sm:flex-row sm:items-center sm:justify-between sm:p-6">
+          {/* The whole card is clickable via a stretched link (the "Open"
+              link's ::after overlays the card). It stays a single link /
+              tab stop; the card shows the focus ring when the link is
+              keyboard-focused. */}
+          <div className="relative flex flex-col gap-4 rounded-2xl border border-border bg-gradient-to-br from-accent/[0.1] via-accent/[0.04] to-transparent p-5 shadow-soft transition-shadow hover:shadow-soft-lg has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-ring sm:flex-row sm:items-center sm:justify-between sm:p-6">
             <div className="flex items-center gap-3">
               <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-accent/15 text-accent-text">
                 <Pipette className="h-5 w-5" aria-hidden="true" />
@@ -124,7 +128,8 @@ export default function HomePage() {
             </div>
             <Link
               href="/contrast-checker"
-              className="inline-flex h-10 shrink-0 items-center justify-center gap-2 rounded-full bg-accent px-5 text-sm font-medium text-accent-foreground transition-colors hover:bg-accent/90"
+              aria-label="Open the smart contrast checker"
+              className="inline-flex h-10 shrink-0 items-center justify-center gap-2 rounded-full bg-accent px-5 text-sm font-medium text-accent-foreground transition-colors after:absolute after:inset-0 hover:bg-accent/90 focus-visible:outline-none"
             >
               <Contrast className="h-4 w-4" aria-hidden="true" />
               Open
