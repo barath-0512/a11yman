@@ -90,9 +90,6 @@ export default function HomePage() {
                   <ArrowRight className="h-4 w-4" aria-hidden="true" />
                 </Link>
               </div>
-              <p className="text-sm text-muted-foreground">
-                Trusted by developers and testers building for everyone.
-              </p>
             </div>
 
             {/* Decorative hero illustration */}
