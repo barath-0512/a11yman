@@ -1,5 +1,5 @@
 /**
- * a11yman brand mark — a rounded tile with a bold "A." monogram. It sits beside
+ * a11yman brand mark, a rounded tile with a bold "A." monogram. It sits beside
  * the "a11yman" wordmark, which supplies the name, so it is decorative.
  *
  * Theme-aware by design: the tile is painted with the foreground token and the
@@ -33,7 +33,7 @@ export function AppLogo({ className }: { className?: string }) {
         fill="hsl(var(--background))"
         d="M0 100 34.4 0H66.2L100.7 100H73.8L60.2 56.1Q57.0 45.0 53.7 33.8Q50.5 22.6 47.1 9.5H53.7Q50.2 22.6 46.9 33.8Q43.6 45.0 40.2 56.1L26.2 100ZM23.6 80.8V61.9H77.2V80.8Z"
       />
-      {/* Accent dot — the "." after the A */}
+      {/* Accent dot, the "." after the A */}
       <circle cx="89" cy="80.5" r="7.5" fill="hsl(var(--accent))" />
     </svg>
   );

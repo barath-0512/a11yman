@@ -75,7 +75,7 @@ grid.addEventListener("keydown", (e) => {
 });
 
 // Opening/closing, the focus trap, Escape, and restoring focus to the
-// trigger reuse the same logic as the Dialog pattern — this popup IS a
+// trigger reuse the same logic as the Dialog pattern, this popup IS a
 // specialized dialog.`;
 
 const ARIA_ROWS = [
@@ -86,7 +86,7 @@ const ARIA_ROWS = [
   { target: "Each date", attribute: 'role="gridcell"', why: "Marks each date as a selectable grid cell rather than generic content." },
   { target: "Selected date", attribute: "aria-selected=\"true\"", why: "Communicates the currently selected date's state programmatically, not just via a visual highlight." },
   { target: "Today's / selected date", attribute: 'aria-label="Today, July 2, 2026" / "Selected, ..."', why: "Adds meaning that would otherwise be conveyed only by a visual ring or dot, so it reaches screen reader users too." },
-  { target: "Focused date cell only", attribute: "tabIndex={0} (all others tabIndex={-1})", why: "Roving tabindex: keeps a single Tab stop for the whole grid — the same approach used by Menu and Tabs on this site — while arrow keys move the active cell." },
+  { target: "Focused date cell only", attribute: "tabIndex={0} (all others tabIndex={-1})", why: "Roving tabindex: keeps a single Tab stop for the whole grid, the same approach used by Menu and Tabs on this site, while arrow keys move the active cell." },
 ];
 
 const KEYBOARD_ROWS = [
@@ -102,7 +102,7 @@ const KEYBOARD_ROWS = [
   { keys: "Shift+Page Down", behavior: "Moves focus to the same day in the next year." },
   { keys: "Enter / Space", behavior: "Selects the focused date, closes the dialog, and returns focus to the trigger input." },
   { keys: "Escape", behavior: "Closes the dialog without changing the selection and returns focus to the trigger." },
-  { keys: "Tab / Shift+Tab", behavior: "Cycles only within the dialog's focusable elements (month nav buttons, the focused date cell) — trapped exactly as in the Dialog pattern." },
+  { keys: "Tab / Shift+Tab", behavior: "Cycles only within the dialog's focusable elements (month nav buttons, the focused date cell), trapped exactly as in the Dialog pattern." },
 ];
 
 const SR_ROWS = [
@@ -114,18 +114,18 @@ const SR_ROWS = [
 ];
 
 const DEFECTS = [
-  { defect: "Calendar built from <div onClick> cells with no grid/row/gridcell roles", severity: "Critical" as const, description: "The calendar reads as unstructured content to a screen reader — no indication it's a calendar, and no row/column relationship between dates. Fails SC 1.3.1 and 4.1.2." },
-  { defect: "No keyboard support at all — mouse-only date selection", severity: "Critical" as const, description: "Dates can only be selected by clicking; there is no way to Tab to a date or move between dates with arrow keys, making the picker entirely unusable without a mouse. Fails SC 2.1.1." },
-  { defect: "Popup has no focus trap", severity: "Critical" as const, description: "With the popup open, Tab walks straight through to page content behind it — the same defect category as the broken Dialog pattern. Fails SC 2.1.2 and 4.1.2." },
+  { defect: "Calendar built from <div onClick> cells with no grid/row/gridcell roles", severity: "Critical" as const, description: "The calendar reads as unstructured content to a screen reader, no indication it's a calendar, and no row/column relationship between dates. Fails SC 1.3.1 and 4.1.2." },
+  { defect: "No keyboard support at all, mouse-only date selection", severity: "Critical" as const, description: "Dates can only be selected by clicking; there is no way to Tab to a date or move between dates with arrow keys, making the picker entirely unusable without a mouse. Fails SC 2.1.1." },
+  { defect: "Popup has no focus trap", severity: "Critical" as const, description: "With the popup open, Tab walks straight through to page content behind it, the same defect category as the broken Dialog pattern. Fails SC 2.1.2 and 4.1.2." },
   { defect: "No Escape handling", severity: "Medium" as const, description: "There is no keyboard-accessible way to dismiss the popup other than an unlabeled click target. Fails SC 2.1.1." },
 ];
 
 const TEST_STEPS = [
   { action: "Tab to the calendar icon button and press Enter or Space.", expected: "The date picker dialog opens; focus moves to a date cell inside the grid (the selected date, or today if nothing is selected yet)." },
-  { action: "Press Right/Left/Up/Down Arrow repeatedly.", expected: "Focus moves by one day / one week in the corresponding direction, staying only on the single roving-tabindex date cell — no other cell is a separate Tab stop." },
+  { action: "Press Right/Left/Up/Down Arrow repeatedly.", expected: "Focus moves by one day / one week in the corresponding direction, staying only on the single roving-tabindex date cell, no other cell is a separate Tab stop." },
   { action: "Press Home, then End.", expected: "Focus jumps to the first day of the current week, then the last day of the current week." },
   { action: "Press Page Down, then Shift+Page Down.", expected: "Focus moves to the same day next month, then the same day next year." },
-  { action: "Press Tab while the dialog is open.", expected: "Focus cycles only among the dialog's own focusable elements (month navigation buttons, the current date cell) — it never reaches page content behind the dialog." },
+  { action: "Press Tab while the dialog is open.", expected: "Focus cycles only among the dialog's own focusable elements (month navigation buttons, the current date cell), it never reaches page content behind the dialog." },
   { action: "Press Enter on a date.", expected: "That date is selected, the dialog closes, the text input updates to show it, and focus returns to the calendar icon button (the trigger)." },
   { action: "Reopen the dialog and press Escape.", expected: "The dialog closes without changing the current selection, and focus returns to the trigger." },
 ];
@@ -133,7 +133,7 @@ const TEST_STEPS = [
 const CHECKLIST = [
   "Calendar icon button opens the dialog via keyboard (Enter/Space) as well as mouse.",
   "Dialog has role=\"dialog\", aria-modal=\"true\", and an accessible name that includes the displayed month/year.",
-  "Calendar grid uses role=\"grid\"/\"row\"/\"gridcell\" — not unstructured divs.",
+  "Calendar grid uses role=\"grid\"/\"row\"/\"gridcell\", not unstructured divs.",
   "Only one date cell (the currently focused one) has tabIndex={0}; all others have tabIndex={-1}.",
   "Arrow keys move focus by day/week; Home/End move within the week; PageUp/PageDown (with Shift) move by month/year.",
   "Enter or Space selects the focused date, closes the dialog, and updates the associated text input.",
@@ -201,9 +201,9 @@ export function DatePickerPageClient() {
           </PageSection>
           <PageSection id="focus" title="Focus management rules">
             <ul className="list-disc space-y-2 pl-5 text-sm text-muted-foreground">
-              <li>On open: focus moves to the selected date's cell, or today's cell if nothing is selected yet — the same "move focus into the dialog" requirement as the Dialog pattern.</li>
+              <li>On open: focus moves to the selected date's cell, or today's cell if nothing is selected yet, the same "move focus into the dialog" requirement as the Dialog pattern.</li>
               <li>While open: Tab/Shift+Tab cycle only within the dialog's focusable elements (reused focus-trap logic from the Dialog pattern).</li>
-              <li>Arrow keys, Home/End, and PageUp/PageDown move a roving tabindex within the grid — only one cell is ever a Tab stop at a time.</li>
+              <li>Arrow keys, Home/End, and PageUp/PageDown move a roving tabindex within the grid, only one cell is ever a Tab stop at a time.</li>
               <li>On close (Enter/Space select, Escape, or scrim click): focus returns to the trigger button, exactly as the Dialog pattern restores focus to its trigger.</li>
             </ul>
           </PageSection>

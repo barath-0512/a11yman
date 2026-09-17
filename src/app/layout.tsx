@@ -95,7 +95,7 @@ export default function RootLayout({
             <ToastProvider>
               {/* Wrapper the Onboarding overlay can mark `inert` while the
                   welcome dialog is open, so the whole page behind it is
-                  removed from the tab order and the accessibility tree —
+                  removed from the tab order and the accessibility tree,
                   the robust, native way to contain focus in a modal. */}
               <div id="app-shell">
                 <a

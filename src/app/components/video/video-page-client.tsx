@@ -34,7 +34,7 @@ const HTML_CODE = `<figure>
   <figcaption>Sample clip. Captions on by default.</figcaption>
 </figure>
 
-<!-- Text transcript — also the media alternative when there is no narration -->
+<!-- Text transcript, also the media alternative when there is no narration -->
 <button id="transcript-toggle" aria-expanded="false" aria-controls="transcript">
   Show transcript
 </button>
@@ -55,9 +55,9 @@ toggle.addEventListener("click", () => {
 const ARIA_ROWS = [
   { target: "<video>", attribute: "controls", why: "Exposes the browser's built-in player, whose controls are keyboard-operable and screen-reader-labelled. Prefer these native controls over hand-built ones unless you can fully re-create their accessibility." },
   { target: "<video>", attribute: "aria-label (or a <figure> + <figcaption>)", why: "Gives the player an accessible name that describes the content, so it isn't announced as a bare, unlabelled “video”." },
-  { target: "<track>", attribute: 'kind="captions" srclang label default', why: "Adds a synchronized WebVTT caption track. `default` turns it on initially, `label` names it in the CC menu, and captions must include speaker changes and meaningful non-speech sounds — not just dialogue." },
+  { target: "<track>", attribute: 'kind="captions" srclang label default', why: "Adds a synchronized WebVTT caption track. `default` turns it on initially, `label` names it in the CC menu, and captions must include speaker changes and meaningful non-speech sounds, not just dialogue." },
   { target: "<track>", attribute: 'kind="descriptions" · kind="subtitles"', why: "Optional extra tracks: `descriptions` for audio-description text, `subtitles` for translations. Captions (same language, incl. sounds) are not the same as subtitles (translated dialogue only)." },
-  { target: "Transcript control", attribute: "Real <button> with aria-expanded + aria-controls", why: "A hand-coded disclosure that reveals the full text transcript — the alternative for people who can't use captions or audio at all (and the media alternative under SC 1.2.3)." },
+  { target: "Transcript control", attribute: "Real <button> with aria-expanded + aria-controls", why: "A hand-coded disclosure that reveals the full text transcript, the alternative for people who can't use captions or audio at all (and the media alternative under SC 1.2.3)." },
   { target: "<video>", attribute: "no autoplay (or muted + a pause control)", why: "Audio must not start automatically for more than 3 seconds without a way to stop it (SC 1.4.2). Prefer user-initiated playback." },
 ];
 
@@ -66,7 +66,7 @@ const KEYBOARD_ROWS = [
   { keys: "Space / Enter", behavior: "On the player or play button, toggles play/pause; on the captions/fullscreen buttons, activates them." },
   { keys: "Left / Right Arrow", behavior: "With the timeline (or player) focused, seeks backward/forward by a few seconds." },
   { keys: "Up / Down Arrow", behavior: "With the player/volume focused, raises or lowers the volume." },
-  { keys: "M · F · C", behavior: "In most browsers, shortcuts for mute, fullscreen, and captions on the focused player. Exact keys vary by browser — the requirement is only that everything is keyboard-operable." },
+  { keys: "M · F · C", behavior: "In most browsers, shortcuts for mute, fullscreen, and captions on the focused player. Exact keys vary by browser, the requirement is only that everything is keyboard-operable." },
 ];
 
 const SR_ROWS = [
@@ -81,7 +81,7 @@ const DEFECTS = [
   { defect: "Auto-generated captions, never reviewed", severity: "High" as const, description: "“Craptions” with wrong words, no punctuation, and no speaker labels. Inaccurate or incomplete captions don't satisfy SC 1.2.2." },
   { defect: "No transcript or media alternative", severity: "High" as const, description: "No text alternative for the media, excluding screen-reader-only and deafblind users and anyone who can't play media. Fails SC 1.2.3 (and 1.2.1 for audio-only)." },
   { defect: "Autoplays audio with no way to stop it", severity: "Critical" as const, description: "Sound starts automatically and can't be paused or muted, covering screen-reader speech. Fails SC 1.4.2." },
-  { defect: "Custom controls that aren't keyboard-operable", severity: "Critical" as const, description: "Hand-built play/scrub controls made from <div>s with no keyboard support or accessible names. Fails SC 2.1.1 and 4.1.2 — prefer native <video controls>." },
+  { defect: "Custom controls that aren't keyboard-operable", severity: "Critical" as const, description: "Hand-built play/scrub controls made from <div>s with no keyboard support or accessible names. Fails SC 2.1.1 and 4.1.2, prefer native <video controls>." },
   { defect: "Subtitles used in place of captions", severity: "Medium" as const, description: "Only translated subtitles (dialogue) are supplied, omitting the non-speech sounds and speaker IDs that captions must include." },
 ];
 
@@ -90,7 +90,7 @@ const TEST_STEPS = [
   { action: "Turn captions on (CC menu) and play.", expected: "Synchronized captions appear and include non-speech sounds like “[music]”, not just dialogue." },
   { action: "Reload the page and watch on load.", expected: "The video does not autoplay audio; if anything autoplays it is muted or has an immediate pause/stop control." },
   { action: "Activate “Show transcript”.", expected: "A full text transcript is revealed; the toggle's aria-expanded flips to true and the transcript region is announced." },
-  { action: "With a screen reader, focus the player.", expected: "It is announced with a meaningful accessible name plus the video role — not a bare “video”." },
+  { action: "With a screen reader, focus the player.", expected: "It is announced with a meaningful accessible name plus the video role, not a bare “video”." },
   { action: "Judge whether audio description is needed.", expected: "If important visuals aren't conveyed by the audio, an audio-described version or an equivalent text description exists (SC 1.2.3 / 1.2.5)." },
 ];
 
@@ -107,10 +107,10 @@ const CHECKLIST = [
 ];
 
 const REFERENCES = [
-  { label: "W3C WAI — Making Audio and Video Media Accessible", href: meta.apgUrl },
-  { label: "MDN — <video> element", href: "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video" },
-  { label: "MDN — <track> element", href: "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/track" },
-  { label: "MDN — WebVTT (caption format)", href: "https://developer.mozilla.org/en-US/docs/Web/API/WebVTT_API" },
+  { label: "W3C WAI, Making Audio and Video Media Accessible", href: meta.apgUrl },
+  { label: "MDN, <video> element", href: "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video" },
+  { label: "MDN, <track> element", href: "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/track" },
+  { label: "MDN, WebVTT (caption format)", href: "https://developer.mozilla.org/en-US/docs/Web/API/WebVTT_API" },
 ];
 
 export function VideoPageClient() {
@@ -143,7 +143,7 @@ export function VideoPageClient() {
             )}
             <p className="text-sm text-muted-foreground">
               Reach for the native <code className="font-mono">&lt;video controls&gt;</code>{" "}
-              element first — its controls are already keyboard- and
+              element first, its controls are already keyboard- and
               screen-reader-accessible. Add a captions{" "}
               <code className="font-mono">&lt;track&gt;</code>, a text transcript,
               and audio description where the visuals carry meaning the audio
@@ -174,7 +174,7 @@ export function VideoPageClient() {
           <PageSection id="keyboard" title="Keyboard interaction model">
             <KeyboardTable rows={KEYBOARD_ROWS} />
             <p className="text-sm text-muted-foreground">
-              Native player shortcuts differ between browsers and platforms — do
+              Native player shortcuts differ between browsers and platforms, do
               not hard-code them. The conformance requirement (SC 2.1.1) is only
               that every control is reachable and operable by keyboard, which the
               native element guarantees.
@@ -182,9 +182,9 @@ export function VideoPageClient() {
           </PageSection>
           <PageSection id="focus" title="Focus management rules">
             <ul className="list-disc space-y-2 pl-5 text-sm text-muted-foreground">
-              <li>Let the native <code className="font-mono">&lt;video controls&gt;</code> manage focus among its own controls — don&apos;t override it with custom tabindex.</li>
+              <li>Let the native <code className="font-mono">&lt;video controls&gt;</code> manage focus among its own controls, don&apos;t override it with custom tabindex.</li>
               <li>The transcript disclosure keeps focus on its toggle button; the revealed transcript is a labelled region the user reads at their own pace.</li>
-              <li>Captions are rendered by the player over the video for the audio track — they aren&apos;t in the DOM tab order and aren&apos;t read by screen readers, which use the audio itself.</li>
+              <li>Captions are rendered by the player over the video for the audio track, they aren&apos;t in the DOM tab order and aren&apos;t read by screen readers, which use the audio itself.</li>
             </ul>
           </PageSection>
         </>

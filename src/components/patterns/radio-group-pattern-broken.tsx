@@ -4,24 +4,24 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 
 const OPTIONS = [
-  { id: "standard", label: "Standard", meta: "5–7 business days · Free" },
-  { id: "express", label: "Express", meta: "2–3 business days · $12" },
+  { id: "standard", label: "Standard", meta: "5-7 business days · Free" },
+  { id: "express", label: "Express", meta: "2-3 business days · $12" },
   { id: "overnight", label: "Overnight", meta: "Next business day · $28" },
 ];
 
 /**
- * ⚠ Deliberately broken radio group — for learning only.
+ * ⚠ Deliberately broken radio group, for learning only.
  *
  * Defects, on purpose:
- * 1. Every option is a separately-focusable <div> with tabIndex={0} —
+ * 1. Every option is a separately-focusable <div> with tabIndex={0},
  *    ALL three are individual Tab stops instead of only the selected one
  *    being reachable, breaking the roving-tabindex model users expect
  *    from radio groups and bloating the tab sequence. Fails SC 2.4.3 in
  *    spirit and creates a confusing, non-standard interaction.
- * 2. No role="radiogroup" / role="radio" / aria-checked — a screen reader
+ * 2. No role="radiogroup" / role="radio" / aria-checked, a screen reader
  *    announces plain, unrelated text blocks with no indication these are
  *    mutually-exclusive options or which one is selected. Fails SC 4.1.2.
- * 3. No arrow key support at all — every option must be Tab'd to
+ * 3. No arrow key support at all, every option must be Tab'd to
  *    individually and clicked with a mouse; there is no way to move
  *    between and select options with arrow keys the way native radios
  *    (or a correct custom implementation) support. Fails SC 2.1.1.

@@ -5,10 +5,10 @@ import * as React from "react";
 const FRUITS = ["Apple", "Apricot", "Avocado", "Banana", "Blackberry"];
 
 /**
- * ⚠ Deliberately broken combobox — for learning only.
+ * ⚠ Deliberately broken combobox, for learning only.
  *
  * Defects, on purpose:
- * 1. No role="combobox" / aria-expanded / aria-controls — the input is
+ * 1. No role="combobox" / aria-expanded / aria-controls, the input is
  *    announced as a plain edit field with no indication a popup exists.
  * 2. Options are only reachable by mouse hover; there is no keyboard path
  *    to them at all (fails 2.1.1).
@@ -43,7 +43,7 @@ export function ComboboxPatternBroken() {
       {open && (
         <ul className="mt-1 max-h-56 overflow-auto rounded-lg border border-border bg-card shadow-soft-lg">
           {options.map((option) => (
-            // No role="option", no keyboard access — mouse only.
+            // No role="option", no keyboard access, mouse only.
             <li
               key={option}
               onMouseDown={(e) => {

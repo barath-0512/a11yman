@@ -83,7 +83,7 @@ const ARIA_ROWS = [
 ];
 
 const KEYBOARD_ROWS = [
-  { keys: "Tab / Shift+Tab", behavior: "Moves into and out of the grid as a whole — the entire grid is a single tab stop. Focus lands on whichever cell was last active (initially the first cell)." },
+  { keys: "Tab / Shift+Tab", behavior: "Moves into and out of the grid as a whole, the entire grid is a single tab stop. Focus lands on whichever cell was last active (initially the first cell)." },
   { keys: "Right / Left Arrow", behavior: "Moves focus one cell right / left within the current row, stopping at the row's edge (no wrap)." },
   { keys: "Down / Up Arrow", behavior: "Moves focus one cell down / up within the current column, stopping at the grid's edge." },
   { keys: "Home / End", behavior: "Moves focus to the first / last cell in the current row." },
@@ -97,7 +97,7 @@ const SR_ROWS = [
 ];
 
 const DEFECTS = [
-  { defect: "role=\"grid\" with no arrow-key navigation wired up", severity: "Critical" as const, description: "The grid role tells assistive tech the app owns arrow-key navigation and suppresses the screen reader's own table-reading keys — but if the app never implements the arrow handling, the cells become unreachable by keyboard. Either implement full arrow navigation, or use a plain <table>. Fails SC 2.1.1." },
+  { defect: "role=\"grid\" with no arrow-key navigation wired up", severity: "Critical" as const, description: "The grid role tells assistive tech the app owns arrow-key navigation and suppresses the screen reader's own table-reading keys, but if the app never implements the arrow handling, the cells become unreachable by keyboard. Either implement full arrow navigation, or use a plain <table>. Fails SC 2.1.1." },
   { defect: "Every cell is a tab stop (no roving tabindex)", severity: "High" as const, description: "Leaving every cell at tabindex=0 forces keyboard users to Tab through dozens or hundreds of stops to pass the grid. A grid must be a single tab stop with arrow-key internal navigation. Fails SC 2.4.3 in spirit and is a severe usability defect." },
   { defect: "Roving tabindex state and DOM focus fall out of sync", severity: "High" as const, description: "Updating which cell has tabindex=0 without also calling .focus() on it (or vice-versa) leaves focus stranded on a cell that is no longer the active one, so the next arrow press jumps unexpectedly. Fails SC 2.4.3 / 2.4.7." },
   { defect: "Used for static, read-only data that a <table> would serve", severity: "Medium" as const, description: "The grid pattern is only warranted when cells are interactive (editable, selectable, or containing widgets). Applying it to plain read-only data needlessly disables the screen reader's native table navigation and adds complex keyboard code with no benefit. Prefer a Table." },
@@ -108,7 +108,7 @@ const TEST_STEPS = [
   { action: "Press the arrow keys (all four directions).", expected: "Focus moves one cell at a time in the pressed direction, stopping at the grid's edges without wrapping. Each cell announces its value plus row/column header context." },
   { action: "Press Home, then End.", expected: "Focus jumps to the first, then the last cell of the current row." },
   { action: "Press Ctrl+Home, then Ctrl+End.", expected: "Focus jumps to the very first cell of the grid, then the very last cell." },
-  { action: "Press Tab again from inside the grid.", expected: "Focus leaves the grid entirely and moves to the next control on the page — it does not step through remaining cells." },
+  { action: "Press Tab again from inside the grid.", expected: "Focus leaves the grid entirely and moves to the next control on the page, it does not step through remaining cells." },
   { action: "Shift+Tab back to the grid.", expected: "Focus returns to the cell that was active when you left, not necessarily the first cell." },
 ];
 
@@ -121,7 +121,7 @@ const CHECKLIST = [
   "The roving tabindex=0 and actual DOM focus always point to the same cell after every key press.",
   "Navigating to any cell announces its value together with its column (and row) header context.",
   "aria-readonly=\"true\" is present for a display-only grid; editable grids expose per-cell editing instead.",
-  "This really needs to be a grid (interactive cells) — static, read-only data uses a Table instead.",
+  "This really needs to be a grid (interactive cells), static, read-only data uses a Table instead.",
 ];
 
 export function GridPageClient() {
@@ -144,8 +144,8 @@ export function GridPageClient() {
             <p className="font-medium">Grid or Table?</p>
             <p className="mt-1 text-muted-foreground">
               Reach for the grid pattern only when cells are{" "}
-              <strong>interactive</strong> — editable values, selectable cells,
-              or cells that contain their own controls — so the widget needs to
+              <strong>interactive</strong>, editable values, selectable cells,
+              or cells that contain their own controls, so the widget needs to
               own two-dimensional arrow-key navigation. For static data the user
               only reads, use a{" "}
               <Link href="/components/table" className="text-accent-text underline underline-offset-2">
@@ -155,7 +155,7 @@ export function GridPageClient() {
               keeps the screen reader&apos;s own table-navigation keys working
               and needs none of this keyboard code. A grid has{" "}
               <strong>no native HTML element</strong>, so unlike a table there is
-              no simpler markup to fall back to — every role and key is on you.
+              no simpler markup to fall back to, every role and key is on you.
             </p>
           </div>
           <div className="mt-4 space-y-3">
@@ -193,7 +193,7 @@ export function GridPageClient() {
               This is the core of the pattern: the grid takes a single Tab stop,
               and the arrow keys (plus Home/End and their Ctrl variants) move a
               roving <code className="font-mono">tabindex=0</code> among the
-              cells. A plain Table deliberately does <em>not</em> do this — arrow
+              cells. A plain Table deliberately does <em>not</em> do this, arrow
               keys there belong to the screen reader, not the app.
             </p>
           </PageSection>
@@ -201,7 +201,7 @@ export function GridPageClient() {
             <ul className="list-disc space-y-2 pl-5 text-sm text-muted-foreground">
               <li>Exactly one cell has <code className="font-mono">tabindex=0</code> at any moment; every other cell is <code className="font-mono">tabindex=-1</code>. This is what makes the whole grid a single tab stop.</li>
               <li>Every arrow/Home/End key press updates <em>both</em> the roving tabindex and actual DOM focus in the same handler, so they never drift apart.</li>
-              <li>Focus stops at the grid&apos;s edges — arrow keys do not wrap around to the opposite side.</li>
+              <li>Focus stops at the grid&apos;s edges, arrow keys do not wrap around to the opposite side.</li>
               <li>When focus leaves and later returns via Tab, it lands on the last-active cell, not a reset to the first cell.</li>
             </ul>
           </PageSection>

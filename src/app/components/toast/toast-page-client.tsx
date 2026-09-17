@@ -22,7 +22,7 @@ const meta = getComponent("toast")!;
 
 const HTML_CODE = `<button id="save-btn">Show success toast</button>
 
-<!-- This live region exists BEFORE any message does — many screen
+<!-- This live region exists BEFORE any message does, many screen
      readers only announce live-region content if the region was already
      in the DOM when the text changes. Keep it always present + empty. -->
 <div id="toast-live" role="status" aria-live="polite" class="sr-only"></div>
@@ -65,12 +65,12 @@ const ARIA_ROWS = [
   {
     target: "Live region container (urgent variant)",
     attribute: 'role="alert" (implicit aria-live="assertive")',
-    why: "Reserve for genuinely urgent/error toasts — assertive announcements interrupt the screen reader's current speech, which is disruptive if overused.",
+    why: "Reserve for genuinely urgent/error toasts, assertive announcements interrupt the screen reader's current speech, which is disruptive if overused.",
   },
   {
     target: "Live region container",
     attribute: "Mounted persistently, content swapped via state",
-    why: "The region must already exist in the DOM before text is injected — mounting the container and its content in the same paint means many AT never \"discover\" the region in time to announce it.",
+    why: "The region must already exist in the DOM before text is injected, mounting the container and its content in the same paint means many AT never \"discover\" the region in time to announce it.",
   },
   {
     target: "Dismiss control (if present)",
@@ -80,7 +80,7 @@ const ARIA_ROWS = [
 ];
 
 const KEYBOARD_ROWS = [
-  { keys: "(none — toast never receives focus)", behavior: "A toast must never steal keyboard focus from whatever the user was doing when it appeared." },
+  { keys: "(none, toast never receives focus)", behavior: "A toast must never steal keyboard focus from whatever the user was doing when it appeared." },
   { keys: "Tab (to reach an optional Dismiss button)", behavior: "If a toast includes a dismiss control, it should be reachable in the natural tab order, not force-focused." },
   { keys: "Enter / Space (on Dismiss)", behavior: "Dismisses the toast early, before its auto-dismiss timer elapses." },
 ];
@@ -117,7 +117,7 @@ const DEFECTS = [
     defect: "Live region mounted and filled in the same paint",
     severity: "High" as const,
     description:
-      "The role=\"status\" container is only added to the DOM at the same moment the message text appears (conditional render wraps both together). Several screen reader/browser combinations require the live region to already exist before content changes inside it to reliably announce the change — intermittently, the toast is silently missed. Fails SC 4.1.3.",
+      "The role=\"status\" container is only added to the DOM at the same moment the message text appears (conditional render wraps both together). Several screen reader/browser combinations require the live region to already exist before content changes inside it to reliably announce the change, intermittently, the toast is silently missed. Fails SC 4.1.3.",
   },
   {
     defect: "Auto-dismiss timer far too short",
@@ -145,7 +145,7 @@ const CHECKLIST = [
   "Toast message container has role=\"status\" (routine) or role=\"alert\" (urgent) or an equivalent aria-live attribute.",
   "The live-region container exists in the DOM before message text is inserted into it, not mounted together with the first message.",
   "Toast never receives or steals keyboard focus when it appears.",
-  "Toast is not the only way critical information is conveyed — errors that block progress also surface inline near the relevant control.",
+  "Toast is not the only way critical information is conveyed, errors that block progress also surface inline near the relevant control.",
   "Auto-dismiss duration gives users realistically enough time to read the message (several seconds, not under 1-2s).",
   "If present, a Dismiss control is keyboard-operable and has a clear accessible name.",
   "Multiple simultaneous toasts (if supported) don't cause announcements to overlap/clobber each other.",
@@ -210,10 +210,10 @@ export function ToastPageClient() {
           </PageSection>
           <PageSection id="focus" title="Focus management rules">
             <ul className="list-disc space-y-2 pl-5 text-sm text-muted-foreground">
-              <li>A toast never receives focus on appearance and never traps focus — it is non-modal by definition.</li>
+              <li>A toast never receives focus on appearance and never traps focus, it is non-modal by definition.</li>
               <li>The live-region container is mounted once, persistently, for the lifetime of the page; only its text content changes.</li>
               <li>If a Dismiss control exists, it sits in the natural tab order near where the toast renders, not force-focused.</li>
-              <li>Dismissing (manually or via timeout) does not move focus anywhere — the user's focus was never disturbed in the first place.</li>
+              <li>Dismissing (manually or via timeout) does not move focus anywhere, the user's focus was never disturbed in the first place.</li>
             </ul>
           </PageSection>
         </>

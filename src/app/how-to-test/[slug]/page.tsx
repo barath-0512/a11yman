@@ -40,7 +40,7 @@ export default function TestingGuidePage({ params }: { params: Params }) {
           {/* The skip link targets this. It wraps only the primary content
               (starting with the h1), never the testing-guides sidebar. */}
           <main id="main" tabIndex={-1} className="min-w-0 space-y-10">
-            {/* Mobile back link — the sidebar provides this on desktop */}
+            {/* Mobile back link, the sidebar provides this on desktop */}
             <Link
               href="/how-to-test"
               className="inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground lg:hidden"

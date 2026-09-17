@@ -112,7 +112,7 @@ export const COMPONENTS: ComponentMeta[] = [
     slug: "link-vs-button",
     name: "Link vs. Button",
     definition:
-      "Guidance on when to use a hyperlink (navigation) versus a button (action) — the most common real-world defect.",
+      "Guidance on when to use a hyperlink (navigation) versus a button (action). This is the most common real-world defect.",
     category: "Forms & Controls",
     status: "complete",
     apgUrl: "https://www.w3.org/WAI/ARIA/apg/patterns/link/",
@@ -153,7 +153,7 @@ export const COMPONENTS: ComponentMeta[] = [
     slug: "skip-link",
     name: "Skip Link",
     definition:
-      "A visually-hidden link at the very top of the page that lets keyboard users jump past repeated blocks — like navigation — straight to the main content.",
+      "A visually-hidden link at the very top of the page that lets keyboard users jump past repeated blocks, like navigation, straight to the main content.",
     category: "Navigation",
     status: "complete",
     apgUrl: "https://www.w3.org/WAI/WCAG22/Understanding/bypass-blocks.html",
@@ -192,7 +192,7 @@ export const COMPONENTS: ComponentMeta[] = [
   {
     slug: "table",
     name: "Table",
-    definition: "A sortable, read-only data table with proper headers, scope, and caption — static content the user reads, not a widget they operate cell-by-cell.",
+    definition: "A sortable, read-only data table with proper headers, scope, and caption. It presents static content the user reads, not a widget they operate cell-by-cell.",
     category: "Data Display",
     status: "complete",
     apgUrl: "https://www.w3.org/WAI/ARIA/apg/patterns/table/",
@@ -203,7 +203,7 @@ export const COMPONENTS: ComponentMeta[] = [
     slug: "grid",
     name: "Grid (interactive data grid)",
     definition:
-      "An interactive tabular widget with two-dimensional arrow-key cell navigation (role=\"grid\"). Use only when cells are interactive — read-only data belongs in a Table.",
+      "An interactive tabular widget with two-dimensional arrow-key cell navigation (role=\"grid\"). Use only when cells are interactive. Read-only data belongs in a Table.",
     category: "Data Display",
     status: "complete",
     apgUrl: "https://www.w3.org/WAI/ARIA/apg/patterns/grid/",

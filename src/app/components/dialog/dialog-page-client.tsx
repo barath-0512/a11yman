@@ -25,7 +25,7 @@ const HTML_CODE = `<button id="dialog-trigger">Edit profile</button>
 <!-- Modal dialog: role="dialog" + aria-modal="true" + aria-labelledby
      (the title). Starts hidden. Tip: a native <dialog> opened with
      showModal() gives you the focus trap, Escape, and an inert
-     background for free — this manual version shows what that does. -->
+     background for free, this manual version shows what that does. -->
 <div id="dialog-overlay" class="overlay" hidden>
   <div id="dialog" role="dialog" aria-modal="true" aria-labelledby="dialog-title">
     <h2 id="dialog-title">Edit profile</h2>
@@ -90,7 +90,7 @@ const ARIA_ROWS = [
   {
     target: "Dialog container",
     attribute: 'aria-modal="true"',
-    why: "Signals that content outside the dialog is inert. Combined with — not a replacement for — a real focus trap.",
+    why: "Signals that content outside the dialog is inert. Combined with, not a replacement for, a real focus trap.",
   },
   {
     target: "Dialog container",
@@ -139,7 +139,7 @@ const SR_ROWS = [
 
 const DEFECTS = [
   {
-    defect: "Focus not trapped — Tab escapes to background content",
+    defect: "Focus not trapped, Tab escapes to background content",
     severity: "Critical" as const,
     description:
       "With the dialog open, pressing Tab repeatedly moves focus onto elements behind the overlay. Keyboard users can interact with a page that is visually blocked, and screen reader users lose their place entirely. Fails SC 2.1.2 and 4.1.2.",
@@ -175,7 +175,7 @@ const TEST_STEPS = [
   { action: "Press Tab repeatedly through every focusable element in the dialog.", expected: "Focus cycles only within the dialog; after the last element, it wraps to the first. Nothing behind the overlay ever receives focus." },
   { action: "Press Shift+Tab from the first focusable element.", expected: "Focus wraps to the last focusable element in the dialog." },
   { action: "Press Escape.", expected: "Dialog closes and focus returns to the button that opened it." },
-  { action: "Reopen the dialog, then click outside it (on the scrim).", expected: "Dialog closes (if this is the intended behavior for this instance) or the click is ignored — confirm which is documented for this dialog." },
+  { action: "Reopen the dialog, then click outside it (on the scrim).", expected: "Dialog closes (if this is the intended behavior for this instance) or the click is ignored, confirm which is documented for this dialog." },
   { action: "With a screen reader running, open the dialog.", expected: "The dialog's name and role are announced (e.g. \"Delete file, dialog\") immediately when focus enters it." },
 ];
 
@@ -262,7 +262,7 @@ export function DialogPageClient() {
               <li>On open: focus moves to the first focusable element inside the dialog (here, the close button).</li>
               <li>While open: Tab/Shift+Tab cycle only within the dialog's focusable elements.</li>
               <li>On close (Escape, confirm, cancel, or scrim click): focus returns to the element that opened the dialog.</li>
-              <li>If the trigger element no longer exists after close (e.g. it was in a list row that got deleted), move focus to the next logical element — never let it fall back to &lt;body&gt;.</li>
+              <li>If the trigger element no longer exists after close (e.g. it was in a list row that got deleted), move focus to the next logical element, never let it fall back to &lt;body&gt;.</li>
             </ul>
           </PageSection>
         </>

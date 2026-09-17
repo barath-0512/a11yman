@@ -9,16 +9,16 @@ const SLIDES = [
 ];
 
 /**
- * ⚠ Deliberately broken carousel — for learning only.
+ * ⚠ Deliberately broken carousel, for learning only.
  *
  * Defects, on purpose:
  * 1. Autoplay starts immediately on mount and CANNOT be paused or
- *    stopped — there is no pause control at all. Content changes every
+ *    stopped, there is no pause control at all. Content changes every
  *    3 seconds indefinitely. Fails SC 2.2.2 Pause, Stop, Hide.
- * 2. No live region — slide changes (whether from autoplay or the
+ * 2. No live region, slide changes (whether from autoplay or the
  *    Previous/Next controls) are never announced to screen reader users,
  *    who have no way to know the content changed. Fails SC 4.1.3.
- * 3. Previous/Next are <div onClick> elements — not focusable and not
+ * 3. Previous/Next are <div onClick> elements, not focusable and not
  *    keyboard-operable, so keyboard users cannot control the carousel at
  *    all even if they could pause it. Fails SC 2.1.1.
  */

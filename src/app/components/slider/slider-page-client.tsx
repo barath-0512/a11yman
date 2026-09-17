@@ -22,7 +22,7 @@ const meta = getComponent("slider")!;
 
 const HTML_CODE = `<span id="volume-label">Volume</span>
 
-<!-- Prefer native <input type="range"> — it gives the slider role, the
+<!-- Prefer native <input type="range">, it gives the slider role, the
      full keyboard model, and pointer dragging for free. Use this custom
      version only when you need styling the native control can't do.
      aria-valuenow/min/max carry the value; aria-valuetext gives a
@@ -102,7 +102,7 @@ const SR_ROWS = [
 const DEFECTS = [
   { defect: "Thumb has no role=\"slider\" or aria-value* attributes", severity: "Critical" as const, description: "A screen reader announces nothing meaningful about the control's purpose, current value, or range when it receives focus. Fails SC 4.1.2 Name, Role, Value." },
   { defect: "Thumb is not focusable (no tabIndex)", severity: "Critical" as const, description: "Keyboard users cannot reach the control at all via Tab. Fails SC 2.1.1 Keyboard." },
-  { defect: "No keyboard support — value only changes by dragging", severity: "Critical" as const, description: "Arrow keys, Home, End, and Page Up/Down do nothing; there is no way to change the value without a mouse drag. Fails SC 2.1.1 and SC 2.5.7 Dragging Movements." },
+  { defect: "No keyboard support, value only changes by dragging", severity: "Critical" as const, description: "Arrow keys, Home, End, and Page Up/Down do nothing; there is no way to change the value without a mouse drag. Fails SC 2.1.1 and SC 2.5.7 Dragging Movements." },
   { defect: "No click-on-track jump, drag-only interaction", severity: "Medium" as const, description: "Pointer users who can click but not perform a precise drag gesture (common with some motor impairments and switch devices) have no single-pointer alternative to reach a given value. Contributes to a SC 2.5.7 failure alongside the missing keyboard support." },
 ];
 
@@ -111,7 +111,7 @@ const TEST_STEPS = [
   { action: "Press Right Arrow several times.", expected: "Value increases by one step each press; each new value is announced." },
   { action: "Press Page Up.", expected: "Value jumps by a larger increment (10x the normal step) in one press." },
   { action: "Press Home, then End.", expected: "Value jumps to the minimum, then the maximum, and each is announced." },
-  { action: "Click directly on the track away from the thumb (no drag).", expected: "The thumb jumps immediately to the clicked position — a single click is sufficient, no drag gesture required." },
+  { action: "Click directly on the track away from the thumb (no drag).", expected: "The thumb jumps immediately to the clicked position, a single click is sufficient, no drag gesture required." },
 ];
 
 const CHECKLIST = [
@@ -119,7 +119,7 @@ const CHECKLIST = [
   "aria-valuemin, aria-valuemax, and aria-valuenow are present and update live as the value changes.",
   "aria-valuetext is used instead of (or in addition to) aria-valuenow when the raw number isn't self-explanatory.",
   "Arrow keys (and Home/End/Page Up/Page Down) fully operate the slider without a mouse.",
-  "A single click/tap on the track — not just a drag — moves the thumb to that value.",
+  "A single click/tap on the track, not just a drag, moves the thumb to that value.",
   "The accessible name (aria-label or aria-labelledby) is present and describes what the slider controls.",
 ];
 
@@ -178,7 +178,7 @@ export function SliderPageClient() {
           </PageSection>
           <PageSection id="focus" title="Focus management rules">
             <ul className="list-disc space-y-2 pl-5 text-sm text-muted-foreground">
-              <li>The thumb itself is the single Tab stop for the whole control — there's nothing else to tab through.</li>
+              <li>The thumb itself is the single Tab stop for the whole control, there's nothing else to tab through.</li>
               <li>Clicking anywhere on the track moves focus to the thumb and jumps the value to that position.</li>
               <li>Focus never leaves the thumb while dragging or using arrow keys; the value updates in place.</li>
               <li>A visible focus ring on the thumb must remain visible at every value, including at the min/max ends of the track.</li>

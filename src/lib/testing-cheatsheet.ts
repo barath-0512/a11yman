@@ -1,5 +1,5 @@
 /**
- * A step-by-step accessibility testing cheat sheet — a manual pass you can
+ * A step-by-step accessibility testing cheat sheet, a manual pass you can
  * work top-to-bottom. Rendered as an accessible table on the cheat-sheet page
  * (with each SC linked to /wcag#id) and exported to a watermarked PDF.
  */
@@ -45,7 +45,7 @@ export const CHEATSHEET: CheatSheetRow[] = [
   { n: 24, test: "Dialogs", how: "Open modal dialogs with the keyboard.", expected: "Focus enters the dialog, is trapped, and returns to the trigger on close.", sc: [{ id: "2.4.3", name: "Focus Order" }, { id: "2.1.1", name: "Keyboard" }, { id: "4.1.2", name: "Name, Role, Value" }] },
   { n: 25, test: "Dynamic Content", how: "Trigger alerts, accordions, tabs and menus.", expected: "Changes are announced via appropriate ARIA roles or live regions.", sc: [{ id: "4.1.2", name: "Name, Role, Value" }, { id: "4.1.3", name: "Status Messages" }] },
   { n: 26, test: "Autoplay & Media", how: "Load the page and trigger any audio or video.", expected: "Nothing autoplays sound for more than 3s without a pause/stop; video has captions and a transcript.", sc: [{ id: "1.4.2", name: "Audio Control" }, { id: "1.2.2", name: "Captions" }, { id: "1.2.3", name: "Media Alternative" }] },
-  { n: 27, test: "Target Size", how: "Measure interactive controls — especially icon buttons and close (×) targets.", expected: "Targets are at least 24 × 24 CSS px, or have enough spacing around them.", sc: [{ id: "2.5.8", name: "Target Size (Minimum)" }] },
+  { n: 27, test: "Target Size", how: "Measure interactive controls, especially icon buttons and close (×) targets.", expected: "Targets are at least 24 × 24 CSS px, or have enough spacing around them.", sc: [{ id: "2.5.8", name: "Target Size (Minimum)" }] },
   { n: 28, test: "Motion & Animation", how: 'Enable "reduce motion" in the OS and check moving content.', expected: "Essential motion respects prefers-reduced-motion; anything moving over 5s can be paused.", sc: [{ id: "2.2.2", name: "Pause, Stop, Hide" }] },
   { n: 29, test: "Pointer & Gestures", how: "Try swipe, pinch and drag interactions using a single tap or click.", expected: "Path-based or multipoint gestures have a single-pointer alternative; dragging has a non-drag path.", sc: [{ id: "2.5.1", name: "Pointer Gestures" }, { id: "2.5.7", name: "Dragging Movements" }] },
   { n: 30, test: "Screen Reader", how: "Test with NVDA, VoiceOver or JAWS.", expected: "Structure, controls, labels and announcements are meaningful and usable.", sc: [{ id: "", name: "Multiple SC" }] },
@@ -54,12 +54,12 @@ export const CHEATSHEET: CheatSheetRow[] = [
 
 /** The recommended order to work through a manual pass. */
 export const CHEATSHEET_WORKFLOW = [
-  "Scan first — run an automated tool to catch the obvious, low-effort failures.",
-  "Check the structure — title, language, landmarks, headings, and alt text.",
-  "Put the mouse away — tab through for keyboard operability, focus order, and a visible focus ring.",
-  "Look closely — color contrast, use of color, zoom, reflow, and text spacing.",
-  "Exercise the interactions — forms and errors, dialogs, media, and dynamic content.",
-  "Listen — finish with a screen-reader pass to confirm it all makes sense.",
+  "Scan first, run an automated tool to catch the obvious, low-effort failures.",
+  "Check the structure, title, language, landmarks, headings, and alt text.",
+  "Put the mouse away, tab through for keyboard operability, focus order, and a visible focus ring.",
+  "Look closely, color contrast, use of color, zoom, reflow, and text spacing.",
+  "Exercise the interactions, forms and errors, dialogs, media, and dynamic content.",
+  "Listen, finish with a screen-reader pass to confirm it all makes sense.",
 ];
 
 /** Flatten a row's SC refs to a plain string (used by the PDF export). */

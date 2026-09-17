@@ -10,7 +10,7 @@ const CURRENT = "ThinkPad X1";
 /**
  * Hand-coded APG "Breadcrumb" pattern: a <nav> landmark labeled
  * "Breadcrumb" wrapping an ordered list of links. The last item is the
- * current page — rendered as plain text with aria-current="page" rather
+ * current page, rendered as plain text with aria-current="page" rather
  * than a link, since re-navigating to the page you're already on serves no
  * purpose. Separators are decorative and hidden from assistive tech.
  */

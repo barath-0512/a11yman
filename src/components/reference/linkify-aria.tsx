@@ -9,7 +9,7 @@ import { getAriaAttribute, getAriaRole } from "@/lib/aria";
  *
  * A token is only linked when a matching reference page actually exists, so
  * attributes/roles we don't document (and non-ARIA text like "hidden
- * attribute") are left untouched — no links to 404s.
+ * attribute") are left untouched, no links to 404s.
  */
 const TOKEN = /(aria-[a-z]+(?:-[a-z]+)*)|role="([a-z]+)"/gi;
 
@@ -45,7 +45,7 @@ export function linkifyAria(text: string): React.ReactNode {
         </React.Fragment>
       );
     } else {
-      nodes.push(full); // no reference page — leave as plain text
+      nodes.push(full); // no reference page, leave as plain text
     }
 
     lastIndex = match.index + full.length;

@@ -11,9 +11,9 @@ import { randomPreviewQuote } from "@/lib/preview-quotes";
 export const dynamic = "force-dynamic";
 
 export const metadata = pageMetadata({
-  title: "Color Contrast Checker – WCAG Accessibility Tool",
+  title: "Color Contrast Checker - WCAG Accessibility Tool",
   description:
-    "Check any foreground/background colour pair against WCAG 2.2 contrast requirements — live ratio, AA/AAA pass-fail, a preview, and the closest colours that pass.",
+    "Check any foreground/background colour pair against WCAG 2.2 contrast requirements, live ratio, AA/AAA pass-fail, a preview, and the closest colours that pass.",
   path: "/contrast-checker",
 });
 
@@ -45,7 +45,7 @@ export default function ContrastAnalyserPage() {
               </span>
             </h1>
             <p className="max-w-3xl text-sm leading-relaxed text-muted-foreground">
-              Check any foreground/background pair against WCAG 2.2 — live ratio,
+              Check any foreground/background pair against WCAG 2.2, live ratio,
               AA/AAA results, a preview, and the closest colours that still pass.
             </p>
           </div>

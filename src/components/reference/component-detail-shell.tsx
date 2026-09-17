@@ -22,7 +22,7 @@ export function ComponentDetailShell({
           <ComponentSidebar activeSlug={slug} />
           {/* The skip link targets this. It wraps only the primary content
               (which starts with the page h1), never the component-list
-              sidebar — so "Skip to content" lands on the heading. */}
+              sidebar, so "Skip to content" lands on the heading. */}
           <main id="main" tabIndex={-1} className="min-w-0">
             {children}
           </main>

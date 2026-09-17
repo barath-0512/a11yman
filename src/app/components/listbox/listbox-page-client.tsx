@@ -64,7 +64,7 @@ const ARIA_ROWS = [
   { target: "List container", attribute: "aria-label / aria-labelledby", why: "Gives the listbox an accessible name so it's announced as e.g. \"Sort by, listbox\" rather than an unnamed list." },
   { target: "List container (multi-select only)", attribute: 'aria-multiselectable="true"', why: "Tells AT more than one option may be selected at once, changing how selection state is announced." },
   { target: "Each option", attribute: 'role="option"', why: "Identifies each row as a selectable option within the listbox." },
-  { target: "Each option", attribute: "aria-selected", why: "Communicates each option's individual selected/not-selected state — required on every option, including unselected ones." },
+  { target: "Each option", attribute: "aria-selected", why: "Communicates each option's individual selected/not-selected state, required on every option, including unselected ones." },
   { target: "Each option", attribute: "tabIndex (roving)", why: "Only the active option has tabIndex=0 so Tab moves past the whole widget in one stop; arrow keys move the roving cursor among options with tabIndex=-1." },
 ];
 
@@ -86,9 +86,9 @@ const SR_ROWS = [
 
 const DEFECTS = [
   { defect: "Options are unstructured <div>s with no role/aria-selected", severity: "Critical" as const, description: "A screen reader reads the visible text but gives no indication these are selectable list options or which one is selected. Fails SC 4.1.2 Name, Role, Value." },
-  { defect: "No keyboard support at all — mouse only", severity: "Critical" as const, description: "Arrow keys, Home, End, and Space do nothing; keyboard-only users cannot operate the list. Fails SC 2.1.1 Keyboard." },
+  { defect: "No keyboard support at all, mouse only", severity: "Critical" as const, description: "Arrow keys, Home, End, and Space do nothing; keyboard-only users cannot operate the list. Fails SC 2.1.1 Keyboard." },
   { defect: "Multi-select shows checkmarks visually but never sets aria-selected", severity: "High" as const, description: "Sighted mouse users see which languages are selected via a checkmark; screen reader users get no equivalent information at all. Fails SC 1.3.1 Info and Relationships and SC 4.1.2." },
-  { defect: "No roving tabindex — every option (or none) is a separate Tab stop", severity: "Medium" as const, description: "Tab order through the list is inconsistent with the APG listbox pattern, confusing keyboard users about how to enter and leave the widget. Fails SC 2.1.1." },
+  { defect: "No roving tabindex, every option (or none) is a separate Tab stop", severity: "Medium" as const, description: "Tab order through the list is inconsistent with the APG listbox pattern, confusing keyboard users about how to enter and leave the widget. Fails SC 2.1.1." },
 ];
 
 const TEST_STEPS = [
@@ -171,7 +171,7 @@ export function ListboxPageClient() {
             <ul className="list-disc space-y-2 pl-5 text-sm text-muted-foreground">
               <li>Only one option is in the Tab order at a time (roving tabindex); Tab moves straight past the whole listbox.</li>
               <li>Single-select: moving the roving-tabindex cursor changes selection immediately (selection follows focus).</li>
-              <li>Multi-select: moving the roving-tabindex cursor never changes selection by itself — only Space or Shift+Arrow does.</li>
+              <li>Multi-select: moving the roving-tabindex cursor never changes selection by itself, only Space or Shift+Arrow does.</li>
               <li>Clicking an option moves both DOM focus and the roving-tabindex cursor to that option.</li>
             </ul>
           </PageSection>

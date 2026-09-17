@@ -4,15 +4,15 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 
 const OPTIONS = [
-  { id: "standard", label: "Standard", meta: "5–7 business days · Free" },
-  { id: "express", label: "Express", meta: "2–3 business days · $12" },
+  { id: "standard", label: "Standard", meta: "5-7 business days · Free" },
+  { id: "express", label: "Express", meta: "2-3 business days · $12" },
   { id: "overnight", label: "Overnight", meta: "Next business day · $28" },
 ];
 
 /**
  * Hand-coded APG "Radio Group" pattern, used only when the design needs
  * fully custom-styled selectable cards that a native <input type="radio">
- * can't visually achieve. For anything else, prefer native radios — see
+ * can't visually achieve. For anything else, prefer native radios, see
  * the Native tab; arrow-key roving is automatic there and has to be
  * hand-built here.
  */
@@ -27,7 +27,7 @@ export function RadioGroupPattern() {
   function onKeyDown(e: React.KeyboardEvent, index: number) {
     // Radio groups select-on-arrow: unlike tabs (where automatic vs.
     // manual activation is a design choice), arrowing through a radio
-    // group must both MOVE focus and CHANGE the selection immediately —
+    // group must both MOVE focus and CHANGE the selection immediately,
     // this matches native <input type="radio"> arrow-key behavior.
     let nextIndex: number | null = null;
     if (e.key === "ArrowDown" || e.key === "ArrowRight") {
@@ -67,7 +67,7 @@ export function RadioGroupPattern() {
             aria-checked={checked}
             // Roving tabindex: only the checked option (or the first
             // option, before any selection) is a Tab stop. Every other
-            // option is reached by arrow keys, never by Tab — this mirrors
+            // option is reached by arrow keys, never by Tab, this mirrors
             // how native radios in the same `name` group behave.
             tabIndex={checked ? 0 : -1}
             onClick={() => select(option.id)}

@@ -14,7 +14,7 @@ export interface CodeFile {
 /**
  * A code snippet with a copy button. Pass a single `code` (+ optional
  * `filename`), or `tabs` for a multi-file solution (e.g. HTML + JS) rendered
- * with an accessible WAI-ARIA tabs pattern — selection follows focus, with
+ * with an accessible WAI-ARIA tabs pattern, selection follows focus, with
  * arrow-key / Home / End navigation and roving tabindex.
  */
 export function CodeBlock({
@@ -121,7 +121,7 @@ export function CodeBlock({
       </div>
       {/* tabIndex + role/label make the scrollable code region keyboard-
           reachable so keyboard-only users can scroll long/wide snippets
-          (SC 2.1.1) — required whenever a region can overflow. When rendered
+          (SC 2.1.1), required whenever a region can overflow. When rendered
           as a tabbed solution the same element doubles as the tabpanel. */}
       <pre
         tabIndex={0}

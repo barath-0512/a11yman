@@ -22,7 +22,7 @@ const meta = getComponent("checkbox")!;
 
 const HTML_CODE = `<!-- Native checkboxes give you the role, focus, Space to toggle, and
      label association for free. "mixed" (indeterminate) is the one
-     state with no HTML attribute — you set it from JS (see the JS tab). -->
+     state with no HTML attribute, you set it from JS (see the JS tab). -->
 <ul>
   <li>
     <input type="checkbox" id="notify-all" />
@@ -42,7 +42,7 @@ const JS_CODE = `const parent = document.getElementById("notify-all");
 const children = [...document.querySelectorAll(".child")];
 
 // The parent's state is always DERIVED from the children, never stored
-// separately — that's what keeps "mixed" honest.
+// separately, that's what keeps "mixed" honest.
 function syncParent() {
   const checkedCount = children.filter((c) => c.checked).length;
   parent.checked = checkedCount === children.length;
@@ -59,14 +59,14 @@ syncParent();`;
 
 const ARIA_ROWS = [
   { target: 'Checkbox <button>', attribute: 'role="checkbox"', why: 'Overrides the button\'s default semantics so AT announces "checkbox" and reads the state below instead of a generic pressed/not-pressed toggle.' },
-  { target: 'Checkbox <button>', attribute: 'aria-checked="true"|"false"|"mixed"', why: 'The literal string "mixed" is what lets a screen reader announce "partially checked" for a parent whose children are only partly selected — a plain boolean can\'t express that third state.' },
+  { target: 'Checkbox <button>', attribute: 'aria-checked="true"|"false"|"mixed"', why: 'The literal string "mixed" is what lets a screen reader announce "partially checked" for a parent whose children are only partly selected, a plain boolean can\'t express that third state.' },
   { target: 'Checkbox <button>', attribute: 'Accessible name (visible text or aria-label)', why: 'Every checkbox needs a programmatically associated name so AT can announce what is being checked, per SC 4.1.2 and 2.5.3 Label in Name.' },
   { target: 'Native <input type="checkbox">', attribute: '.indeterminate (DOM property, not an attribute)', why: 'Sets the visual mixed dash and the accessible "mixed" exposure for a native checkbox; must be set via ref in an effect since JSX has no matching prop.' },
 ];
 
 const KEYBOARD_ROWS = [
   { keys: "Tab / Shift+Tab", behavior: "Moves focus to the next/previous checkbox in the group." },
-  { keys: "Space", behavior: "Toggles the focused checkbox. Enter is intentionally not bound — checkboxes only respond to Space, unlike buttons or links." },
+  { keys: "Space", behavior: "Toggles the focused checkbox. Enter is intentionally not bound, checkboxes only respond to Space, unlike buttons or links." },
 ];
 
 const SR_ROWS = [
@@ -77,7 +77,7 @@ const SR_ROWS = [
 ];
 
 const DEFECTS = [
-  { defect: "Checkbox built from a <div> with an onClick handler", severity: "Critical" as const, description: "No default focusability and no keyboard activation whatsoever — keyboard-only users cannot check or uncheck anything. Fails SC 2.1.1 and 4.1.2." },
+  { defect: "Checkbox built from a <div> with an onClick handler", severity: "Critical" as const, description: "No default focusability and no keyboard activation whatsoever, keyboard-only users cannot check or uncheck anything. Fails SC 2.1.1 and 4.1.2." },
   { defect: "Missing role=\"checkbox\" and aria-checked", severity: "Critical" as const, description: "A screen reader announces the element as plain, non-interactive text with no indication a control exists or what its state is. Fails SC 4.1.2." },
   { defect: "\"Select all\" never reflects a mixed state", severity: "High" as const, description: "When some but not all child checkboxes are checked, the parent still renders as either fully checked or fully unchecked, silently misrepresenting the real selection to every user. A very common real-world defect in hand-rolled \"select all\" controls. Fails SC 4.1.2." },
   { defect: "No visible focus indicator", severity: "Medium" as const, description: "Because the fake checkbox is never a real focusable element, there is no way to determine via keyboard alone which control currently has focus. Fails SC 2.4.7 once basic focusability is fixed." },
@@ -96,7 +96,7 @@ const CHECKLIST = [
   "Each checkbox has role=\"checkbox\" (or is a native <input type=\"checkbox\">) with an accessible name.",
   "aria-checked reflects true/false accurately at all times, including immediately after toggling.",
   "A \"select all\"/parent control correctly exposes a mixed/indeterminate state when only some children are checked.",
-  "Native tri-state checkboxes set .indeterminate imperatively — verify it is not left stale after children change.",
+  "Native tri-state checkboxes set .indeterminate imperatively, verify it is not left stale after children change.",
   "Enter does not toggle the checkbox; only Space does.",
   "Visible focus indicator is present on every checkbox at every zoom level up to 200%.",
   "Checkbox and its label together meet the 24x24 CSS pixel minimum target size.",
@@ -157,7 +157,7 @@ export function CheckboxPageClient() {
           </PageSection>
           <PageSection id="focus" title="Focus management rules">
             <ul className="list-disc space-y-2 pl-5 text-sm text-muted-foreground">
-              <li>Every checkbox in a group is individually focusable via Tab — there is no roving tabindex for checkboxes (unlike radio groups).</li>
+              <li>Every checkbox in a group is individually focusable via Tab, there is no roving tabindex for checkboxes (unlike radio groups).</li>
               <li>Toggling a checkbox never moves focus away from it.</li>
               <li>A parent &quot;select all&quot; checkbox is never removed from the tab order, even while showing a mixed state.</li>
             </ul>

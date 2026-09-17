@@ -6,7 +6,7 @@
   :root {
     --radius: 0.75rem;
 
-    /* Light theme — Apple inspired */
+    /* Light theme, Apple inspired */
     --background: 0 0% 100%; /* #FFFFFF */
     --foreground: 240 6% 12%; /* #1D1D1F */
     --card: 0 0% 100%;
@@ -18,7 +18,7 @@
     --accent: 211 100% 45%; /* darkened #007AFF for AA contrast on white */
     --accent-foreground: 0 0% 100%;
     /* Separate, darker token for accent-colored TEXT on light tint
-       backgrounds (badges) — --accent itself is tuned for white text on a
+       backgrounds (badges), --accent itself is tuned for white text on a
        solid accent fill, and only reaches ~3.8:1 against a 15% tint. */
     --accent-text: 211 100% 32%;
     --destructive: 4 78% 42%;
@@ -99,7 +99,7 @@
   }
 
   /* The "Skip to content" target (<main id="main" tabindex="-1">) is a
-     non-interactive landing region, not a control — so it should not paint a
+     non-interactive landing region, not a control, so it should not paint a
      large focus ring around the whole content when the skip link moves focus
      into it. The visible cue is the page heading it scrolls to. */
   #main:focus,

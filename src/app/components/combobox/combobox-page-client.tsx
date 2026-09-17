@@ -25,7 +25,7 @@ const HTML_CODE = `<label for="fruit">Choose a fruit</label>
 <!-- Editable combobox. aria-expanded reflects the popup; aria-controls
      points at the listbox; aria-autocomplete="list" says suggestions
      appear as you type. aria-activedescendant (set from JS) highlights
-     an option WITHOUT moving DOM focus off the input — so the caret and
+     an option WITHOUT moving DOM focus off the input, so the caret and
      the screen reader's "edit text" mode are preserved. -->
 <input
   id="fruit"
@@ -114,7 +114,7 @@ input.addEventListener("keydown", (e) => {
 
 const ARIA_ROWS = [
   { target: "Text input", attribute: 'role="combobox"', why: 'Identifies the input as a combobox, not a plain textbox, so AT announces "combobox" and exposes expand/collapse state.' },
-  { target: "Text input", attribute: "aria-expanded", why: "Tells AT whether the suggestion popup is currently open — announced as \"collapsed\" or \"expanded.\"" },
+  { target: "Text input", attribute: "aria-expanded", why: "Tells AT whether the suggestion popup is currently open, announced as \"collapsed\" or \"expanded.\"" },
   { target: "Text input", attribute: "aria-controls", why: "Associates the input with the popup listbox it controls, by id." },
   { target: "Text input", attribute: 'aria-autocomplete="list"', why: "Tells AT that typing produces a filtered list of suggestions (as opposed to inline text completion)." },
   { target: "Text input", attribute: "aria-activedescendant", why: "Points at the id of the currently-highlighted option while DOM focus stays on the input, so the caret and screen reader cursor never leave the edit field." },
@@ -139,7 +139,7 @@ const SR_ROWS = [
 ];
 
 const DEFECTS = [
-  { defect: "Suggestions only reachable by mouse hover", severity: "Critical" as const, description: "Keyboard-only users cannot access the suggestion list at all — there is no arrow-key path to any option. Fails SC 2.1.1 Keyboard." },
+  { defect: "Suggestions only reachable by mouse hover", severity: "Critical" as const, description: "Keyboard-only users cannot access the suggestion list at all, there is no arrow-key path to any option. Fails SC 2.1.1 Keyboard." },
   { defect: "Missing aria-expanded / aria-activedescendant", severity: "High" as const, description: "Screen reader users are not told the combobox has a popup, or which option is currently highlighted while typing. Fails SC 4.1.2 Name, Role, Value." },
   { defect: "DOM focus moves onto option elements instead of using aria-activedescendant", severity: "Medium" as const, description: "Moving real focus into the popup breaks continued typing/filtering and can cause the screen reader to exit edit-field context unexpectedly. Fails SC 4.1.2." },
   { defect: "Popup does not close on Escape or outside click", severity: "Medium" as const, description: "Users have no reliable way to dismiss the suggestion list once open, cluttering the reading order for screen reader users. Fails SC 2.1.1." },
@@ -221,7 +221,7 @@ export function ComboboxPageClient() {
           </PageSection>
           <PageSection id="focus" title="Focus management rules">
             <ul className="list-disc space-y-2 pl-5 text-sm text-muted-foreground">
-              <li>DOM focus stays on the text input at all times — never moves into the popup.</li>
+              <li>DOM focus stays on the text input at all times, never moves into the popup.</li>
               <li>The active option is communicated via aria-activedescendant, not real focus.</li>
               <li>Selecting an option (mouse or keyboard) returns focus to the input immediately.</li>
               <li>Closing the popup (Escape or outside click) never moves focus away from the input.</li>

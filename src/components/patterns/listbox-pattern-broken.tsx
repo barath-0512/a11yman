@@ -8,19 +8,19 @@ const SORT_OPTIONS = ["Relevance", "Newest first", "Oldest first", "Price: low t
 const LANGUAGES = ["JavaScript", "TypeScript", "Python", "Rust", "Go", "Swift", "Kotlin"];
 
 /**
- * ⚠ Deliberately broken listbox — for learning only.
+ * ⚠ Deliberately broken listbox, for learning only.
  *
  * Defects, on purpose:
  * 1. Options are plain <div onClick> elements with no role="option" and no
- *    aria-selected — a screen reader announces them as unstructured text,
+ *    aria-selected, a screen reader announces them as unstructured text,
  *    not as selectable options in a listbox (fails 4.1.2).
- * 2. No roving tabindex and no arrow-key handling — the list is entirely
+ * 2. No roving tabindex and no arrow-key handling, the list is entirely
  *    mouse-only. Keyboard users cannot move through or select options at
  *    all (fails 2.1.1).
  * 3. The container has no role="listbox" / accessible name, so AT has no
  *    way to announce this as a selectable list in the first place.
  * 4. In the multi-select variant, selection is only shown visually via a
- *    checkmark/highlight — there is no aria-selected or
+ *    checkmark/highlight, there is no aria-selected or
  *    aria-multiselectable, so assistive tech users can't tell which items
  *    (or how many) are selected (fails 4.1.2 and 1.3.1).
  */

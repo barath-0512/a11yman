@@ -23,7 +23,7 @@ export function generateMetadata({
   const meta = getComponent(params.slug);
   if (!meta) return {};
   return pageMetadata({
-    title: `Accessible ${meta.name} Example – HTML, ARIA & WCAG`,
+    title: `Accessible ${meta.name} Example - HTML, ARIA & WCAG`,
     description: `Learn how to build an accessible ${meta.name} with semantic HTML, keyboard support, focus states, accessible names, ARIA, and WCAG requirements.`,
     path: `/components/${params.slug}`,
   });
@@ -55,9 +55,9 @@ export default function ComponentStubPage({
           </header>
 
           <div className="rounded-2xl border border-dashed border-border bg-secondary/30 p-5 text-sm text-muted-foreground">
-            The full Developer/Tester mode guide for {meta.name} — live
+            The full Developer/Tester mode guide for {meta.name}, live
             demo, native vs. custom code, ARIA and keyboard tables, screen
-            reader announcements, defect patterns, and test checklist — is
+            reader announcements, defect patterns, and test checklist, is
             not published yet. In the meantime, use the WCAG mapping and
             APG reference below, or see the fully complete{" "}
             <a href="/components/dialog" className="text-accent underline decoration-dotted underline-offset-2">
@@ -86,7 +86,7 @@ export default function ComponentStubPage({
             <PageSection id="native-hint" title="Native HTML starting point">
               <p className="text-sm text-muted-foreground">
                 Prefer <code className="font-mono">{meta.nativeElement}</code>{" "}
-                where it meets your requirements — check back for the full
+                where it meets your requirements, check back for the full
                 native-vs-custom comparison.
               </p>
             </PageSection>

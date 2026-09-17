@@ -5,7 +5,7 @@ import * as React from "react";
 /**
  * Correct native usage: a real <a href> for navigation and a real
  * <button type="button"> for an in-page action. This is intentionally
- * identical to the primary "custom" demo on this page — for Link vs.
+ * identical to the primary "custom" demo on this page, for Link vs.
  * Button, the "right way" IS just the native elements. See the "Custom
  * ARIA" tab for what it costs to faithfully reimplement this without them.
  */

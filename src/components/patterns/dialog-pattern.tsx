@@ -16,7 +16,7 @@ interface DialogPatternProps {
  * Roles/states: role="dialog", aria-modal="true", aria-labelledby pointing at
  * the visible heading. aria-modal tells assistive tech to treat everything
  * outside the dialog as inert, which is why we ALSO trap focus manually below
- * — aria-modal is a semantic hint, not an enforcement mechanism, and some
+ *, aria-modal is a semantic hint, not an enforcement mechanism, and some
  * browsers/AT combinations still let focus (and therefore keyboard users)
  * leak out without an explicit trap.
  */
@@ -30,7 +30,7 @@ export function DialogPattern({
   const dialogRef = React.useRef<HTMLDivElement>(null);
   const closeBtnRef = React.useRef<HTMLButtonElement>(null);
   // Remembers what had focus before opening, so we can restore it on close
-  // (APG requirement — closing a dialog must not strand focus on <body>).
+  // (APG requirement, closing a dialog must not strand focus on <body>).
   const triggerRef = React.useRef<HTMLButtonElement>(null);
 
   const open_ = React.useCallback(() => {
@@ -54,7 +54,7 @@ export function DialogPattern({
 
       // Manual focus trap: cycle Tab/Shift+Tab within the dialog's focusable
       // elements so focus can never escape to the page behind it (SC 2.1.2
-      // No Keyboard Trap is about NOT trapping outside a modal — inside one,
+      // No Keyboard Trap is about NOT trapping outside a modal, inside one,
       // trapping is required so background content stays inert).
       const focusables = dialogRef.current?.querySelectorAll<HTMLElement>(
         'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])'

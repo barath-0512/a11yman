@@ -3,23 +3,23 @@
 import * as React from "react";
 
 /**
- * ⚠ Deliberately broken form — for learning only.
+ * ⚠ Deliberately broken form, for learning only.
  *
  * Defects, on purpose:
- * 1. Placeholder text used AS the only label — there is no <label>
+ * 1. Placeholder text used AS the only label, there is no <label>
  *    element at all. The placeholder disappears the moment the user
  *    starts typing, and many screen readers either don't announce
  *    placeholder text as a name or announce it inconsistently with a
  *    real label. Fails SC 3.3.2 and 1.3.1.
- * 2. No aria-invalid / aria-describedby anywhere — a field in an error
+ * 2. No aria-invalid / aria-describedby anywhere, a field in an error
  *    state is not programmatically identified as invalid, and its error
  *    text (if shown at all) is never linked to the field. Fails SC 4.1.2.
  * 3. Errors are communicated ONLY via a color change (red border) with no
  *    text, no icon, and no error summary. A colorblind user gets no
- *    signal, and a screen reader user gets literally nothing — the
+ *    signal, and a screen reader user gets literally nothing, the
  *    invalid submission produces no discoverable feedback at all.
  *    Fails SC 1.4.1 and 3.3.1.
- * 4. No focus management on failed submit — focus simply stays on the
+ * 4. No focus management on failed submit, focus simply stays on the
  *    submit button with no indication anything went wrong.
  */
 export function FormsPatternBroken() {

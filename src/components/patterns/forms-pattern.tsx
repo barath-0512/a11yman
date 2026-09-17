@@ -23,7 +23,7 @@ interface FieldErrors {
  *   name that persists (placeholder text disappears once typing starts,
  *   and isn't treated as a label by most screen readers).
  * - Visible "(required)" text plus the required/aria-required attribute:
- *   an asterisk alone conveys meaning only visually — SC 3.3.2 requires
+ *   an asterisk alone conveys meaning only visually, SC 3.3.2 requires
  *   the instruction to be available in text, so we spell out what * means
  *   once, visibly, near the top of the form.
  * - aria-invalid="true" + aria-describedby pointing at the error message
@@ -90,7 +90,7 @@ export function FormsPattern() {
   if (submitted && errorEntries.length === 0) {
     return (
       <div role="status" className="rounded-2xl border border-success/40 bg-success/10 p-6 text-sm text-success-text">
-        Thanks, {values.name || "friend"} — your details were submitted successfully.
+        Thanks, {values.name || "friend"}, your details were submitted successfully.
       </div>
     );
   }

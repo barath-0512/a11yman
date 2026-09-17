@@ -15,14 +15,14 @@ const CHILDREN = [
 /**
  * Hand-coded APG "Checkbox (tri-state)" pattern. Built as a "Select all"
  * parent checkbox reflecting the state of three independent child
- * checkboxes — the classic real-world use case for a mixed/indeterminate
+ * checkboxes, the classic real-world use case for a mixed/indeterminate
  * state.
  *
  * Every checkbox here is role="checkbox" on a <button> rather than a
  * native <input>, because the parent needs a third state (mixed) that a
  * single native checkbox can only express visually, not through a value
  * a form would submit. If you don't need the mixed state, always prefer
- * the native <input type="checkbox"> — see the Native tab.
+ * the native <input type="checkbox">, see the Native tab.
  */
 export function CheckboxPattern() {
   const [checkedIds, setCheckedIds] = React.useState<Set<string>>(
@@ -31,7 +31,7 @@ export function CheckboxPattern() {
 
   const allChecked = checkedIds.size === CHILDREN.length;
   const noneChecked = checkedIds.size === 0;
-  // The parent's state is derived, never stored independently — this keeps
+  // The parent's state is derived, never stored independently, this keeps
   // it impossible for the parent and children to disagree.
   const parentState: CheckedState = allChecked
     ? "true"
@@ -59,7 +59,7 @@ export function CheckboxPattern() {
   function onKeyDown(e: React.KeyboardEvent, onToggle: () => void) {
     // role="checkbox" carries no built-in activation keys the way a native
     // <input> does, so Space (the APG-specified key for checkboxes) must be
-    // wired up by hand. Enter is intentionally NOT bound — checkboxes only
+    // wired up by hand. Enter is intentionally NOT bound, checkboxes only
     // respond to Space, unlike buttons.
     if (e.key === " ") {
       e.preventDefault();
@@ -120,7 +120,7 @@ function CheckboxBox({
       // "button, pressed/not pressed" semantics a plain <button> would get.
       role="checkbox"
       // aria-checked accepts the literal string "mixed" in addition to a
-      // boolean — this is what lets a screen reader announce "partially
+      // boolean, this is what lets a screen reader announce "partially
       // checked" instead of forcing a binary checked/unchecked lie.
       aria-checked={state === "mixed" ? "mixed" : state === "true"}
       onClick={onToggle}

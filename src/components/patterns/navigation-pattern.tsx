@@ -11,7 +11,7 @@ const LINKS = [
 /**
  * Hand-coded "Navigation" pattern: a <nav> landmark with a distinguishing
  * accessible name (important because a page can legitimately have several
- * <nav> regions — header nav, footer nav, breadcrumb, this demo, etc.) and
+ * <nav> regions, header nav, footer nav, breadcrumb, this demo, etc.) and
  * a link list where the active item carries aria-current="page". Clicking
  * a link in this demo just moves the "current" indicator so you can watch
  * aria-current change without leaving this page.

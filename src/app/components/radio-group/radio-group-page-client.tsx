@@ -50,7 +50,7 @@ radios.forEach((radio, i) => {
     if (e.key === "ArrowUp" || e.key === "ArrowLeft") next = (i - 1 + radios.length) % radios.length;
     if (next === null) return;
     e.preventDefault();
-    select(radios[next]); // arrowing selects immediately — no separate step
+    select(radios[next]); // arrowing selects immediately, no separate step
   });
 });`;
 
@@ -59,12 +59,12 @@ const ARIA_ROWS = [
   { target: "Group wrapper", attribute: "aria-label (or aria-labelledby)", why: "Gives the group itself an accessible name (e.g. \"Shipping speed\") announced when a screen reader user enters it." },
   { target: "Each option <button>", attribute: 'role="radio"', why: 'Overrides default button semantics so AT announces "radio button" and exposes the checked state below.' },
   { target: "Each option <button>", attribute: "aria-checked", why: "Communicates which single option is currently selected; exactly one radio in the group should be true at a time." },
-  { target: "Each option <button>", attribute: "tabIndex (roving 0 / -1)", why: "Only the selected option (or the first, before any selection) is in the Tab order — matching native <input type=\"radio\"> grouping behavior, where arrow keys move between the rest." },
+  { target: "Each option <button>", attribute: "tabIndex (roving 0 / -1)", why: "Only the selected option (or the first, before any selection) is in the Tab order, matching native <input type=\"radio\"> grouping behavior, where arrow keys move between the rest." },
 ];
 
 const KEYBOARD_ROWS = [
   { keys: "Tab / Shift+Tab", behavior: "Moves focus into or out of the whole group, landing only on the currently selected option (roving tabindex)." },
-  { keys: "Arrow Down / Right", behavior: "Moves focus to the next option AND selects it immediately — radio groups select-on-arrow, unlike tabs where activation mode is configurable." },
+  { keys: "Arrow Down / Right", behavior: "Moves focus to the next option AND selects it immediately, radio groups select-on-arrow, unlike tabs where activation mode is configurable." },
   { keys: "Arrow Up / Left", behavior: "Moves focus to the previous option AND selects it immediately." },
   { keys: "Space", behavior: "Selects the focused option (redundant with arrow-key selection, but expected for consistency with checkboxes)." },
 ];
@@ -76,26 +76,26 @@ const SR_ROWS = [
 ];
 
 const DEFECTS = [
-  { defect: "Every option is a separately-focusable <div>", severity: "Critical" as const, description: "All three options carry tabIndex={0}, so each is an individual Tab stop instead of only the selected one — breaking the roving-tabindex model users expect and bloating the tab sequence with redundant stops. Fails SC 2.1.1 in spirit and creates a non-standard interaction." },
+  { defect: "Every option is a separately-focusable <div>", severity: "Critical" as const, description: "All three options carry tabIndex={0}, so each is an individual Tab stop instead of only the selected one, breaking the roving-tabindex model users expect and bloating the tab sequence with redundant stops. Fails SC 2.1.1 in spirit and creates a non-standard interaction." },
   { defect: "Missing role=\"radiogroup\" / role=\"radio\" / aria-checked", severity: "Critical" as const, description: "A screen reader announces plain, unrelated blocks of text with no indication these options are mutually exclusive or which one is currently selected. Fails SC 4.1.2." },
-  { defect: "No arrow key support", severity: "High" as const, description: "There is no way to move between and select options using arrow keys — every option must be individually Tab'd to and clicked with a mouse, contradicting both the native <input type=\"radio\"> model and the APG radio group pattern. Fails SC 2.1.1." },
+  { defect: "No arrow key support", severity: "High" as const, description: "There is no way to move between and select options using arrow keys, every option must be individually Tab'd to and clicked with a mouse, contradicting both the native <input type=\"radio\"> model and the APG radio group pattern. Fails SC 2.1.1." },
   { defect: "No visible focus indicator on the selected option after arrowing", severity: "Medium" as const, description: "Even once keyboard support is added, forgetting to move DOM focus (not just visual state) when the selection changes via arrow keys leaves sighted keyboard users unable to see where focus actually is." },
 ];
 
 const TEST_STEPS = [
   { action: "Tab to the radio group.", expected: "Focus lands only on the currently selected option (or the first option if none is selected); screen reader announces the group label, option label, radio role, position (e.g. \"1 of 3\"), and checked state." },
-  { action: "Press Arrow Down (or Right).", expected: "Focus moves to the next option AND that option becomes selected immediately — no separate activation step required." },
+  { action: "Press Arrow Down (or Right).", expected: "Focus moves to the next option AND that option becomes selected immediately, no separate activation step required." },
   { action: "Press Arrow Up (or Left) from the last option.", expected: "Focus wraps to the previous option in the group and selects it." },
   { action: "Tab away from the group, then Shift+Tab back.", expected: "Focus returns directly to the currently selected option, not the first option in list order." },
-  { action: "With a screen reader running, arrow through all options.", expected: "Each option's label, position (e.g. \"2 of 3\"), and checked state are announced as focus moves — no option is silently skipped." },
+  { action: "With a screen reader running, arrow through all options.", expected: "Each option's label, position (e.g. \"2 of 3\"), and checked state are announced as focus moves, no option is silently skipped." },
 ];
 
 const CHECKLIST = [
-  "Only the selected option (or the first, if none selected) is reachable via Tab — the rest are reached only by arrow keys.",
+  "Only the selected option (or the first, if none selected) is reachable via Tab, the rest are reached only by arrow keys.",
   "Arrow keys move focus and change the selection in a single action, matching native radio button behavior.",
   "The group has role=\"radiogroup\" (or is a native <fieldset>) with an accessible name via aria-label, aria-labelledby, or <legend>.",
   "Each option has role=\"radio\" (or is a native <input type=\"radio\">) with aria-checked accurately reflecting state.",
-  "Exactly one option in the group is checked/selected at any time — never zero after initial selection, never more than one.",
+  "Exactly one option in the group is checked/selected at any time, never zero after initial selection, never more than one.",
   "Visible focus indicator is present and moves correctly as arrow keys are used.",
   "Each option meets the 24x24 CSS pixel minimum target size.",
 ];
@@ -156,7 +156,7 @@ export function RadioGroupPageClient() {
           <PageSection id="focus" title="Focus management rules">
             <ul className="list-disc space-y-2 pl-5 text-sm text-muted-foreground">
               <li>Only one option is ever in the Tab order at a time: the selected option, or the first option before any selection is made.</li>
-              <li>Arrow keys move focus between options AND change the selection in the same action — there is no separate &quot;confirm&quot; step.</li>
+              <li>Arrow keys move focus between options AND change the selection in the same action, there is no separate &quot;confirm&quot; step.</li>
               <li>Tabbing out of and back into the group always returns focus to the currently selected option, not the first in list order.</li>
             </ul>
           </PageSection>

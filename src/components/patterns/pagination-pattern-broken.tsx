@@ -7,21 +7,21 @@ import { cn } from "@/lib/utils";
 const TOTAL_PAGES = 10;
 
 /**
- * ⚠ Deliberately broken pagination — for learning only.
+ * ⚠ Deliberately broken pagination, for learning only.
  *
  * Defects, on purpose:
- * 1. Previous/Next are <div onClick> elements — not focusable, no keyboard
+ * 1. Previous/Next are <div onClick> elements, not focusable, no keyboard
  *    support, and not announced as buttons by AT. Fails SC 2.1.1 Keyboard
  *    and SC 4.1.2 Name, Role, Value.
  * 2. The Previous button is only visually greyed out on page 1 (a CSS
- *    class) instead of being genuinely disabled — it's still clickable and
+ *    class) instead of being genuinely disabled, it's still clickable and
  *    still in the tab-adjacent click path, which is a very common
  *    real-world defect. Same for Next on the last page.
- * 3. The current page has no aria-current="page" — sighted users see a
+ * 3. The current page has no aria-current="page", sighted users see a
  *    highlight color, but screen reader users have no way to tell which
  *    page they're on. Fails SC 4.1.2 and SC 1.3.1.
  * 4. The "…" ellipsis is a real clickable <button> that does nothing when
- *    activated — a dead, confusing Tab stop for keyboard users. Fails SC
+ *    activated, a dead, confusing Tab stop for keyboard users. Fails SC
  *    2.1.1 (a focusable control with no operable behavior).
  */
 export function PaginationPatternBroken() {

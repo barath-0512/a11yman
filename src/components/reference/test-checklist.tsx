@@ -12,7 +12,7 @@ export function TestChecklist({
   items: string[];
 }) {
   const [copied, setCopied] = React.useState(false);
-  const text = `${componentName} — test case checklist\n\n${items
+  const text = `${componentName}, test case checklist\n\n${items
     .map((item) => `[ ] ${item}`)
     .join("\n")}`;
 

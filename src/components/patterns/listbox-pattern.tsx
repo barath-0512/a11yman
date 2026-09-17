@@ -9,7 +9,7 @@ const SORT_OPTIONS = ["Relevance", "Newest first", "Oldest first", "Price: low t
 const LANGUAGES = ["JavaScript", "TypeScript", "Python", "Rust", "Go", "Swift", "Kotlin"];
 
 /**
- * Hand-coded APG "Listbox" pattern — single-select.
+ * Hand-coded APG "Listbox" pattern, single-select.
  *
  * Selection follows focus: moving the roving-tabindex cursor with the arrow
  * keys immediately changes the selected option, mirroring how a native
@@ -87,7 +87,7 @@ export function ListboxPattern() {
 }
 
 /**
- * Hand-coded APG "Listbox" pattern — multi-select.
+ * Hand-coded APG "Listbox" pattern, multi-select.
  *
  * Unlike single-select, moving focus does NOT change selection here: arrow
  * keys move a roving-tabindex cursor only, Space toggles the focused
@@ -142,7 +142,7 @@ export function MultiListboxPattern() {
       e.preventDefault();
       toggle(focusIndex);
     } else if ((e.key === "a" || e.key === "A") && (e.ctrlKey || e.metaKey)) {
-      // Select-all. Kept simple for the demo — a production implementation
+      // Select-all. Kept simple for the demo, a production implementation
       // should also support Ctrl/Cmd+Shift+A or similar to deselect all.
       e.preventDefault();
       setSelected(new Set(LANGUAGES.map((_, i) => i)));

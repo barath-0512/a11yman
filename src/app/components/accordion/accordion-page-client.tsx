@@ -50,7 +50,7 @@ const headers = [...accordion.querySelectorAll("[aria-controls]")];
 headers.forEach((header, i) => {
   const panel = document.getElementById(header.getAttribute("aria-controls"));
 
-  // Toggle this section. Several sections may be open at once — a
+  // Toggle this section. Several sections may be open at once, a
   // single-open accordion would just collapse the others here.
   header.addEventListener("click", () => {
     const expanded = header.getAttribute("aria-expanded") === "true";
@@ -72,7 +72,7 @@ headers.forEach((header, i) => {
 });`;
 
 const ARIA_ROWS = [
-  { target: "Header <button>", attribute: "aria-expanded", why: 'Communicates whether this section\'s panel is currently visible — announced as "expanded" or "collapsed."' },
+  { target: "Header <button>", attribute: "aria-expanded", why: 'Communicates whether this section\'s panel is currently visible, announced as "expanded" or "collapsed."' },
   { target: "Header <button>", attribute: "aria-controls", why: "Associates the header with the panel id it toggles, so AT can relate the two even though they aren't nested." },
   { target: "Panel", attribute: 'role="region" + aria-labelledby', why: "Lets a screen reader user jump directly to an open panel via landmark/region navigation, labeled by its header." },
   { target: "Header wrapper", attribute: "Native heading element (h3)", why: "Keeps the accordion navigable via a screen reader's heading list, independent of the ARIA toggle semantics." },
@@ -105,7 +105,7 @@ const TEST_STEPS = [
   { action: "Press Down Arrow.", expected: "Focus moves to the next header, regardless of whether the current panel is open or closed." },
   { action: "Press End, then Home.", expected: "Focus jumps to the last header, then back to the first." },
   { action: "Tab past an open panel's header.", expected: "Focus lands on any focusable content inside the open panel before reaching the next header." },
-  { action: "Collapse a panel that has focus inside it.", expected: "Focus moves to a sensible location (typically the section's own header) — it never becomes lost or stuck on a now-hidden element." },
+  { action: "Collapse a panel that has focus inside it.", expected: "Focus moves to a sensible location (typically the section's own header), it never becomes lost or stuck on a now-hidden element." },
 ];
 
 const CHECKLIST = [
@@ -175,7 +175,7 @@ export function AccordionPageClient() {
           </PageSection>
           <PageSection id="focus" title="Focus management rules">
             <ul className="list-disc space-y-2 pl-5 text-sm text-muted-foreground">
-              <li>Only header buttons are ever in the Tab order — panel content is never reachable while its panel is collapsed.</li>
+              <li>Only header buttons are ever in the Tab order, panel content is never reachable while its panel is collapsed.</li>
               <li>Toggling a panel never moves focus away from its header.</li>
               <li>Arrow Up/Down/Home/End move focus directly between headers, independent of open/closed state.</li>
             </ul>

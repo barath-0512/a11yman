@@ -78,7 +78,7 @@ const ARIA_ROWS = [
   { target: "Trigger <button>", attribute: "aria-expanded", why: "Communicates the menu's open/closed state on the trigger itself." },
   { target: "Trigger <button>", attribute: "aria-controls", why: "Associates the trigger with the menu it opens, by id." },
   { target: "Menu container", attribute: 'role="menu"', why: 'Identifies the popup as a menu (not a generic list), enabling menu-specific AT navigation and the "menu" role announcement.' },
-  { target: "Each item", attribute: 'role="menuitem", tabIndex="-1"', why: "Identifies each row as an actionable menu item; tabIndex=-1 keeps items out of the page Tab order — they're reached only via the menu's own arrow-key roving focus." },
+  { target: "Each item", attribute: 'role="menuitem", tabIndex="-1"', why: "Identifies each row as an actionable menu item; tabIndex=-1 keeps items out of the page Tab order, they're reached only via the menu's own arrow-key roving focus." },
 ];
 
 const KEYBOARD_ROWS = [
@@ -182,9 +182,9 @@ export function MenuButtonPageClient() {
           <PageSection id="focus" title="Focus management rules">
             <ul className="list-disc space-y-2 pl-5 text-sm text-muted-foreground">
               <li>Opening via Down Arrow focuses the first item; via Up Arrow focuses the last item.</li>
-              <li>Menu items use a roving tabindex (all -1) — arrow keys move real focus between them directly.</li>
+              <li>Menu items use a roving tabindex (all -1), arrow keys move real focus between them directly.</li>
               <li>Escape or activating an item closes the menu and restores focus to the trigger button.</li>
-              <li>Tab closes the menu without restoring focus to the trigger — it continues the page's natural tab sequence, since menus are not modal.</li>
+              <li>Tab closes the menu without restoring focus to the trigger, it continues the page's natural tab sequence, since menus are not modal.</li>
             </ul>
           </PageSection>
         </>

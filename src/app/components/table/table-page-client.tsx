@@ -21,7 +21,7 @@ import { getComponent } from "@/lib/components-data";
 
 const meta = getComponent("table")!;
 
-const HTML_CODE = `<!-- aria-sort lives on the <th>, not the button — that's where AT looks
+const HTML_CODE = `<!-- aria-sort lives on the <th>, not the button, that's where AT looks
      for a column's sort state. The <button> inside is what makes the
      control keyboard-operable. Only ONE column is sorted at a time. -->
 <table>
@@ -47,7 +47,7 @@ headers.forEach((th) => {
       current === "ascending" ? "descending" :
       current === "descending" ? "none" : "ascending";
 
-    // Only one column can be sorted at a time — clear the others first.
+    // Only one column can be sorted at a time, clear the others first.
     headers.forEach((other) => other.setAttribute("aria-sort", "none"));
     th.setAttribute("aria-sort", next);
 
@@ -59,12 +59,12 @@ const ARIA_ROWS = [
   { target: "<table>", attribute: "<caption>", why: "Gives the table an accessible name/purpose announced before a screen reader user enters it (not itself an ARIA attribute, but the required native equivalent)." },
   { target: "Column header <th>", attribute: 'scope="col"', why: "Associates the header with every cell in its column, so jumping to any cell also announces the relevant column label." },
   { target: "Row header <th>", attribute: 'scope="row"', why: "Associates the header with every cell in its row, giving row context (e.g. person's name) alongside any cell value." },
-  { target: "Sortable column <th>", attribute: 'aria-sort="ascending" | "descending" | "none"', why: "Communicates the column's current sort state. Lives on the header cell, updated dynamically as sort changes — never left stale." },
+  { target: "Sortable column <th>", attribute: 'aria-sort="ascending" | "descending" | "none"', why: "Communicates the column's current sort state. Lives on the header cell, updated dynamically as sort changes, never left stale." },
   { target: "Sort control", attribute: "Real <button> inside the <th>, with a composed aria-label", why: 'Keeps the control keyboard-operable and gives it an unambiguous accessible name like "Sort by Name, currently sorted ascending" instead of just the icon or a bare column label.' },
 ];
 
 const KEYBOARD_ROWS = [
-  { keys: "Tab / Shift+Tab", behavior: "Moves between interactive elements (sort buttons, any row action buttons) in reading order — normal document tab order, nothing custom." },
+  { keys: "Tab / Shift+Tab", behavior: "Moves between interactive elements (sort buttons, any row action buttons) in reading order, normal document tab order, nothing custom." },
   { keys: "Enter / Space", behavior: "Activates the focused sort button, re-sorting the table and updating aria-sort." },
 ];
 
@@ -77,7 +77,7 @@ const SR_ROWS = [
 const DEFECTS = [
   { defect: "Missing <caption>", severity: "Medium" as const, description: "No visible or hidden statement of what the table contains before a screen reader user navigates into it. Fails SC 1.3.1." },
   { defect: "Data cells have no header association", severity: "Critical" as const, description: "Header row uses <td> instead of <th scope=\"col\">, and there is no row header. Navigating cell-by-cell announces a bare value like \"Suspended\" with no row or column context. Fails SC 1.3.1 and 4.1.2." },
-  { defect: "Sort control is a <div onClick> wrapping the whole header cell", severity: "Critical" as const, description: "The header cell itself is not natively focusable or operable — keyboard users cannot reach or activate it at all, so the table cannot be sorted without a mouse. Fails SC 2.1.1 and 4.1.2." },
+  { defect: "Sort control is a <div onClick> wrapping the whole header cell", severity: "Critical" as const, description: "The header cell itself is not natively focusable or operable, keyboard users cannot reach or activate it at all, so the table cannot be sorted without a mouse. Fails SC 2.1.1 and 4.1.2." },
   { defect: "No aria-sort on sortable columns", severity: "High" as const, description: "Even when sorting does work, there is no programmatic indication of current sort state, so screen reader users can't tell if a column is sorted ascending, descending, or not at all. Fails SC 4.1.2." },
 ];
 
@@ -85,7 +85,7 @@ const TEST_STEPS = [
   { action: "Tab to a sortable column's sort button.", expected: "Screen reader announces the composed label, e.g. \"Sort by Name, not sorted, button.\"" },
   { action: "Press Enter or Space to activate it.", expected: "Table re-sorts; the button's accessible name updates to reflect the new state (\"currently sorted ascending\"), and the <th>'s aria-sort attribute changes to match." },
   { action: "Activate the same sort button again.", expected: "Sort direction toggles (ascending → descending → none), with each state correctly reflected in aria-sort and the accessible name." },
-  { action: "Tab through the rest of the table.", expected: "Focus moves only to interactive elements (other sort buttons, row actions) in reading order — there is no unexpected arrow-key cell navigation to test on a basic sortable table." },
+  { action: "Tab through the rest of the table.", expected: "Focus moves only to interactive elements (other sort buttons, row actions) in reading order, there is no unexpected arrow-key cell navigation to test on a basic sortable table." },
   { action: "With a screen reader, navigate cell-by-cell using its table navigation keys (e.g. NVDA/JAWS Ctrl+Alt+Arrow).", expected: "Every data cell announces its associated column header (and row header, if present) alongside its value." },
 ];
 
@@ -96,7 +96,7 @@ const CHECKLIST = [
   "Sortable columns carry aria-sort=\"ascending\"|\"descending\"|\"none\" on the <th>, kept in sync with actual state.",
   "The interactive sort control is a real <button>, not the whole header cell wired to a click handler.",
   "The sort button's accessible name communicates both the column and the current sort direction.",
-  "Tab order visits only interactive elements (sort buttons, row actions) — no unexpected stops on static cells.",
+  "Tab order visits only interactive elements (sort buttons, row actions), no unexpected stops on static cells.",
   "Cell-by-cell screen reader navigation announces correct row/column header context for every cell.",
   "Table remains usable and does not clip/overflow at 200% browser zoom.",
 ];
@@ -128,8 +128,8 @@ export function TablePageClient() {
             />
           )}
           <p className="text-sm text-muted-foreground">
-            For an <em>interactive</em> tabular widget — editable, selectable,
-            or arrow-key-navigable cells — see the{" "}
+            For an <em>interactive</em> tabular widget, editable, selectable,
+            or arrow-key-navigable cells, see the{" "}
             <Link href="/components/grid" className="text-accent-text underline underline-offset-2">
               Grid pattern
             </Link>{" "}
@@ -163,14 +163,14 @@ export function TablePageClient() {
             <KeyboardTable rows={KEYBOARD_ROWS} />
             <p className="text-sm text-muted-foreground">
               A basic sortable table does not need arrow-key grid/cell
-              navigation — that belongs to a spreadsheet-style ARIA grid
+              navigation, that belongs to a spreadsheet-style ARIA grid
               pattern and is out of scope here. Testers should not expect
               arrow keys to move between cells in this pattern.
             </p>
           </PageSection>
           <PageSection id="focus" title="Focus management rules">
             <ul className="list-disc space-y-2 pl-5 text-sm text-muted-foreground">
-              <li>Only interactive elements (sort buttons, row action buttons) are ever in the Tab order — static data cells are never focus stops.</li>
+              <li>Only interactive elements (sort buttons, row action buttons) are ever in the Tab order, static data cells are never focus stops.</li>
               <li>Activating a sort button never moves focus away from that button, even though the row order changes underneath it.</li>
               <li>Column header aria-sort and the button's accessible name are updated together, synchronously with the re-sort, so they never fall out of sync.</li>
             </ul>

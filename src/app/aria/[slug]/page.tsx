@@ -48,8 +48,8 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
   // Roles read as "ARIA Button Role …" (capitalised); attributes keep their
   // verbatim aria-* token, e.g. "ARIA aria-label attribute …".
   const title = attr
-    ? `ARIA ${entry.name} attribute – Accessibility & WCAG`
-    : `ARIA ${entry.name.charAt(0).toUpperCase()}${entry.name.slice(1)} Role – Accessibility & WCAG`;
+    ? `ARIA ${entry.name} attribute - Accessibility & WCAG`
+    : `ARIA ${entry.name.charAt(0).toUpperCase()}${entry.name.slice(1)} Role - Accessibility & WCAG`;
   return pageMetadata({
     title,
     description: entry.description,
@@ -167,7 +167,7 @@ function SidebarNav({
             {allLabel}
           </Link>
         </div>
-        {/* Scrollable region — negative margin + padding keep focus rings
+        {/* Scrollable region, negative margin + padding keep focus rings
             from being clipped by the overflow. */}
         <div className="lg:-mx-2 lg:min-h-0 lg:flex-1 lg:overflow-y-auto lg:px-2 lg:py-1">
         <ul className="space-y-0.5">
@@ -328,7 +328,7 @@ export default function AriaDetailPage({ params }: { params: Params }) {
 
                   {isGlobal ? (
                     <Section icon={Code2} label="Used on">
-                      Any HTML element —{" "}
+                      Any HTML element,{" "}
                       <code className="font-mono text-foreground">{entry.name}</code>{" "}
                       is a global property.
                     </Section>
@@ -395,7 +395,7 @@ export default function AriaDetailPage({ params }: { params: Params }) {
                           <li key={p.name}>
                             <code className="font-mono text-foreground">{p.name}</code>
                             {p.note && (
-                              <span className="text-muted-foreground"> — {p.note}</span>
+                              <span className="text-muted-foreground">, {p.note}</span>
                             )}
                           </li>
                         ))}

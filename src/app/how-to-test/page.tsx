@@ -17,9 +17,9 @@ import { TESTING_GUIDES } from "@/lib/testing-guides";
 import { CHEATSHEET } from "@/lib/testing-cheatsheet";
 
 export const metadata = pageMetadata({
-  title: "Web Accessibility Testing Guide – WCAG, Screen Readers & Keyboard",
+  title: "Web Accessibility Testing Guide - WCAG, Screen Readers & Keyboard",
   description:
-    "Practical accessibility testing guides and checklists — color contrast, images, keyboard operability, forms, dialogs and more — covering the cross-cutting checks beyond individual components.",
+    "Practical accessibility testing guides and checklists, color contrast, images, keyboard operability, forms, dialogs and more, covering the cross-cutting checks beyond individual components.",
   path: "/how-to-test",
 });
 
@@ -43,7 +43,7 @@ const REFERENCES = [
   {
     icon: ListChecks,
     title: "Accessibility Testing Cheat Sheet",
-    body: `A ${CHEATSHEET.length}-step manual testing pass with WCAG mapping — downloadable as a watermarked PDF.`,
+    body: `A ${CHEATSHEET.length}-step manual testing pass with WCAG mapping, downloadable as a watermarked PDF.`,
     href: "/how-to-test/cheat-sheet",
     cta: "Open cheat sheet",
     tint: "bg-warning/10 text-warning",
@@ -51,7 +51,7 @@ const REFERENCES = [
   {
     icon: Contrast,
     title: "Contrast Analyser",
-    body: "Check any colour pair against WCAG 2.2 — live ratio, AA/AAA, and the closest passing colours.",
+    body: "Check any colour pair against WCAG 2.2, live ratio, AA/AAA, and the closest passing colours.",
     href: "/contrast-checker",
     cta: "Open analyser",
     tint: "bg-accent/10 text-accent",

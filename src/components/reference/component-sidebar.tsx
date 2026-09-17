@@ -27,7 +27,7 @@ export function ComponentSidebar({ activeSlug }: { activeSlug: string }) {
             All components
           </Link>
         </div>
-        {/* Scrollable region — negative margin + padding keep focus rings
+        {/* Scrollable region, negative margin + padding keep focus rings
             from being clipped by the overflow. */}
         <div className="lg:-mx-2 lg:min-h-0 lg:flex-1 lg:overflow-y-auto lg:px-2 lg:py-1">
         <ul className="space-y-0.5">

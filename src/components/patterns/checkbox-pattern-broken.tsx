@@ -11,18 +11,18 @@ const CHILDREN = [
 ];
 
 /**
- * ⚠ Deliberately broken checkbox group — for learning only.
+ * ⚠ Deliberately broken checkbox group, for learning only.
  *
  * Defects, on purpose:
- * 1. Checkboxes are <div>s with an onClick handler — not real <button>s or
+ * 1. Checkboxes are <div>s with an onClick handler, not real <button>s or
  *    <input>s, so they have no default focusability and no keyboard
  *    activation at all. A keyboard-only user cannot check or uncheck
  *    anything. Fails SC 2.1.1 and 4.1.2.
- * 2. No role="checkbox" and no aria-checked — a screen reader announces
+ * 2. No role="checkbox" and no aria-checked, a screen reader announces
  *    these as plain, non-interactive text, so users don't even know a
  *    control is present. Fails SC 4.1.2.
  * 3. The "Select all" parent only ever renders fully-checked or
- *    fully-unchecked — it never shows a mixed/indeterminate state when
+ *    fully-unchecked, it never shows a mixed/indeterminate state when
  *    some but not all children are checked, silently misrepresenting the
  *    actual selection to every user, sighted or not. Fails SC 4.1.2 and
  *    is a common, very real defect in hand-rolled "select all" UIs.

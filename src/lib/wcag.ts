@@ -10,7 +10,7 @@ export interface WcagCriterion {
 }
 
 // Practical subset of WCAG 2.2 success criteria most relevant to interactive
-// UI component patterns (not the full 50+ SC list — see w3.org for that).
+// UI component patterns (not the full 50+ SC list, see w3.org for that).
 export const WCAG_CRITERIA: WcagCriterion[] = [
   {
     id: "1.1.1",

@@ -10,7 +10,7 @@ import { CHEATSHEET, CHEATSHEET_WORKFLOW } from "@/lib/testing-cheatsheet";
 export const metadata = pageMetadata({
   title: "Accessibility Testing Cheat Sheet",
   description:
-    "A 27-step manual accessibility testing pass — how to test each check, the expected result, and the mapped WCAG 2.2 success criteria. Downloadable as a watermarked PDF.",
+    "A 27-step manual accessibility testing pass, how to test each check, the expected result, and the mapped WCAG 2.2 success criteria. Downloadable as a watermarked PDF.",
   path: "/how-to-test/cheat-sheet",
 });
 
@@ -35,7 +35,7 @@ export default function CheatSheetPage() {
               </h1>
               <p className="max-w-2xl text-base leading-relaxed text-muted-foreground">
                 A {CHEATSHEET.length}-step manual pass you can work
-                top-to-bottom — how to test each check, what a pass looks like,
+                top-to-bottom, how to test each check, what a pass looks like,
                 and the WCAG 2.2 success criteria it maps to.
               </p>
             </div>

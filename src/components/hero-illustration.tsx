@@ -2,7 +2,7 @@
  * Decorative hero illustration for the home page: a macOS-style browser window
  * showing a single "Continue" button, ringed by six floating callout cards
  * (Semantic HTML, ARIA, Keyboard, Screen Reader, Focus Visible, WCAG) connected
- * to it with thin lines — a "blueprint" of what makes one component accessible.
+ * to it with thin lines, a "blueprint" of what makes one component accessible.
  *
  * Purely presentational: the parent marks it aria-hidden. It's a single inline
  * SVG so the connector lines stay precise and everything scales with the column

@@ -3,21 +3,21 @@
 import * as React from "react";
 
 /**
- * ⚠ Deliberately broken tooltip — for learning only.
+ * ⚠ Deliberately broken tooltip, for learning only.
  *
  * Defects, on purpose:
- * 1. Only onMouseEnter/onMouseLeave are wired up — there is no onFocus
+ * 1. Only onMouseEnter/onMouseLeave are wired up, there is no onFocus
  *    handler at all. Keyboard users (and anyone using switch access or a
  *    screen reader without a mouse) can tab directly to the trigger and
  *    will never see the tooltip appear, because focus alone never
  *    triggers it. Fails SC 2.1.1 (Keyboard) and defeats the purpose of a
  *    tooltip meant to supplement a control for everyone, not just mouse
  *    users.
- * 2. No aria-describedby anywhere — even if a screen reader user somehow
+ * 2. No aria-describedby anywhere, even if a screen reader user somehow
  *    triggers the tooltip to display, the trigger never announces it. The
  *    popup text is only ever visually associated with the button, not
  *    programmatically. Fails SC 1.4.13 and 4.1.2.
- * 3. No Escape handling — once shown (via mouse), there is no dismiss
+ * 3. No Escape handling, once shown (via mouse), there is no dismiss
  *    mechanism other than moving the pointer away, which fails the
  *    "dismissible" requirement of SC 1.4.13.
  */
@@ -34,7 +34,7 @@ export function TooltipPatternBroken({
     <span className="relative inline-block">
       <button
         type="button"
-        // BUG: no onFocus/onBlur — keyboard-only users never trigger this.
+        // BUG: no onFocus/onBlur, keyboard-only users never trigger this.
         onMouseEnter={() => setVisible(true)}
         onMouseLeave={() => setVisible(false)}
         // BUG: no aria-describedby linking to the tooltip text below.

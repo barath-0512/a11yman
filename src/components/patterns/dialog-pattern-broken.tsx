@@ -3,15 +3,15 @@
 import * as React from "react";
 
 /**
- * ⚠ Deliberately broken dialog — for learning only.
+ * ⚠ Deliberately broken dialog, for learning only.
  *
  * Defects, on purpose:
- * 1. No role="dialog" / aria-modal — a screen reader has no idea this is a
+ * 1. No role="dialog" / aria-modal, a screen reader has no idea this is a
  *    dialog; it just reads as more page content (fails 4.1.2).
- * 2. No focus trap — Tab walks straight through to the page behind the
+ * 2. No focus trap, Tab walks straight through to the page behind the
  *    overlay (fails 2.1.2 / 2.4.3 in spirit, and traps sighted mouse users
  *    visually while keyboard users "escape" the visual boundary).
- * 3. No Escape handling — keyboard-only users have no way to back out
+ * 3. No Escape handling, keyboard-only users have no way to back out
  *    (fails 2.1.1 Keyboard).
  * 4. Focus is never moved into the dialog on open, and never restored to the
  *    trigger on close (fails the APG focus-management requirement).
@@ -45,7 +45,7 @@ export function DialogPatternBroken({
               tech and cannot be closed with Escape.
             </p>
             <div className="flex justify-end gap-2">
-              {/* A div styled as a button — not natively focusable or
+              {/* A div styled as a button, not natively focusable or
                   keyboard-operable (fails 2.1.1 and 4.1.2). */}
               <div
                 onClick={() => setOpen(false)}

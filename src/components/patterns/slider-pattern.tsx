@@ -8,7 +8,7 @@ const STEP = 1;
 const BIG_STEP = 10; // Page Up/Down move 10x the normal step.
 
 /**
- * Hand-coded APG "Slider" pattern — a volume control, 0-100.
+ * Hand-coded APG "Slider" pattern, a volume control, 0-100.
  *
  * role="slider" on the focusable thumb, plus aria-valuemin/max/now, is what
  * lets AT announce this as a slider with its current numeric value. Arrow
@@ -37,7 +37,7 @@ export function SliderPattern() {
   function onTrackPointerDown(e: React.PointerEvent) {
     // Single-pointer, non-drag alternative required by SC 2.5.7: a single
     // click/tap anywhere on the track jumps the thumb straight to that
-    // value — no press-and-drag gesture required to reach any value.
+    // value, no press-and-drag gesture required to reach any value.
     setFromClientX(e.clientX);
     thumbRef.current?.focus();
     draggingRef.current = true;

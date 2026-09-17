@@ -3,19 +3,19 @@
 import * as React from "react";
 
 /**
- * ⚠ Deliberately broken disclosure — for learning only.
+ * ⚠ Deliberately broken disclosure, for learning only.
  *
  * Defects, on purpose:
- * 1. Trigger is a <div> with an onClick handler — not focusable and has
+ * 1. Trigger is a <div> with an onClick handler, not focusable and has
  *    no default keyboard activation, so keyboard users cannot reach or
  *    operate it at all (fails 2.1.1 and 4.1.2).
- * 2. aria-expanded is set once on mount and never updates — the panel
+ * 2. aria-expanded is set once on mount and never updates, the panel
  *    visibly opens and closes, but assistive tech is told a fixed,
  *    incorrect state forever, which is arguably worse than omitting the
  *    attribute entirely (fails 4.1.2).
  * 3. The panel is hidden with a CSS class (max-height: 0; overflow:
  *    hidden) instead of the hidden attribute, so its content remains in
- *    the tab order even while visually collapsed — a keyboard user can
+ *    the tab order even while visually collapsed, a keyboard user can
  *    tab into invisible controls with no visible focus indicator.
  */
 export function DisclosurePatternBroken() {
