@@ -5,11 +5,11 @@ import * as React from "react";
 const ITEMS = ["New file", "Duplicate", "Rename"];
 
 /**
- * ⚠ Deliberately broken menu button — for learning only.
+ * ⚠ Deliberately broken menu button, for learning only.
  *
  * Defects, on purpose:
  * 1. No aria-haspopup/aria-expanded on the trigger.
- * 2. No role="menu"/"menuitem" — reads as a plain list of links.
+ * 2. No role="menu"/"menuitem", reads as a plain list of links.
  * 3. No arrow-key navigation between items; only Tab (through every item)
  *    and mouse click work.
  * 4. Escape does not close the menu and does not restore focus.

@@ -57,7 +57,7 @@ trigger.addEventListener("mouseleave", scheduleHide);
 tip.addEventListener("mouseenter", show);
 tip.addEventListener("mouseleave", scheduleHide);
 
-// Keyboard users MUST get it too — on focus, not just hover.
+// Keyboard users MUST get it too, on focus, not just hover.
 trigger.addEventListener("focus", show);
 trigger.addEventListener("blur", hide);
 
@@ -75,7 +75,7 @@ const ARIA_ROWS = [
   {
     target: "Trigger element",
     attribute: "aria-describedby",
-    why: "Programmatically links the trigger to the tooltip's id so a screen reader announces the tooltip text as a description whenever the trigger is focused — this is the whole mechanism; without it the tooltip is invisible to AT even if it's visible on screen.",
+    why: "Programmatically links the trigger to the tooltip's id so a screen reader announces the tooltip text as a description whenever the trigger is focused, this is the whole mechanism; without it the tooltip is invisible to AT even if it's visible on screen.",
   },
   {
     target: "Tooltip popup content",
@@ -85,7 +85,7 @@ const ARIA_ROWS = [
 ];
 
 const KEYBOARD_ROWS = [
-  { keys: "Tab (to the trigger)", behavior: "Shows the tooltip — focus alone must trigger it, not just mouse hover." },
+  { keys: "Tab (to the trigger)", behavior: "Shows the tooltip, focus alone must trigger it, not just mouse hover." },
   { keys: "Shift+Tab / Tab (away)", behavior: "Hides the tooltip as focus leaves the trigger." },
   { keys: "Escape (while trigger has focus)", behavior: "Hides the tooltip without moving focus away from the trigger (dismissible, per SC 1.4.13)." },
 ];
@@ -128,7 +128,7 @@ const DEFECTS = [
     defect: "No Escape / dismiss mechanism",
     severity: "Medium" as const,
     description:
-      "Once shown, the tooltip can only be hidden by moving the pointer away or shifting focus — there's no way to dismiss it while keeping focus on the trigger, and it may obscure content beneath it. Fails SC 1.4.13 (dismissible).",
+      "Once shown, the tooltip can only be hidden by moving the pointer away or shifting focus, there's no way to dismiss it while keeping focus on the trigger, and it may obscure content beneath it. Fails SC 1.4.13 (dismissible).",
   },
   {
     defect: "Tooltip disappears before the pointer can reach it",
@@ -142,7 +142,7 @@ const TEST_STEPS = [
   { action: "Tab to a control with a tooltip (do not use the mouse).", expected: "The tooltip appears purely from keyboard focus, with no pointer involvement." },
   { action: "With a screen reader running, tab to the same control.", expected: "The trigger's name and role are announced, immediately followed by the tooltip text as a description." },
   { action: "With the tooltip visible, press Escape.", expected: "The tooltip hides; focus remains on the trigger (not moved elsewhere)." },
-  { action: "Hover the trigger with a mouse, then move the pointer toward the tooltip itself.", expected: "The tooltip does not disappear the instant the pointer leaves the trigger — it stays visible long enough to reach it." },
+  { action: "Hover the trigger with a mouse, then move the pointer toward the tooltip itself.", expected: "The tooltip does not disappear the instant the pointer leaves the trigger, it stays visible long enough to reach it." },
   { action: "Hover the trigger with a mouse and wait without moving.", expected: "The tooltip remains visible and readable, not hidden by a short arbitrary timer." },
 ];
 
@@ -150,10 +150,10 @@ const CHECKLIST = [
   "Tooltip appears on keyboard focus of the trigger, not only on mouse hover.",
   "Trigger has aria-describedby pointing at the tooltip's id.",
   "Tooltip popup has role=\"tooltip\".",
-  "Tooltip contains only non-interactive text — no links, buttons, or form controls inside it.",
+  "Tooltip contains only non-interactive text, no links, buttons, or form controls inside it.",
   "Escape hides the tooltip while the trigger keeps focus (dismissible).",
   "Tooltip does not disappear before a pointer can move onto it, when the tooltip has meaningful size (hoverable).",
-  "Tooltip stays visible until dismissed or focus/hover moves away — not hidden by a too-short arbitrary timer (persistent).",
+  "Tooltip stays visible until dismissed or focus/hover moves away, not hidden by a too-short arbitrary timer (persistent).",
   "Tooltip text has sufficient color contrast against its background.",
 ];
 
@@ -217,7 +217,7 @@ export function TooltipPageClient() {
           </PageSection>
           <PageSection id="focus" title="Focus management rules">
             <ul className="list-disc space-y-2 pl-5 text-sm text-muted-foreground">
-              <li>The tooltip never receives focus itself — it is purely supplementary to whatever element is already focused.</li>
+              <li>The tooltip never receives focus itself, it is purely supplementary to whatever element is already focused.</li>
               <li>Focusing the trigger shows the tooltip; blurring the trigger hides it.</li>
               <li>Escape hides the tooltip while leaving focus exactly where it was, on the trigger.</li>
               <li>A short close delay on mouseleave lets the pointer travel from the trigger onto the tooltip content itself without it disappearing mid-move.</li>

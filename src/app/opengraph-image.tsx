@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 // Social share card (Open Graph + Twitter), generated at build time.
-export const alt = "a11yman — Build. Test. Ship. Accessible.";
+export const alt = "a11yman, Build. Test. Ship. Accessible.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -61,7 +61,7 @@ export default function OpengraphImage() {
             lineHeight: 1.35,
           }}
         >
-          A practical WCAG 2.2 AA UI component reference — ARIA, keyboard, screen
+          A practical WCAG 2.2 AA UI component reference, ARIA, keyboard, screen
           readers &amp; ready-to-use test cases.
         </div>
         <div

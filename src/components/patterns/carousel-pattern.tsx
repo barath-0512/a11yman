@@ -16,12 +16,12 @@ const SLIDES = [
  * Key decisions, and why:
  *  - role="region" + aria-roledescription="carousel" on the wrapper names
  *    this as a carousel landmark, since there's no native ARIA "carousel"
- *    role — roledescription lets us borrow region's landmark behavior
+ *    role, roledescription lets us borrow region's landmark behavior
  *    while giving AT a more specific spoken label.
  *  - Each slide gets aria-roledescription="slide" and an aria-label like
  *    "2 of 4" so a screen reader user always knows their position.
  *  - A visually-hidden aria-live="polite" region announces the new slide's
- *    title ONLY when the user changes slides via Previous/Next — never
+ *    title ONLY when the user changes slides via Previous/Next, never
  *    during autoplay ticks, which would be read aloud every few seconds
  *    and be extremely disruptive to screen reader users.
  *  - Autoplay defaults to OFF. If turned on, a visible Pause/Play button
@@ -30,12 +30,12 @@ const SLIDES = [
  *    pausable by the user).
  *  - Only the active slide's interactive content is reachable by Tab;
  *    inactive slides are inert (hidden), so Tab moves through the visible
- *    slide, then the controls, then out to the next page element — it
+ *    slide, then the controls, then out to the next page element, it
  *    never traps focus and never lands on off-screen slides.
  */
 export function CarouselPattern() {
   const [index, setIndex] = React.useState(0);
-  const [playing, setPlaying] = React.useState(false); // off by default — see SC 2.2.2 note above
+  const [playing, setPlaying] = React.useState(false); // off by default, see SC 2.2.2 note above
   const [announcement, setAnnouncement] = React.useState("");
   const regionRef = React.useRef<HTMLDivElement>(null);
 
@@ -43,7 +43,7 @@ export function CarouselPattern() {
     const wrapped = (next + SLIDES.length) % SLIDES.length;
     setIndex(wrapped);
     if (userInitiated) {
-      // Only user-initiated changes are announced — autoplay ticks stay
+      // Only user-initiated changes are announced, autoplay ticks stay
       // silent so the live region doesn't interrupt every few seconds.
       setAnnouncement(`Slide ${wrapped + 1} of ${SLIDES.length}: ${SLIDES[wrapped].title}`);
     }
@@ -112,7 +112,7 @@ export function CarouselPattern() {
           >
             <ChevronRight className="h-4 w-4" aria-hidden="true" />
           </button>
-          {/* Visible, always-present pause/play control — required by
+          {/* Visible, always-present pause/play control, required by
               SC 2.2.2 whenever autoplay can be running. */}
           <button
             type="button"

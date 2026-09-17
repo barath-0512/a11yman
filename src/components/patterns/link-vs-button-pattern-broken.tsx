@@ -3,18 +3,18 @@
 import * as React from "react";
 
 /**
- * ⚠ Deliberately broken link/button — for learning only. This is the
+ * ⚠ Deliberately broken link/button, for learning only. This is the
  * single most common real-world defect pattern on this site.
  *
  * Defects, on purpose:
  * 1. A <div onClick> styled like a button performs an action ("Add to
  *    cart"). It has no role, is not in the Tab order, and does not
- *    respond to Enter or Space — completely unusable by keyboard.
+ *    respond to Enter or Space, completely unusable by keyboard.
  * 2. A <span onClick> styled like a link performs a fake "navigation" via
  *    a JS side effect. Same problem: not focusable, no keyboard support,
  *    and a screen reader announces it as plain text, not a link.
  * 3. An <a href="#"> with onClick + preventDefault() is used purely as a
- *    button-substitute ("wrong direction" mistake) — this pollutes browser
+ *    button-substitute ("wrong direction" mistake), this pollutes browser
  *    history, breaks "open in new tab" / "copy link", and is announced as
  *    a link that promises navigation it never performs.
  */
@@ -40,7 +40,7 @@ export function LinkVsButtonPatternBroken() {
         {navigated ? "Navigated (fake)" : "View pricing"}
       </span>
 
-      {/* Anchor used purely as a button — "wrong direction" */}
+      {/* Anchor used purely as a button, "wrong direction" */}
       <a
         href="#"
         onClick={(e) => {

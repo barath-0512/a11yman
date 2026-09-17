@@ -11,10 +11,10 @@ const HIDE_DELAY_MS = 150;
  * whole contract: the trigger's accessible NAME stays whatever it already
  * is (e.g. its visible label), and the tooltip text is appended as
  * supplementary DESCRIPTION. A tooltip must contain only non-interactive
- * text — no links or buttons inside it. If you need interactive content in
+ * text, no links or buttons inside it. If you need interactive content in
  * a hover popup, that's the separate "Popover" pattern, not a tooltip.
  *
- * Shows on BOTH hover and focus — focus is the critical one. A sighted
+ * Shows on BOTH hover and focus, focus is the critical one. A sighted
  * mouse user can just hover; a keyboard or switch-access user can only
  * ever reach this content by tabbing to the trigger, so onFocus is not
  * optional the way it might seem for a "just a hover thing."
@@ -26,7 +26,7 @@ const HIDE_DELAY_MS = 150;
  *    a nontrivial size/position); we implement this with a short close
  *    delay so the pointer has time to cross the gap.
  *  - Persistent: stays visible until the trigger loses hover/focus or
- *    Escape is pressed — not hidden by an arbitrary timer while the user
+ *    Escape is pressed, not hidden by an arbitrary timer while the user
  *    is still reading it.
  */
 export function TooltipPattern({
@@ -72,7 +72,7 @@ export function TooltipPattern({
         id={triggerId}
         type="button"
         // aria-describedby is what actually connects the trigger to the
-        // tooltip for AT — without it, a focused button never tells a
+        // tooltip for AT, without it, a focused button never tells a
         // screen reader user the supplementary text exists at all, even
         // though it may be visually shown.
         aria-describedby={visible ? tooltipId : undefined}

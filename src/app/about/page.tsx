@@ -18,7 +18,7 @@ import { Card, CardContent } from "@/components/ui/card";
 export const metadata = pageMetadata({
   title: "About",
   description:
-    "Why this WCAG 2.2 AA component reference exists — a direct, test-oriented alternative to dense accessibility documentation — and about the maker.",
+    "Why this WCAG 2.2 AA component reference exists, a direct, test-oriented alternative to dense accessibility documentation, and about the maker.",
   path: "/about",
 });
 
@@ -39,17 +39,17 @@ const HIGHLIGHTS = [
   {
     icon: Accessibility,
     title: "Accessibility, end to end",
-    body: "8+ years making web, mobile, and documents work for everyone — WCAG 2.1/2.2, Section 508, and ADA.",
+    body: "8+ years making web, mobile, and documents work for everyone, WCAG 2.1/2.2, Section 508, and ADA.",
   },
   {
     icon: Code2,
     title: "Accessibility + dev",
-    body: "I don't just file issues — I get into the code and give real, practical remediation guidance developers can ship.",
+    body: "I don't just file issues, I get into the code and give real, practical remediation guidance developers can ship.",
   },
   {
     icon: ScanText,
     title: "Screen readers all day",
-    body: "JAWS, NVDA, VoiceOver, TalkBack, Narrator — certified on JAWS & NVDA, and IAAP Web Accessibility Specialist.",
+    body: "JAWS, NVDA, VoiceOver, TalkBack, Narrator, certified on JAWS & NVDA, and IAAP Web Accessibility Specialist.",
   },
   {
     icon: Smartphone,

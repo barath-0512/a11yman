@@ -171,7 +171,7 @@ export function ContrastAnalyser({ initialQuote }: { initialQuote: string }) {
 
   // Once the pair clears every AA requirement, the AA suggestions are moot
   // ("no changes needed"), so auto-surface the AAA suggestions. Keyed on the
-  // pass-state, so it only switches on that transition — manual toggling still
+  // pass-state, so it only switches on that transition, manual toggling still
   // works in between.
   const passesAllAA =
     !!result && SUGGESTIONS.AA.every((r) => result.ratio >= r.target);
@@ -204,7 +204,7 @@ export function ContrastAnalyser({ initialQuote }: { initialQuote: string }) {
   function exportResult() {
     if (!result) return;
     const text = [
-      "a11yman — Color Contrast Checker",
+      "a11yman, Color Contrast Checker",
       "",
       `Foreground: ${toHex(fgRgb as RGB)}`,
       `Background: ${toHex(bgRgb as RGB)}`,
@@ -360,7 +360,7 @@ export function ContrastAnalyser({ initialQuote }: { initialQuote: string }) {
                   aria-hidden="true"
                 />
                 <span className="text-success-text">
-                  Your colours already pass every {level} contrast requirement —
+                  Your colours already pass every {level} contrast requirement,
                   no changes needed.
                 </span>
               </div>
@@ -416,7 +416,7 @@ export function ContrastAnalyser({ initialQuote }: { initialQuote: string }) {
                       </>
                     ) : (
                       <span className="max-w-[13rem] shrink-0 text-right text-xs leading-snug text-muted-foreground">
-                        No foreground reaches {row.target}:1 on this background —
+                        No foreground reaches {row.target}:1 on this background,
                         try a lighter or darker background.
                       </span>
                     )}

@@ -6,7 +6,7 @@ import { ChevronDown } from "lucide-react";
 /**
  * Hand-coded APG "Disclosure (Show/Hide)" pattern: a single button that
  * toggles a single section of content. Unlike Accordion, there is no
- * grouping — no arrow-key roving focus between multiple disclosures, and
+ * grouping, no arrow-key roving focus between multiple disclosures, and
  * the trigger doesn't need to be wrapped in a heading element.
  */
 export function DisclosurePattern() {
@@ -17,7 +17,7 @@ export function DisclosurePattern() {
     <div className="w-full max-w-md rounded-2xl border border-border bg-card p-4">
       <button
         type="button"
-        // aria-expanded tells AT whether the panel is currently visible —
+        // aria-expanded tells AT whether the panel is currently visible,
         // announced as "expanded" or "collapsed."
         aria-expanded={expanded}
         // aria-controls associates this button with the panel it toggles
@@ -37,7 +37,7 @@ export function DisclosurePattern() {
         />
       </button>
       {/* The hidden attribute removes the panel from the accessibility
-          tree and the tab order entirely when collapsed — stronger than
+          tree and the tab order entirely when collapsed, stronger than
           CSS display tricks that can leave content focusable. */}
       <div id={panelId} hidden={!expanded} className="mt-3 space-y-3 text-sm">
         <label className="block">

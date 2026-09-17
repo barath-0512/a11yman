@@ -20,14 +20,14 @@ import { WCAG_CRITERIA } from "@/lib/wcag";
 export const metadata = pageMetadata({
   // The root segment's title bypasses the layout's "%s | a11yman" template, so
   // set the full title explicitly (matches SITE_TITLE so og:title agrees).
-  title: "a11yman – Accessibility Components, ARIA & WCAG Examples",
+  title: "a11yman - Accessibility Components, ARIA & WCAG Examples",
   description:
-    "a11yman is a fast, practical reference for building, testing, and understanding accessible UI components — hand-coded patterns, ARIA, keyboard models, screen reader output, and WCAG mapping.",
+    "a11yman is a fast, practical reference for building, testing, and understanding accessible UI components: hand-coded patterns, ARIA, keyboard models, screen reader output, and WCAG mapping.",
   path: "/",
 });
 
 const WHY = [
-  { icon: Zap, title: "Faster than documentation", body: "Stop digging through long specs. Find how to build — and how to test — exactly what you need, instantly.", list: [] as string[] },
+  { icon: Zap, title: "Faster than documentation", body: "Stop digging through long specs. Find how to build, and how to test, exactly what you need, instantly.", list: [] as string[] },
   { icon: Code2, title: "Built for developers", body: "", list: ["Semantics & ARIA", "Keyboard & focus", "Code examples", "Best practices"] },
   { icon: ShieldCheck, title: "Built for testers", body: "", list: ["Step-by-step test guides", "Screen reader output", "WCAG mapping", "Downloadable cheat sheet"] },
 ];
@@ -121,7 +121,7 @@ export default function HomePage() {
                   Try the new smart contrast checker
                 </h2>
                 <p className="text-sm text-muted-foreground">
-                  Check any colour pair against WCAG 2.2, right in your browser —
+                  Check any colour pair against WCAG 2.2, right in your browser,
                   free.
                 </p>
               </div>

@@ -1,12 +1,12 @@
 /**
- * ⚠ Deliberately broken breadcrumb — for learning only.
+ * ⚠ Deliberately broken breadcrumb, for learning only.
  *
  * Defects, on purpose:
- * 1. No <nav aria-label="Breadcrumb"> wrapper — a screen reader's landmark
+ * 1. No <nav aria-label="Breadcrumb"> wrapper, a screen reader's landmark
  *    list has no "Breadcrumb navigation" entry at all; the trail reads as
  *    an anonymous list indistinguishable from any other list on the page.
  * 2. The current page ("ThinkPad X1") is still a clickable <a href>, and
- *    it carries no aria-current="page" — nothing tells AT users, or a
+ *    it carries no aria-current="page", nothing tells AT users, or a
  *    "current page" CSS selector, which crumb represents where they are.
  * 3. The "/" separators are plain text nodes inside each list item, so a
  *    screen reader reads "slash" aloud between every single crumb.

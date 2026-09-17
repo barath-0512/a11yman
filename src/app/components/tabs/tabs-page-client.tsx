@@ -69,7 +69,7 @@ tabs.forEach((tab, i) => {
 
 const ARIA_ROWS = [
   { target: "Tab list wrapper", attribute: 'role="tablist"', why: "Identifies the group of tab buttons as a tablist, so AT announces the total count and enables tab-specific navigation commands." },
-  { target: "Each tab", attribute: 'role="tab" + aria-selected', why: 'Identifies each button as a tab and communicates which one is currently active — announced as "selected."' },
+  { target: "Each tab", attribute: 'role="tab" + aria-selected', why: 'Identifies each button as a tab and communicates which one is currently active, announced as "selected."' },
   { target: "Each tab", attribute: "aria-controls", why: "Associates the tab with the panel id it reveals." },
   { target: "Each tab", attribute: "tabIndex (roving)", why: "Only the active/focused tab has tabIndex=0; the rest are -1, so Tab moves from the tablist straight to panel content instead of stopping on every tab." },
   { target: "Each panel", attribute: 'role="tabpanel" + aria-labelledby', why: "Identifies the panel and labels it via the tab that reveals it, so its accessible name matches the tab label." },
@@ -100,7 +100,7 @@ const TEST_STEPS = [
   { action: "Press Right Arrow through all tabs and past the last one.", expected: "Focus moves tab-to-tab, wrapping from the last tab back to the first." },
   { action: "(Automatic activation) Arrow to a different tab.", expected: "The corresponding panel becomes visible immediately, without pressing Enter." },
   { action: "(Manual activation) Arrow to a different tab, then press Enter.", expected: "Panel does not change until Enter/Space is pressed on the focused tab." },
-  { action: "Press Tab once from the active tab.", expected: "Focus moves directly to the active panel's content — not to any other tab." },
+  { action: "Press Tab once from the active tab.", expected: "Focus moves directly to the active panel's content, not to any other tab." },
 ];
 
 const CHECKLIST = [
@@ -201,7 +201,7 @@ export function TabsPageClient() {
           <PageSection id="focus" title="Focus management rules">
             <ul className="list-disc space-y-2 pl-5 text-sm text-muted-foreground">
               <li>Tab into the widget lands on the currently active tab, never on an inactive one.</li>
-              <li>Arrow keys move focus between tabs using a roving tabindex — never real DOM focus loss.</li>
+              <li>Arrow keys move focus between tabs using a roving tabindex, never real DOM focus loss.</li>
               <li>Tab out of the tablist moves focus directly to the active panel's content, skipping inactive tabs entirely.</li>
             </ul>
           </PageSection>

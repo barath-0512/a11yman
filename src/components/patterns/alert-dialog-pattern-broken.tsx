@@ -3,21 +3,21 @@
 import * as React from "react";
 
 /**
- * ⚠ Deliberately broken alert dialog — for learning only.
+ * ⚠ Deliberately broken alert dialog, for learning only.
  *
  * Defects, on purpose:
- * 1. role="dialog" instead of role="alertdialog" — undersells the urgency
+ * 1. role="dialog" instead of role="alertdialog", undersells the urgency
  *    of a destructive confirmation; some AT/browser combinations announce
  *    a plain dialog less assertively, so users may not register that this
- *    interruption is different from a routine one (fails 4.1.2 in spirit —
+ *    interruption is different from a routine one (fails 4.1.2 in spirit,
  *    wrong role for the semantics being conveyed).
  * 2. Default focus lands on the destructive "Delete" button instead of
- *    "Cancel" — a very common real-world defect. A user who reflexively
+ *    "Cancel", a very common real-world defect. A user who reflexively
  *    presses Enter (e.g. to dismiss what they assume is a toast, or out of
  *    habit from the previous screen) confirms the destructive action by
  *    accident. This is the exact failure mode the APG's "least destructive
  *    action gets focus" rule exists to prevent.
- * 3. No focus trap and no Escape handling — copied from a rushed Dialog
+ * 3. No focus trap and no Escape handling, copied from a rushed Dialog
  *    implementation that never got the alertdialog-specific review.
  */
 export function AlertDialogPatternBroken({
@@ -73,7 +73,7 @@ export function AlertDialogPatternBroken({
               >
                 Cancel
               </button>
-              {/* BUG: this — the destructive action — receives focus on open. */}
+              {/* BUG: this, the destructive action, receives focus on open. */}
               <button
                 ref={deleteBtnRef}
                 type="button"

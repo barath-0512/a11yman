@@ -14,7 +14,7 @@ import {
 } from "lucide-react";
 
 /**
- * General, page-level accessibility testing guides — the cross-cutting checks
+ * General, page-level accessibility testing guides, the cross-cutting checks
  * that aren't tied to a single component (contrast, images, keyboard flow,
  * forms, etc.). Powers the /how-to-test hub and each /how-to-test/[slug] guide.
  */
@@ -32,13 +32,13 @@ export interface TestingGuide {
   icon: LucideIcon;
   /** Lead paragraph on the guide page. */
   intro: string;
-  /** "What to test" — the checklist. */
+  /** "What to test", the checklist. */
   whatToTest: string[];
-  /** "How to test" — ordered steps, tools first. */
+  /** "How to test", ordered steps, tools first. */
   howToTest: string[];
   /** Optional quick-reference thresholds (used by contrast). */
   thresholds?: { label: string; value: string }[];
-  /** Optional "Edge cases" — the tricky details worth calling out. */
+  /** Optional "Edge cases", the tricky details worth calling out. */
   edgeCases?: { title: string; detail: string }[];
   /** "Common failures" to watch for. */
   commonFailures: string[];
@@ -53,17 +53,17 @@ export const TESTING_GUIDES: TestingGuide[] = [
     summary: "Test text and UI contrast against WCAG 2.2 contrast requirements.",
     icon: Contrast,
     intro:
-      "Insufficient contrast is the single most common WCAG failure. Check that text, meaningful icons, and the boundaries of interactive controls stand out enough from their background — in every theme and every interactive state.",
+      "Insufficient contrast is the single most common WCAG failure. Check that text, meaningful icons, and the boundaries of interactive controls stand out enough from their background, in every theme and every interactive state.",
     whatToTest: [
       "Body text and headings meet the minimum ratio for their size.",
       "Muted, helper, and placeholder text that still conveys information.",
       "Meaningful non-text UI: icons, focus rings, form borders, chart lines.",
       "Text set over images or gradients, where the background varies.",
-      "Every state — hover, focus, active, selected, disabled, and error.",
+      "Every state, hover, focus, active, selected, disabled, and error.",
     ],
     howToTest: [
       "Run an automated pass (axe DevTools, Lighthouse) to flag obvious text-contrast failures fast.",
-      "Sample real foreground/background pairs with a contrast checker — automation can't judge text over images.",
+      "Sample real foreground/background pairs with a contrast checker, automation can't judge text over images.",
       "Measure non-text UI (icons, borders, focus rings) against their adjacent color; the threshold is 3:1.",
       "Repeat in both light and dark themes, against the actually-rendered background, not the token value.",
     ],
@@ -77,17 +77,17 @@ export const TESTING_GUIDES: TestingGuide[] = [
       {
         title: "Focus indicators",
         detail:
-          "A focus ring is non-text UI, so it needs 3:1 contrast — and against BOTH the adjacent colors it touches: the component's own background AND the page background it overlaps. A ring that only stands out on one side can still fail (1.4.11). WCAG 2.2 adds 2.4.13 Focus Appearance (AAA) with minimum-area and change-of-contrast rules if you're targeting AAA.",
+          "A focus ring is non-text UI, so it needs 3:1 contrast, and against BOTH the adjacent colors it touches: the component's own background AND the page background it overlaps. A ring that only stands out on one side can still fail (1.4.11). WCAG 2.2 adds 2.4.13 Focus Appearance (AAA) with minimum-area and change-of-contrast rules if you're targeting AAA.",
       },
       {
-        title: "Disabled controls are exempt — if truly inactive",
+        title: "Disabled controls are exempt, if truly inactive",
         detail:
           "Disabled elements have no contrast minimum, but only when they're genuinely non-operable. A control that merely looks disabled yet still works must still pass 4.5:1 / 3:1.",
       },
       {
         title: "Text over images, video and gradients",
         detail:
-          "Measure the worst-case region of the background, not an average — a caption can pass over the dark part of an image and fail over the light part. Add a scrim, overlay, or text shadow so every pixel behind the text clears the threshold.",
+          "Measure the worst-case region of the background, not an average, a caption can pass over the dark part of an image and fail over the light part. Add a scrim, overlay, or text shadow so every pixel behind the text clears the threshold.",
       },
       {
         title: "Every interactive state",
@@ -97,7 +97,7 @@ export const TESTING_GUIDES: TestingGuide[] = [
       {
         title: "Placeholder and “ghost” text",
         detail:
-          "If placeholder text conveys a requirement or instruction it must meet 4.5:1. Even as a pure hint it should stay legible — very light placeholders are a common failure.",
+          "If placeholder text conveys a requirement or instruction it must meet 4.5:1. Even as a pure hint it should stay legible, very light placeholders are a common failure.",
       },
     ],
     commonFailures: [
@@ -119,7 +119,7 @@ export const TESTING_GUIDES: TestingGuide[] = [
     summary: "Ensure images, icons and charts have appropriate text alternatives.",
     icon: Image,
     intro:
-      "Every image must expose the right text alternative for its purpose — or be hidden if it is purely decorative. The test is about meaning, not just the presence of an alt attribute.",
+      "Every image must expose the right text alternative for its purpose, or be hidden if it is purely decorative. The test is about meaning, not just the presence of an alt attribute.",
     whatToTest: [
       "Informative images have alt text conveying their meaning, not their file name.",
       'Decorative images are hidden from assistive tech (empty alt="" or aria-hidden).',
@@ -131,7 +131,7 @@ export const TESTING_GUIDES: TestingGuide[] = [
       "Turn images off (or use a text-only view) and confirm the page still makes sense.",
       "Navigate image-by-image in a screen reader (NVDA/JAWS “g”) and listen to each announcement.",
       "Inspect the accessible name in the browser's accessibility tree.",
-      "For each image ask: does the alt convey what a sighted user gets — no more, no less?",
+      "For each image ask: does the alt convey what a sighted user gets, no more, no less?",
     ],
     commonFailures: [
       'alt="image", alt="logo", or the raw filename.',
@@ -150,13 +150,13 @@ export const TESTING_GUIDES: TestingGuide[] = [
     summary: "Verify all functionality is available and operable using only a keyboard.",
     icon: Keyboard,
     intro:
-      "Put the mouse away. Everything a mouse user can do, a keyboard user must be able to do too — reach it, operate it, and get out of it — with a visible focus indicator the whole way through.",
+      "Put the mouse away. Everything a mouse user can do, a keyboard user must be able to do too, reach it, operate it, and get out of it, with a visible focus indicator the whole way through.",
     whatToTest: [
       "Every interactive element is reachable with Tab / Shift+Tab.",
       "Focus order follows the visual and reading order.",
       "Each control operates with its expected keys (Enter/Space, arrows inside composite widgets).",
       "A visible focus indicator is present on every stop, in both themes.",
-      "No keyboard traps — you can always Tab or Escape away.",
+      "No keyboard traps, you can always Tab or Escape away.",
       "Focus is never hidden behind sticky headers or overlays.",
     ],
     howToTest: [
@@ -185,13 +185,13 @@ export const TESTING_GUIDES: TestingGuide[] = [
     summary: "Test that buttons and links have an accessible name, purpose and state.",
     icon: MousePointerClick,
     intro:
-      "Buttons do things; links go places. Test that each is the right element, carries a clear accessible name, and — for toggles — exposes its current state.",
+      "Buttons do things; links go places. Test that each is the right element, carries a clear accessible name, and, for toggles, exposes its current state.",
     whatToTest: [
       "Buttons are <button>; links are <a href>. Actions aren't links; navigation isn't a button.",
       "Every control's accessible name matches or contains its visible label.",
       "Icon-only controls have an accessible name (aria-label or visually-hidden text).",
       "Toggle buttons expose aria-pressed; disclosures expose aria-expanded.",
-      "Link text makes sense out of context — no bare “click here” / “read more”.",
+      "Link text makes sense out of context, no bare “click here” / “read more”.",
       "Targets are at least 24 × 24 CSS pixels.",
     ],
     howToTest: [
@@ -254,7 +254,7 @@ export const TESTING_GUIDES: TestingGuide[] = [
     summary: "Check focus management, keyboard support and background interaction.",
     icon: AppWindow,
     intro:
-      "A modal must take focus, keep it, and give it back — while making everything behind it inert. Most dialog bugs are focus-management bugs.",
+      "A modal must take focus, keep it, and give it back, while making everything behind it inert. Most dialog bugs are focus-management bugs.",
     whatToTest: [
       "On open, focus moves into the dialog (the dialog, its heading, or the first control).",
       "Focus is contained while open; Tab cycles within the dialog.",
@@ -273,7 +273,7 @@ export const TESTING_GUIDES: TestingGuide[] = [
       "Focus stays on the trigger behind the overlay when the dialog opens.",
       "Tab escapes to the page behind the dialog.",
       "Focus dropped to <body> on close instead of returning to the trigger.",
-      "Background not inert — the screen reader reads straight through the overlay.",
+      "Background not inert, the screen reader reads straight through the overlay.",
     ],
     criteria: [
       { id: "2.1.2", name: "No Keyboard Trap", level: "A" },
@@ -294,7 +294,7 @@ export const TESTING_GUIDES: TestingGuide[] = [
       "Prerecorded audio (podcasts) has a complete text transcript.",
       "Video conveying visual information has audio description or a text alternative.",
       "Captions include speaker changes and meaningful sound effects, not just dialogue.",
-      "Media doesn't autoplay with sound — or can be paused/stopped immediately.",
+      "Media doesn't autoplay with sound, or can be paused/stopped immediately.",
       "Player controls (play, mute, volume, scrubber, captions) are keyboard-operable and labelled.",
     ],
     howToTest: [
@@ -324,7 +324,7 @@ export const TESTING_GUIDES: TestingGuide[] = [
     summary: "Verify content reflows and stays usable at 200% zoom and 320px wide.",
     icon: ZoomIn,
     intro:
-      "Low-vision users zoom in — a lot. Test that content reflows to a single column with no horizontal scrolling, nothing is clipped or overlapping, and user text-spacing overrides don't break the layout.",
+      "Low-vision users zoom in, a lot. Test that content reflows to a single column with no horizontal scrolling, nothing is clipped or overlapping, and user text-spacing overrides don't break the layout.",
     whatToTest: [
       "At 200% browser zoom, all text and functionality remains available.",
       "At 320 CSS px wide (≈ 400%), content reflows to one column with no two-dimensional scrolling.",
@@ -371,7 +371,7 @@ export const TESTING_GUIDES: TestingGuide[] = [
     howToTest: [
       "Find any countdown or session timeout and confirm you can extend or disable it.",
       "Leave an auto-advancing carousel or marquee running and confirm a visible control stops it.",
-      "Confirm pausing persists — it must not silently restart.",
+      "Confirm pausing persists, it must not silently restart.",
       "Review any flashing content against the three-flashes-per-second threshold.",
     ],
     commonFailures: [
@@ -396,14 +396,14 @@ export const TESTING_GUIDES: TestingGuide[] = [
       "Screen readers switch pronunciation rules based on the declared language. Test that the page's default language is set and that any passage in another language is marked up.",
     whatToTest: [
       "The <html> element has a valid lang attribute for the page's default language.",
-      "The value is a correct BCP-47 code (en, en-GB, fr) — not a full word.",
+      "The value is a correct BCP-47 code (en, en-GB, fr), not a full word.",
       "Passages or phrases in a different language carry their own lang attribute.",
       "Proper names and technical terms aren't wrongly marked as a language change.",
       "Embedded iframes and widgets declare their own language.",
     ],
     howToTest: [
       "Inspect the <html> element and confirm a correct lang attribute.",
-      "Listen with a screen reader — the voice and pronunciation should match the content's language.",
+      "Listen with a screen reader, the voice and pronunciation should match the content's language.",
       "Find foreign-language quotes or terms and confirm each carries a lang attribute.",
       "Validate the language codes are real BCP-47 subtags.",
     ],
@@ -411,7 +411,7 @@ export const TESTING_GUIDES: TestingGuide[] = [
       "Missing lang on <html>, so the screen reader uses its default voice.",
       'lang="english" or another invalid value instead of a BCP-47 code.',
       "A multilingual page with no per-passage lang, so foreign text is mispronounced.",
-      "The wrong code — e.g. lang=\"en\" on a French page.",
+      "The wrong code, e.g. lang=\"en\" on a French page.",
     ],
     criteria: [
       { id: "3.1.1", name: "Language of Page", level: "A" },
@@ -428,7 +428,7 @@ export const TESTING_GUIDES: TestingGuide[] = [
     whatToTest: [
       "Interactive targets are at least 24 × 24 CSS px, or have enough spacing around them.",
       "Multipoint or path-based gestures (swipe, pinch, drag) have a single-pointer alternative.",
-      "Drag operations have a non-dragging alternative — buttons, a menu, or inputs.",
+      "Drag operations have a non-dragging alternative, buttons, a menu, or inputs.",
       "Actions complete on pointer-up so they can be aborted by moving away first.",
       "Motion-actuated features (shake, tilt) have a UI alternative and can be disabled.",
     ],
@@ -436,7 +436,7 @@ export const TESTING_GUIDES: TestingGuide[] = [
       "Measure interactive targets; flag anything under 24px without adequate spacing.",
       "Try every gesture-based interaction using only a single tap or click.",
       "For drag-and-drop, confirm a non-drag path exists.",
-      "Press down on a control, move off it, and release — it must not activate.",
+      "Press down on a control, move off it, and release, it must not activate.",
       "Test any motion-triggered feature with motion disabled and via a normal control.",
     ],
     commonFailures: [

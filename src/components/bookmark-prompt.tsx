@@ -12,7 +12,7 @@ import { Bookmark, X } from "lucide-react";
  *   bookmark shortcut (Ctrl/⌘+D) anywhere on the site. Once set, the prompt is
  *   NEVER shown again, on any future visit. (There is no web API to read the
  *   actual bookmark state, so the keyboard shortcut is the best available
- *   proxy — we never preventDefault it, so the real bookmark dialog still opens.)
+ *   proxy, we never preventDefault it, so the real bookmark dialog still opens.)
  * - `a11yman-bookmark-dismissed` in sessionStorage: set when the visitor
  *   dismisses the prompt. Suppresses it for the rest of that browsing session,
  *   but it may reappear on a fresh visit until they bookmark.
@@ -34,7 +34,7 @@ const DELAY_MS = 60_000; // one minute
 /**
  * Desktop-only: the prompt teaches a physical-keyboard shortcut (Ctrl/⌘+D),
  * which is meaningless on phones and touch tablets. We require a wide viewport
- * AND a fine, hover-capable pointer — that excludes phones and touch tablets
+ * AND a fine, hover-capable pointer, that excludes phones and touch tablets
  * (coarse pointer) while allowing mouse/trackpad-driven laptops and desktops.
  */
 function isDesktopPointer(): boolean {
@@ -55,12 +55,12 @@ export function BookmarkPrompt() {
     try {
       bookmarked = localStorage.getItem(BOOKMARKED_KEY) === "1";
     } catch {
-      // localStorage unavailable (e.g. privacy mode) — just skip the feature.
+      // localStorage unavailable (e.g. privacy mode), just skip the feature.
       return;
     }
 
-    // Detect the bookmark shortcut anywhere, anytime — even before the prompt
-    // has shown — so a visitor who bookmarks early is never nudged.
+    // Detect the bookmark shortcut anywhere, anytime, even before the prompt
+    // has shown, so a visitor who bookmarks early is never nudged.
     function onKeyDown(e: KeyboardEvent) {
       const isBookmarkShortcut =
         (e.metaKey || e.ctrlKey) &&
@@ -75,7 +75,7 @@ export function BookmarkPrompt() {
       }
       bookmarked = true;
       setOpen(false);
-      // Note: we deliberately do NOT preventDefault — let the browser open its
+      // Note: we deliberately do NOT preventDefault, let the browser open its
       // real bookmark dialog.
     }
     window.addEventListener("keydown", onKeyDown);
@@ -95,7 +95,7 @@ export function BookmarkPrompt() {
           if (bookmarked || !isDesktopPointer()) return;
           setOpen(true);
           setAnnouncement(
-            "a11yman. Enjoying this site? Bookmark it for quick access — press Control D, or Command D on Mac."
+            "a11yman. Enjoying this site? Bookmark it for quick access, press Control D, or Command D on Mac."
           );
         }, DELAY_MS);
       }

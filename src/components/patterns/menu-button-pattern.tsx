@@ -7,7 +7,7 @@ const ITEMS = ["New file", "Duplicate", "Rename", "Move to trash"];
 
 /**
  * Hand-coded APG "Menu Button" pattern. Unlike a dialog, a menu is not
- * modal — Tab closes it and moves on to the next focusable page element
+ * modal, Tab closes it and moves on to the next focusable page element
  * rather than being trapped, per APG guidance.
  */
 export function MenuButtonPattern() {

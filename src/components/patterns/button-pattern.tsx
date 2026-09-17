@@ -6,11 +6,11 @@ import { Star } from "lucide-react";
 /**
  * Hand-coded APG "Button" pattern, in two flavors:
  *
- * 1. A plain action button — a real <button>. Native semantics give us
+ * 1. A plain action button, a real <button>. Native semantics give us
  *    the button role, focusability, and Enter+Space activation for free.
  *    There is genuinely nothing to add here; that's the point.
  *
- * 2. A toggle button — still a real <button>, but we set aria-pressed
+ * 2. A toggle button, still a real <button>, but we set aria-pressed
  *    ourselves to expose an on/off state. aria-pressed is NOT something
  *    <button> gives you automatically; unlike aria-expanded on a
  *    disclosure, there's no built-in HTML control for "pressed," so a
@@ -85,7 +85,7 @@ export function CustomAriaButtonPattern() {
       // is strictly required, but it's harmless to include for symmetry.
       activate();
     } else if (e.key === " ") {
-      // Space must be prevented — its default action is "scroll the
+      // Space must be prevented, its default action is "scroll the
       // page," which would fire on every activation if left unhandled.
       e.preventDefault();
       activate();
@@ -104,7 +104,7 @@ export function CustomAriaButtonPattern() {
         Clicked {count} {count === 1 ? "time" : "times"}
       </div>
       <p className="text-xs text-muted-foreground">
-        Reimplemented from a &lt;div&gt; — same behavior as a real button,
+        Reimplemented from a &lt;div&gt;, same behavior as a real button,
         with roughly 10x the code and several ways to get it wrong.
       </p>
     </div>

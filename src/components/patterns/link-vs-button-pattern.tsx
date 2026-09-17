@@ -7,7 +7,7 @@ import * as React from "react";
  * role="link" / role="button" on non-interactive elements, with every
  * piece of manual plumbing wired up by hand: tabIndex to make them
  * focusable, the correct ARIA role so AT announces the right element type,
- * and keydown handlers that replicate native activation keys — Enter only
+ * and keydown handlers that replicate native activation keys, Enter only
  * for the link, Enter AND Space for the button, since that's what real
  * <a> and <button> elements do. This works, but it's a lot of code to
  * reproduce what <a href> and <button> give you for free. See the "Native

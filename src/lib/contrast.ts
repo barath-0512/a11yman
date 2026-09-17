@@ -84,7 +84,7 @@ export function suggestPassing(fg: RGB, bg: RGB, target: number): RGB | null {
 
   if (contrastRatio(fg, bg) >= target) {
     // fg already passes: return the colour closest to the background that still
-    // passes once rounded — "how close to the background you can go".
+    // passes once rounded, "how close to the background you can go".
     let best = round(fg);
     for (let i = 1; i <= STEPS; i++) {
       const c = round(mix(fg, bg, i / STEPS));

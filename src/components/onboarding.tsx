@@ -43,7 +43,7 @@ export function Onboarding() {
   const firstBtnRef = React.useRef<HTMLButtonElement>(null);
 
   // The mode only affects component pages, so only prompt for it once the user
-  // enters the /components section — not on the home page or elsewhere.
+  // enters the /components section, not on the home page or elsewhere.
   const active = mounted && showOnboarding && pathname.startsWith("/components");
 
   // Move focus into the dialog on open, trap Tab within it, and handle Escape.
@@ -142,13 +142,13 @@ export function Onboarding() {
             id="onboarding-title"
             className="text-xl font-semibold tracking-tight"
           >
-            Welcome to a11yman — how will you use it?
+            Welcome to a11yman, how will you use it?
           </h2>
         </div>
 
         <p id="onboarding-desc" className="mb-6 text-sm text-muted-foreground">
           Every component page adapts to your role. Are you a developer or a
-          tester? Pick one to get started — you can change it at any time.
+          tester? Pick one to get started, you can change it at any time.
         </p>
 
         <div className="grid gap-3 sm:grid-cols-2">

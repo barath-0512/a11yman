@@ -35,7 +35,7 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
     if (!header) return;
     const update = () => {
       // The header is sticky at top: 0, so its bounding bottom equals its
-      // rendered height — the point just under it, in viewport coordinates.
+      // rendered height, the point just under it, in viewport coordinates.
       setTopOffset(header.getBoundingClientRect().bottom + 12);
     };
     update();
@@ -74,7 +74,7 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
       {children}
 
       {/* The live region wrapper is ALWAYS in the DOM (even when empty) so that
-          content injected into it is reliably announced — many screen readers
+          content injected into it is reliably announced, many screen readers
           ignore a region that is added and populated in the same paint. */}
       <div
         data-nosnippet
@@ -98,7 +98,7 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
 /**
  * A single toast with a self-managed auto-dismiss countdown. Hovering (or
  * focusing anything inside) pauses the timer so it can be read at leisure;
- * moving away — or blurring — resumes it with the time that was left, exactly
+ * moving away, or blurring, resumes it with the time that was left, exactly
  * where it paused. This is also the WCAG 2.2.1 (Timing Adjustable) pattern.
  */
 function ToastCard({

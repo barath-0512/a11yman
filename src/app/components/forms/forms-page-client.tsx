@@ -66,7 +66,7 @@ form.addEventListener("submit", (e) => {
 
   if (errors.length === 0) {
     summary.hidden = true;
-    return; // valid — let the form submit
+    return; // valid, let the form submit
   }
 
   e.preventDefault();
@@ -85,7 +85,7 @@ form.addEventListener("submit", (e) => {
 });`;
 
 const ARIA_ROWS = [
-  { target: "Every input", attribute: "<label htmlFor> associated by id", why: "The only reliable way to give an input a persistent accessible name — placeholder text disappears on input and isn't treated as a label by many screen readers." },
+  { target: "Every input", attribute: "<label htmlFor> associated by id", why: "The only reliable way to give an input a persistent accessible name, placeholder text disappears on input and isn't treated as a label by many screen readers." },
   { target: "Required inputs", attribute: 'required + aria-required="true"', why: "Communicates required state to both native HTML validation and assistive tech; paired with visible, non-color-only text explaining what the asterisk means." },
   { target: "Invalid inputs", attribute: 'aria-invalid="true"', why: 'Marks the field as currently in an error state, announced as "invalid" when the field receives focus.' },
   { target: "Invalid inputs", attribute: "aria-describedby → error message id", why: "Links the field to its specific error text so the message is announced right after the field's name and invalid state." },
@@ -101,14 +101,14 @@ const KEYBOARD_ROWS = [
 
 const SR_ROWS = [
   { step: "Field receives focus (valid state)", jawsChrome: "Email, edit, required", nvdaFirefox: "Email, required, edit", voiceOverSafari: "Email, required, edit text" },
-  { step: "Submit pressed with errors present", jawsChrome: "Alert: There are 2 problems with your submission — Enter your full name, link; Enter a valid email address, link", nvdaFirefox: "There are 2 problems with your submission (focus moves to summary automatically)", voiceOverSafari: "There are 2 problems with your submission" },
+  { step: "Submit pressed with errors present", jawsChrome: "Alert: There are 2 problems with your submission, Enter your full name, link; Enter a valid email address, link", nvdaFirefox: "There are 2 problems with your submission (focus moves to summary automatically)", voiceOverSafari: "There are 2 problems with your submission" },
   { step: "Focus moves to the invalid Email field via summary link", jawsChrome: "Email, edit, invalid entry, required, Error: Enter a valid email address", nvdaFirefox: "Email, required, invalid entry, edit, Error: Enter a valid email address", voiceOverSafari: "Email, required, invalid data, edit text, Error: Enter a valid email address" },
 ];
 
 const DEFECTS = [
   { defect: "Placeholder text used as the only label", severity: "Critical" as const, description: "No <label> element exists; placeholder text vanishes once the user types and is inconsistently announced as a name by screen readers. Fails SC 3.3.2 and 1.3.1." },
   { defect: "No aria-invalid / aria-describedby on error", severity: "High" as const, description: "An invalid field is never programmatically marked as invalid and its error text (if any) is never linked to it, so a screen reader user tabbing to the field hears nothing about the problem. Fails SC 4.1.2 and 3.3.1." },
-  { defect: "Errors shown only as a color change", severity: "Critical" as const, description: "A red border is the ONLY signal of an error — no icon, no text, no error summary. Colorblind users and screen reader users receive no discoverable feedback that submission failed. Fails SC 1.4.1 and 3.3.1." },
+  { defect: "Errors shown only as a color change", severity: "Critical" as const, description: "A red border is the ONLY signal of an error, no icon, no text, no error summary. Colorblind users and screen reader users receive no discoverable feedback that submission failed. Fails SC 1.4.1 and 3.3.1." },
   { defect: "No focus management after failed submit", severity: "High" as const, description: "Focus remains on the submit button with no announcement that anything went wrong, so a screen reader user has no indication the form did not submit successfully. Fails SC 3.3.1." },
 ];
 
@@ -121,7 +121,7 @@ const TEST_STEPS = [
 ];
 
 const CHECKLIST = [
-  "Every input has a real <label htmlFor> associated by id — never placeholder-only.",
+  "Every input has a real <label htmlFor> associated by id, never placeholder-only.",
   "Required fields have both a visible indicator and required/aria-required=\"true\".",
   "The meaning of the required indicator is explained in visible text near the form.",
   "Invalid fields carry aria-invalid=\"true\" and aria-describedby pointing at their error message.",
@@ -193,7 +193,7 @@ export function FormsPageClient() {
               <li>On a failed submit, focus moves programmatically (via ref, not just visually) to the error summary.</li>
               <li>The error summary is focusable (tabIndex={"{-1}"}) but not part of the normal tab order, so it doesn't add an extra unexpected stop on a successful pass through the form.</li>
               <li>Activating an error summary link moves focus directly to the corresponding invalid field, never to an unrelated element.</li>
-              <li>Focus is never moved automatically except in direct response to a user action (submit) — receiving focus on a field never itself triggers validation or a context change (SC 3.2.1/3.2.2).</li>
+              <li>Focus is never moved automatically except in direct response to a user action (submit), receiving focus on a field never itself triggers validation or a context change (SC 3.2.1/3.2.2).</li>
             </ul>
           </PageSection>
         </>

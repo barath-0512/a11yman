@@ -24,7 +24,7 @@ const HTML_CODE = `<button type="button">Save changes</button>
 
 <!-- A toggle button. Focus, the button role, and Enter+Space
      activation all come free from the native element. aria-pressed
-     is the one state you set yourself — there is no native HTML
+     is the one state you set yourself, there is no native HTML
      "pressed" state (start it at "false"). -->
 <button type="button" id="favorite" aria-pressed="false">Favorite</button>`;
 
@@ -38,15 +38,15 @@ favorite.addEventListener("click", () => {
 });`;
 
 const ARIA_ROWS = [
-  { target: "Plain action <button>", attribute: "(none required)", why: "Native button semantics — role, focusability, and Enter/Space activation — are exposed automatically by the browser." },
-  { target: "Toggle <button>", attribute: "aria-pressed", why: 'Communicates on/off state as "pressed" or "not pressed." Unlike aria-expanded on a disclosure, this is never automatic — you must set and update it yourself, even on a real <button>.' },
+  { target: "Plain action <button>", attribute: "(none required)", why: "Native button semantics, role, focusability, and Enter/Space activation, are exposed automatically by the browser." },
+  { target: "Toggle <button>", attribute: "aria-pressed", why: 'Communicates on/off state as "pressed" or "not pressed." Unlike aria-expanded on a disclosure, this is never automatic, you must set and update it yourself, even on a real <button>.' },
   { target: "role=\"button\" div (custom ARIA)", attribute: 'role="button", tabIndex="0"', why: "Manually restores the button role and Tab-focusability that a real <button> would provide automatically. Shown only to illustrate why this reimplementation is unnecessary." },
 ];
 
 const KEYBOARD_ROWS = [
   { keys: "Tab / Shift+Tab", behavior: "Moves focus to and from the button in the page's natural tab order." },
   { keys: "Enter", behavior: "Activates the button. Fires on keydown." },
-  { keys: "Space", behavior: "Activates the button. Fires on keyup, not keydown — this lets a user press Space, change their mind, and move focus away before releasing to cancel the action, without it firing. (Native browser behavior, not something you implement.)" },
+  { keys: "Space", behavior: "Activates the button. Fires on keyup, not keydown, this lets a user press Space, change their mind, and move focus away before releasing to cancel the action, without it firing. (Native browser behavior, not something you implement.)" },
 ];
 
 const SR_ROWS = [
@@ -58,7 +58,7 @@ const SR_ROWS = [
 const DEFECTS = [
   { defect: "Toggle built from <div onClick> with no role or tabIndex", severity: "Critical" as const, description: "The control is completely absent from the accessibility tree as an interactive element and cannot receive keyboard focus at all. Fails SC 2.1.1 and 4.1.2." },
   { defect: "No keydown handling on a non-native control", severity: "Critical" as const, description: "Even where a div is made focusable, without explicit Enter/Space handling nothing happens when a keyboard user tries to activate it. Fails SC 2.1.1." },
-  { defect: "Missing aria-pressed on a toggle button", severity: "High" as const, description: "The control visibly changes state on click, but screen reader users are never told it has a pressed/not-pressed state or which one is current — the state is a lie to assistive tech. Fails SC 4.1.2." },
+  { defect: "Missing aria-pressed on a toggle button", severity: "High" as const, description: "The control visibly changes state on click, but screen reader users are never told it has a pressed/not-pressed state or which one is current, the state is a lie to assistive tech. Fails SC 4.1.2." },
   { defect: "Space handled on keydown instead of keyup on a custom control", severity: "Low" as const, description: "Deviates from native button behavior (activation on release), removing the user's ability to cancel by dragging focus away before releasing Space. Not a WCAG failure, but a usability regression worth flagging." },
 ];
 
@@ -76,7 +76,7 @@ const CHECKLIST = [
   "Both Enter and Space activate every button-role control, including any hand-rolled role=\"button\" elements.",
   "Space does not scroll the page when pressed on a custom (non-native) button-role element.",
   "Every button has a visible focus indicator at every zoom level up to 200%.",
-  "Icon-only toggle buttons (e.g. a star icon with no visible text) have an accessible name via visible text, aria-label, or visually-hidden text — not just the icon.",
+  "Icon-only toggle buttons (e.g. a star icon with no visible text) have an accessible name via visible text, aria-label, or visually-hidden text, not just the icon.",
 ];
 
 export function ButtonPageClient() {
@@ -138,7 +138,7 @@ export function ButtonPageClient() {
           </PageSection>
           <PageSection id="focus" title="Focus management rules">
             <ul className="list-disc space-y-2 pl-5 text-sm text-muted-foreground">
-              <li>Buttons participate in the page's natural Tab order — no roving tabindex or focus trapping is involved.</li>
+              <li>Buttons participate in the page's natural Tab order, no roving tabindex or focus trapping is involved.</li>
               <li>Activating a button never moves focus unless the button's documented purpose is to move focus (e.g. opening a dialog).</li>
               <li>A visible focus indicator must be present at every zoom level up to 200%, per SC 2.4.7 / 2.4.11.</li>
             </ul>

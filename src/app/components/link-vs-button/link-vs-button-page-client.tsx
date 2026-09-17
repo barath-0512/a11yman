@@ -28,7 +28,7 @@ const HTML_CODE = `<!-- Navigation → a real link. Correct role, Tab-focusable,
      activate, and it never navigates. -->
 <button type="button" id="add-to-cart">Add to cart</button>`;
 
-const JS_CODE = `// A link needs no JS — the browser handles navigation. Only the
+const JS_CODE = `// A link needs no JS, the browser handles navigation. Only the
 // in-page action does. Never bolt a click handler onto an <a> to
 // fake a button, or a navigation onto a <button>: keep role and
 // behaviour in sync.
@@ -37,28 +37,28 @@ document.getElementById("add-to-cart").addEventListener("click", () => {
 });`;
 
 const ARIA_ROWS = [
-  { target: "Navigation control", attribute: "<a href> (native)", why: "The browser provides link role, accessible name from text content, Tab focusability, and Enter-to-activate — no ARIA required." },
-  { target: "Action control", attribute: "<button type=\"button\"> (native)", why: "The browser provides button role, accessible name, Tab focusability, and both Enter- and Space-to-activate — no ARIA required." },
+  { target: "Navigation control", attribute: "<a href> (native)", why: "The browser provides link role, accessible name from text content, Tab focusability, and Enter-to-activate, no ARIA required." },
+  { target: "Action control", attribute: "<button type=\"button\"> (native)", why: "The browser provides button role, accessible name, Tab focusability, and both Enter- and Space-to-activate, no ARIA required." },
   { target: "Reimplemented link (if you must)", attribute: 'role="link" + tabIndex={0} + Enter keydown', why: "Every one of these three pieces is required to match native <a> behavior; omitting any one silently breaks keyboard/AT access." },
-  { target: "Reimplemented button (if you must)", attribute: 'role="button" + tabIndex={0} + Enter/Space keydown', why: "A custom button must handle both Enter and Space — native <button> does, and testers should check for both, not just one." },
+  { target: "Reimplemented button (if you must)", attribute: 'role="button" + tabIndex={0} + Enter/Space keydown', why: "A custom button must handle both Enter and Space, native <button> does, and testers should check for both, not just one." },
 ];
 
 const KEYBOARD_ROWS = [
   { keys: "Enter (on a link)", behavior: "Activates a native <a href>, navigating to its destination. This is the only key a real link responds to." },
-  { keys: "Enter or Space (on a button)", behavior: "Activates a native <button>, performing its action. Real buttons respond to both keys — testers should verify both, not just one." },
+  { keys: "Enter or Space (on a button)", behavior: "Activates a native <button>, performing its action. Real buttons respond to both keys, testers should verify both, not just one." },
   { keys: "Tab / Shift+Tab", behavior: "Moves focus to/from links and buttons normally, since both are natively focusable elements." },
-  { keys: "(any key, on a div/span with only onClick)", behavior: "Nothing happens — an element with no role, no tabIndex, and no keydown handler cannot receive focus or respond to any key at all." },
+  { keys: "(any key, on a div/span with only onClick)", behavior: "Nothing happens, an element with no role, no tabIndex, and no keydown handler cannot receive focus or respond to any key at all." },
 ];
 
 const SR_ROWS = [
   { step: "Focus lands on a correct <a href>", jawsChrome: "View pricing, link", nvdaFirefox: "View pricing, link", voiceOverSafari: "View pricing, link" },
   { step: "Focus lands on a correct <button>", jawsChrome: "Add to cart, button", nvdaFirefox: "Add to cart, button", voiceOverSafari: "Add to cart, button" },
-  { step: "Tab reaches a broken <div onClick>", jawsChrome: "(skipped entirely — not announced, not focusable)", nvdaFirefox: "(skipped entirely — not announced, not focusable)", voiceOverSafari: "(skipped entirely — not announced, not focusable)" },
-  { step: "Focus lands on an <a href=\"#\"> misused as a button", jawsChrome: "Remove item, link", nvdaFirefox: "Remove item, link", voiceOverSafari: "Remove item, link — promises navigation it never performs" },
+  { step: "Tab reaches a broken <div onClick>", jawsChrome: "(skipped entirely, not announced, not focusable)", nvdaFirefox: "(skipped entirely, not announced, not focusable)", voiceOverSafari: "(skipped entirely, not announced, not focusable)" },
+  { step: "Focus lands on an <a href=\"#\"> misused as a button", jawsChrome: "Remove item, link", nvdaFirefox: "Remove item, link", voiceOverSafari: "Remove item, link, promises navigation it never performs" },
 ];
 
 const DEFECTS = [
-  { defect: "<div onClick> used for an action (fake button)", severity: "Critical" as const, description: "Not focusable, no role announced, and does not respond to Enter or Space — completely unreachable and unusable by keyboard or screen reader. Fails SC 2.1.1 and 4.1.2. This is the single most common real-world accessibility defect pattern." },
+  { defect: "<div onClick> used for an action (fake button)", severity: "Critical" as const, description: "Not focusable, no role announced, and does not respond to Enter or Space, completely unreachable and unusable by keyboard or screen reader. Fails SC 2.1.1 and 4.1.2. This is the single most common real-world accessibility defect pattern." },
   { defect: "<span onClick> used for navigation (fake link)", severity: "Critical" as const, description: "Same failure mode as the fake button above, but for a navigation control: no focus, no role, no keyboard activation, and the URL never changes so the browser's back button and \"open in new tab\" are silently broken. Fails SC 2.1.1 and 4.1.2." },
   { defect: "<a href=\"#\"> with preventDefault() used purely as a button", severity: "Medium" as const, description: "The \"wrong direction\" mistake: technically keyboard-operable, but announced as a link that promises navigation and never delivers it, pollutes browser history with # entries, and breaks \"open in new tab\"/\"copy link address.\" Flag as a defect even though it's keyboard-reachable." },
   { defect: "Custom role=\"button\" reimplementation missing Space key support", severity: "High" as const, description: "A common half-finished reimplementation wires up Enter but forgets Space, so keyboard users familiar with native button behavior find the control inconsistently operable. Fails SC 4.1.2 Name, Role, Value (behavior doesn't match announced role)." },
@@ -67,7 +67,7 @@ const DEFECTS = [
 const TEST_STEPS = [
   { action: "Tab to a control that navigates to a new URL.", expected: "It is announced with the link role, and activating it with Enter changes the URL / navigates." },
   { action: "Tab to a control that performs an action without changing the URL.", expected: "It is announced with the button role, and activating it with EITHER Enter or Space performs the action." },
-  { action: "Tab through a page containing a <div onClick> or <span onClick> control.", expected: "Focus skips over it entirely — it is never reachable, which is itself the defect to flag." },
+  { action: "Tab through a page containing a <div onClick> or <span onClick> control.", expected: "Focus skips over it entirely, it is never reachable, which is itself the defect to flag." },
   { action: "Right-click (or long-press) a real navigation link.", expected: "\"Open in new tab\" and \"Copy link address\" work correctly, because it's a genuine <a href>." },
   { action: "Right-click an <a href=\"#\"> being misused as a button.", expected: "\"Open in new tab\" opens a blank/broken page and \"Copy link address\" copies a useless #, confirming the anti-pattern." },
 ];
@@ -136,7 +136,7 @@ export function LinkVsButtonPageClient() {
           </PageSection>
           <PageSection id="focus" title="Focus management rules">
             <ul className="list-disc space-y-2 pl-5 text-sm text-muted-foreground">
-              <li>Both links and buttons must be reachable via Tab in the same order they appear visually — never skipped, never trapped.</li>
+              <li>Both links and buttons must be reachable via Tab in the same order they appear visually, never skipped, never trapped.</li>
               <li>Activating a link navigates the page; focus resets naturally to the top of the destination document.</li>
               <li>Activating a button performs its action in place without moving focus away from the button, unless the action itself opens new content (e.g. a dialog) that should receive focus.</li>
             </ul>

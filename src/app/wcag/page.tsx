@@ -25,7 +25,7 @@ export default function WcagIndexPage() {
             </h1>
             <p className="text-muted-foreground">
               Pick a success criterion to see which component patterns on
-              this site are commonly affected by it — useful for citing
+              this site are commonly affected by it, useful for citing
               findings directly in an audit report.
             </p>
           </header>

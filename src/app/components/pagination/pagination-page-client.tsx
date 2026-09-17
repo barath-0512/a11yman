@@ -21,7 +21,7 @@ import { getComponent } from "@/lib/components-data";
 const meta = getComponent("pagination")!;
 
 const HTML_CODE = `<!-- A <nav> landmark labelled "Pagination". Each page is a real link
-     with its own URL — so it works without JS, and the server renders
+     with its own URL, so it works without JS, and the server renders
      the right window of numbers. The current page is marked
      aria-current="page". The … gaps are decorative (aria-hidden),
      never focusable controls. -->
@@ -41,9 +41,9 @@ const HTML_CODE = `<!-- A <nav> landmark labelled "Pagination". Each page is a r
 
 const ARIA_ROWS = [
   { target: "Wrapping element", attribute: '<nav aria-label="Pagination">', why: "Creates a labeled navigation landmark so AT users can jump straight to the pagination controls, distinguishing it from other <nav> landmarks on the page (e.g. primary site nav)." },
-  { target: "Current page control", attribute: 'aria-current="page"', why: "Identifies which page is currently displayed so AT announces \"current page\" — required in addition to any visual highlight, not instead of it." },
+  { target: "Current page control", attribute: 'aria-current="page"', why: "Identifies which page is currently displayed so AT announces \"current page\", required in addition to any visual highlight, not instead of it." },
   { target: "Previous / Next controls", attribute: "disabled attribute (real, not just styled)", why: "A genuinely disabled button is skipped in the tab order and announced as unavailable, rather than remaining clickable while merely looking greyed out." },
-  { target: "Ellipsis (…)", attribute: 'aria-hidden="true", non-interactive element', why: "The truncation marker conveys no operable function, so it must not be a button or a Tab stop — it's purely decorative and should be hidden from AT." },
+  { target: "Ellipsis (…)", attribute: 'aria-hidden="true", non-interactive element', why: "The truncation marker conveys no operable function, so it must not be a button or a Tab stop, it's purely decorative and should be hidden from AT." },
 ];
 
 const KEYBOARD_ROWS = [
@@ -56,21 +56,21 @@ const SR_ROWS = [
   { step: "User tabs into the pagination landmark", jawsChrome: "Pagination navigation", nvdaFirefox: "Pagination landmark", voiceOverSafari: "Pagination, navigation" },
   { step: "Focus reaches the current page control", jawsChrome: "4, current page", nvdaFirefox: "4, current page, link", voiceOverSafari: "4, current page" },
   { step: "Focus reaches Previous on page 1 (real disabled button)", jawsChrome: "Previous page, unavailable", nvdaFirefox: "Previous page, dimmed", voiceOverSafari: "Previous page, dimmed, button" },
-  { step: "Focus passes the ellipsis", jawsChrome: "(nothing announced — not a stop)", nvdaFirefox: "(nothing announced — not a stop)", voiceOverSafari: "(nothing announced — not a stop)" },
+  { step: "Focus passes the ellipsis", jawsChrome: "(nothing announced, not a stop)", nvdaFirefox: "(nothing announced, not a stop)", voiceOverSafari: "(nothing announced, not a stop)" },
 ];
 
 const DEFECTS = [
-  { defect: "Previous/Next are <div onClick> with no keyboard support", severity: "Critical" as const, description: "Keyboard-only users cannot reach or activate Previous/Next at all — there is no Tab stop and no Enter/Space handling. Fails SC 2.1.1 Keyboard and SC 4.1.2 Name, Role, Value." },
+  { defect: "Previous/Next are <div onClick> with no keyboard support", severity: "Critical" as const, description: "Keyboard-only users cannot reach or activate Previous/Next at all, there is no Tab stop and no Enter/Space handling. Fails SC 2.1.1 Keyboard and SC 4.1.2 Name, Role, Value." },
   { defect: "Previous button is visually disabled but still clickable on page 1", severity: "High" as const, description: "Sighted mouse users can still click a greyed-out Previous control that should be inert, while its true state is never communicated to AT since it isn't a real disabled control. Fails SC 4.1.2." },
-  { defect: "Current page has no aria-current=\"page\"", severity: "High" as const, description: "Screen reader users have no way to determine which page they're currently viewing — only a color change communicates it, and only to sighted users. Fails SC 1.3.1 Info and Relationships and SC 4.1.2." },
+  { defect: "Current page has no aria-current=\"page\"", severity: "High" as const, description: "Screen reader users have no way to determine which page they're currently viewing, only a color change communicates it, and only to sighted users. Fails SC 1.3.1 Info and Relationships and SC 4.1.2." },
   { defect: "Ellipsis is a focusable, clickable dead button", severity: "Medium" as const, description: "The \"…\" truncation marker is implemented as a <button> that does nothing when activated, creating a confusing, purposeless Tab stop for keyboard users. Fails SC 2.1.1." },
 ];
 
 const TEST_STEPS = [
   { action: "Tab into the pagination controls from the preceding content.", expected: "Screen reader announces entry into a \"Pagination\" navigation landmark." },
   { action: "Continue tabbing through the page links.", expected: "Each page number is announced with its value; the current page is announced with \"current page.\"" },
-  { action: "Tab past the ellipsis, if present.", expected: "The ellipsis is not a Tab stop — focus moves directly from one page number to the next visible one." },
-  { action: "On the first page, tab to Previous.", expected: "Previous is either skipped entirely or announced as unavailable/disabled — it is never an active, clickable control." },
+  { action: "Tab past the ellipsis, if present.", expected: "The ellipsis is not a Tab stop, focus moves directly from one page number to the next visible one." },
+  { action: "On the first page, tab to Previous.", expected: "Previous is either skipped entirely or announced as unavailable/disabled, it is never an active, clickable control." },
   { action: "Activate a page number with Enter or Space.", expected: "The displayed content updates to that page, and aria-current moves to the newly selected page control." },
 ];
 
@@ -134,7 +134,7 @@ export function PaginationPageClient() {
               <li>Tab order follows visual/document order: Previous, then each visible page control, then Next.</li>
               <li>Disabled Previous/Next controls are removed from the tab order entirely, not just visually dimmed.</li>
               <li>The decorative ellipsis is never a Tab stop.</li>
-              <li>For JS-driven (non-URL) pagination, move focus to or announce the newly loaded content region after each page change — don't leave focus stranded on a control that scrolled out of view.</li>
+              <li>For JS-driven (non-URL) pagination, move focus to or announce the newly loaded content region after each page change, don't leave focus stranded on a control that scrolled out of view.</li>
             </ul>
           </PageSection>
         </>

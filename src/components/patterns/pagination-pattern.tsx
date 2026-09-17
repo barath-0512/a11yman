@@ -7,19 +7,19 @@ import { cn } from "@/lib/utils";
 const TOTAL_PAGES = 10;
 
 /**
- * Hand-coded APG-adjacent "Pagination" pattern — page 4 of 10, JS-driven
+ * Hand-coded APG-adjacent "Pagination" pattern, page 4 of 10, JS-driven
  * (no real URL change per page).
  *
  * A <nav aria-label="Pagination"> landmark lets AT users jump straight to
  * the pagination controls. The current page is marked aria-current="page"
  * (not just visually) so screen readers announce "current page." Previous/
  * Next are real disabled <button>s at the boundaries, not just greyed-out
- * clickable elements. The "…" truncation is purely decorative — it isn't a
+ * clickable elements. The "…" truncation is purely decorative, it isn't a
  * real control, so it's aria-hidden and not a Tab stop.
  *
  * Because this demo updates page state client-side without changing the
  * URL, a production version of this pattern should also move focus to (or
- * announce) the newly-loaded content region after each page change — see
+ * announce) the newly-loaded content region after each page change, see
  * the "Which should I use?" note above for why server-rendered <a href>
  * pagination avoids that extra work entirely.
  */

@@ -14,14 +14,14 @@ interface AlertDialogPatternProps {
  * Hand-coded APG "Alert Dialog" pattern.
  *
  * role="alertdialog" (not "dialog") tells AT this is an interruption that
- * demands acknowledgment — some screen readers announce it more forcefully
+ * demands acknowledgment, some screen readers announce it more forcefully
  * than a plain dialog. Everything else about focus containment mirrors the
  * regular Dialog pattern EXCEPT one deliberate difference: focus on open
  * goes to the LEAST destructive action (Cancel), never the confirm/destroy
  * button. This guards against a sighted-but-hasty or repeat-keystroke user
  * (e.g. someone who double-pressed Enter to dismiss the trigger) from
  * blowing through a destructive confirmation by accident. The APG calls
- * this out specifically for alertdialog — it's the main reason this pattern
+ * this out specifically for alertdialog, it's the main reason this pattern
  * exists as distinct from Dialog rather than just being "Dialog with scarier
  * copy."
  */
@@ -34,7 +34,7 @@ export function AlertDialogPattern({
 }: AlertDialogPatternProps) {
   const [open, setOpen] = React.useState(false);
   const dialogRef = React.useRef<HTMLDivElement>(null);
-  // Focus goes here on open — the least destructive action — not the
+  // Focus goes here on open, the least destructive action, not the
   // confirm button. This is the key APG difference from a plain Dialog.
   const cancelBtnRef = React.useRef<HTMLButtonElement>(null);
   const triggerRef = React.useRef<HTMLButtonElement>(null);
@@ -45,7 +45,7 @@ export function AlertDialogPattern({
 
     function onKeyDown(e: KeyboardEvent) {
       // Alert dialogs still support Escape as an explicit, unambiguous
-      // "no action taken" exit — it never confirms the destructive action.
+      // "no action taken" exit, it never confirms the destructive action.
       if (e.key === "Escape") {
         e.preventDefault();
         close();
@@ -96,7 +96,7 @@ export function AlertDialogPattern({
         <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
           // Note: unlike the plain Dialog, we do NOT close on scrim click.
-          // A true alertdialog interrupts on purpose — an accidental click
+          // A true alertdialog interrupts on purpose, an accidental click
           // outside it should not silently dismiss a critical confirmation.
         >
           <div

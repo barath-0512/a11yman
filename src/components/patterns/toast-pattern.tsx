@@ -11,14 +11,14 @@ const AUTO_DISMISS_MS = 4000;
  * Key subtlety: the aria-live region container is rendered UNCONDITIONALLY,
  * even when there's no message. Many screen readers only pick up a live
  * region's contents if the region itself already exists in the accessibility
- * tree BEFORE content is injected into it — if you mount the
+ * tree BEFORE content is injected into it, if you mount the
  * role="status"/aria-live element and its text in the same paint (e.g. by
  * conditionally rendering the whole <div> only when a toast is visible),
  * some AT misses the announcement entirely because it never had a chance to
  * "discover" the live region first. So: the container always exists; only
  * its text content is swapped via state.
  *
- * role="status" carries an implicit aria-live="polite" — appropriate for
+ * role="status" carries an implicit aria-live="polite", appropriate for
  * routine confirmations that shouldn't interrupt whatever the user is doing.
  * Use role="alert" (implicit aria-live="assertive") only for urgent/error
  * toasts that truly warrant interrupting.
@@ -57,7 +57,7 @@ export function ToastPattern() {
       </button>
 
       {/*
-        This container exists at all times — never conditionally mounted —
+        This container exists at all times, never conditionally mounted,
         so screen readers have already registered it as a live region
         before any text lands inside it. Only the message content (and the
         visible card below it) toggles.

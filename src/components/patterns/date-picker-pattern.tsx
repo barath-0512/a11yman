@@ -33,12 +33,12 @@ function formatLong(d: Date) {
  *
  * The popup dialog reuses the SAME focus-trap / Escape-to-close /
  * focus-restore-to-trigger logic as the flagship Dialog pattern
- * (see dialog-pattern.tsx) — a date picker popup is functionally a
+ * (see dialog-pattern.tsx), a date picker popup is functionally a
  * specialized dialog, so none of that logic is reinvented here.
  *
  * Roles/attributes and why they exist:
  * - role="dialog" + aria-modal="true" + aria-labelledby: same reasoning as
- *   the Dialog pattern — identifies the popup, its modal-ness, and its name.
+ *   the Dialog pattern, identifies the popup, its modal-ness, and its name.
  * - role="grid" on the calendar table and role="row" on each week: exposes
  *   the calendar as a 2D grid so AT grid navigation commands work and the
  *   day-of-week / date relationship is programmatically clear.
@@ -94,7 +94,7 @@ export function DatePickerPattern() {
 
       // Only elements actually in the Tab order. The calendar grid uses a
       // roving tabindex, so all day cells except the focused one are
-      // tabindex="-1" — they must be excluded here, otherwise `last` is the
+      // tabindex="-1", they must be excluded here, otherwise `last` is the
       // (untabbable) bottom-right cell and Tab escapes the dialog.
       const focusables = dialogRef.current?.querySelectorAll<HTMLElement>(
         'button:not([disabled]):not([tabindex="-1"]), [tabindex]:not([tabindex="-1"])'

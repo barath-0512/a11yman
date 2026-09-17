@@ -6,20 +6,20 @@ const MIN = 0;
 const MAX = 100;
 
 /**
- * ⚠ Deliberately broken slider — for learning only.
+ * ⚠ Deliberately broken slider, for learning only.
  *
  * Defects, on purpose:
  * 1. The thumb is a plain <div> with no role="slider" and no
- *    aria-valuemin/max/now — a screen reader announces nothing meaningful
+ *    aria-valuemin/max/now, a screen reader announces nothing meaningful
  *    when it receives focus (and it usually can't receive focus at all).
  *    Fails SC 4.1.2 Name, Role, Value.
  * 2. The thumb has no tabIndex, so it is not in the keyboard Tab order at
- *    all — keyboard users cannot even reach the control. Fails SC 2.1.1.
- * 3. No onKeyDown handler — even if a sighted developer tabs to it via
+ *    all, keyboard users cannot even reach the control. Fails SC 2.1.1.
+ * 3. No onKeyDown handler, even if a sighted developer tabs to it via
  *    devtools, arrow keys do nothing. There is no non-drag way to change
  *    the value. Fails SC 2.1.1 and SC 2.5.7 Dragging Movements.
  * 4. Value only changes via mouse drag (pointermove while the mouse button
- *    is held) — there is no click-on-track jump and no keyboard path,
+ *    is held), there is no click-on-track jump and no keyboard path,
  *    so a motor-impaired mouse user who can click but not drag precisely
  *    is also locked out.
  */

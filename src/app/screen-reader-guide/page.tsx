@@ -34,7 +34,7 @@ const SCREEN_READERS = [
     start: "Launch from the desktop shortcut or Start Menu; JAWS starts speaking on load.",
     stop: "Insert+F4, or exit from the JAWS system tray icon.",
     commands: [
-      { key: "Insert+Down Arrow", action: "Say All — read continuously from the current position." },
+      { key: "Insert+Down Arrow", action: "Say All, read continuously from the current position." },
       { key: "Tab / Shift+Tab", action: "Move focus forward/backward." },
       { key: "H / Shift+H", action: "Jump to next/previous heading." },
       { key: "Insert+F6", action: "Open the headings list." },
@@ -82,14 +82,14 @@ export default function ScreenReaderGuidePage() {
               <p>
                 <strong className="text-foreground">Browse mode</strong>{" "}
                 (NVDA/JAWS on Windows; the default reading mode) lets you
-                navigate a page like a document — by heading, link, landmark,
-                or single character — using letter-key shortcuts instead of
+                navigate a page like a document, by heading, link, landmark,
+                or single character, using letter-key shortcuts instead of
                 Tab. It's how a screen reader user explores static content.
               </p>
               <p>
                 <strong className="text-foreground">Focus mode</strong>{" "}
                 (sometimes called "forms mode" or "application mode")
-                switches keystrokes over to the widget itself — typing "h"
+                switches keystrokes over to the widget itself, typing "h"
                 inside a text field should type the letter H, not jump to a
                 heading. Windows screen readers switch into focus mode
                 automatically when you Tab into a form field or a
@@ -103,7 +103,7 @@ export default function ScreenReaderGuidePage() {
                 if your custom widget doesn't trigger the automatic
                 mode-switch correctly (usually because required ARIA roles
                 are missing), letter-key shortcuts will "leak through" and
-                do the wrong thing — this is one of the most common defects
+                do the wrong thing, this is one of the most common defects
                 found in hand-rolled components. VoiceOver on macOS doesn't
                 have this same browse/focus split; it uses the rotor and
                 Tab/VO-arrow navigation more uniformly.
@@ -165,9 +165,9 @@ export default function ScreenReaderGuidePage() {
 
           <PageSection id="tips" title="Testing tips">
             <ul className="list-disc space-y-2 pl-5 text-sm text-muted-foreground">
-              <li>Test with your monitor off, or your eyes closed, at least once per component — it forces you to rely entirely on the announcement, the way a blind user does.</li>
-              <li>Always test in the screen reader's most commonly paired browser (NVDA+Firefox, JAWS+Chrome, VoiceOver+Safari) — behavior can differ meaningfully across browser pairings.</li>
-              <li>Slow the speech rate down while learning — it's much easier to catch a missing or wrong announcement at a pace you can actually follow.</li>
+              <li>Test with your monitor off, or your eyes closed, at least once per component, it forces you to rely entirely on the announcement, the way a blind user does.</li>
+              <li>Always test in the screen reader's most commonly paired browser (NVDA+Firefox, JAWS+Chrome, VoiceOver+Safari), behavior can differ meaningfully across browser pairings.</li>
+              <li>Slow the speech rate down while learning, it's much easier to catch a missing or wrong announcement at a pace you can actually follow.</li>
               <li>Re-test after every fix. ARIA defects are easy to partially fix and leave a related state (e.g. aria-expanded) out of sync.</li>
             </ul>
           </PageSection>

@@ -19,7 +19,7 @@ const FRUITS = [
 /**
  * Hand-coded APG "Combobox with list autocomplete" pattern.
  *
- * The input keeps DOM focus at all times — arrowing through the popup moves
+ * The input keeps DOM focus at all times, arrowing through the popup moves
  * a *visual* highlight and updates aria-activedescendant, it never moves
  * real focus onto an <li>. This is what lets a screen reader keep reading
  * the edit field while announcing which option is active.

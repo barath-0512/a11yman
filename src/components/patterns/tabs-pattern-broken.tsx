@@ -8,10 +8,10 @@ const TABS = [
 ];
 
 /**
- * ⚠ Deliberately broken tabs — for learning only.
+ * ⚠ Deliberately broken tabs, for learning only.
  *
  * Defects, on purpose:
- * 1. No role="tablist"/"tab"/"tabpanel" — a screen reader has no idea this
+ * 1. No role="tablist"/"tab"/"tabpanel", a screen reader has no idea this
  *    is a tabbed interface; each "tab" reads as an unrelated clickable div.
  * 2. Every tab is in the natural Tab order (no roving tabindex) and there
  *    is no arrow-key support at all.

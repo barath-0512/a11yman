@@ -17,7 +17,7 @@ const TABS = [
  *
  * activationMode="automatic" selects (and shows) a tab as soon as it
  * receives focus via arrow keys. activationMode="manual" requires an
- * explicit Enter/Space to activate a focused-but-not-yet-selected tab —
+ * explicit Enter/Space to activate a focused-but-not-yet-selected tab,
  * use manual when activating a tab is expensive (e.g. triggers a network
  * request) so arrowing through options doesn't fire it on every keystroke.
  */

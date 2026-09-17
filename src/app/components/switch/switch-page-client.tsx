@@ -22,7 +22,7 @@ const meta = getComponent("switch")!;
 
 const HTML_CODE = `<span id="wifi-switch-label">Wi-Fi</span>
 
-<!-- role="switch" (not "checkbox") makes AT announce "switch, on/off" —
+<!-- role="switch" (not "checkbox") makes AT announce "switch, on/off",
      matching the instant-effect mental model a toggle implies, vs a
      checkbox that often implies "apply on submit". A native <button>
      provides focus and Enter/Space activation for free. -->
@@ -45,15 +45,15 @@ toggle.addEventListener("click", () => {
 });`;
 
 const ARIA_ROWS = [
-  { target: "Switch <button>", attribute: 'role="switch"', why: 'Announced as "switch," distinct from role="checkbox" — communicates an instant on/off effect rather than a form value applied later.' },
-  { target: "Switch <button>", attribute: "aria-checked", why: "A strict boolean (true/false only — switches have no mixed state) reflecting on/off. Announced as \"on\"/\"off\" by most screen readers instead of \"checked\"/\"not checked.\"" },
+  { target: "Switch <button>", attribute: 'role="switch"', why: 'Announced as "switch," distinct from role="checkbox", communicates an instant on/off effect rather than a form value applied later.' },
+  { target: "Switch <button>", attribute: "aria-checked", why: "A strict boolean (true/false only, switches have no mixed state) reflecting on/off. Announced as \"on\"/\"off\" by most screen readers instead of \"checked\"/\"not checked.\"" },
   { target: "Switch <button>", attribute: "aria-labelledby (or aria-label)", why: "Gives the switch an accessible name, since the visible label text (e.g. \"Wi-Fi\") is a separate element, not the button's own text content." },
 ];
 
 const KEYBOARD_ROWS = [
   { keys: "Tab / Shift+Tab", behavior: "Moves focus to/from the switch like any other control." },
   { keys: "Space", behavior: "Toggles the switch on/off." },
-  { keys: "Enter", behavior: "Also toggles the switch — <button> fires onClick for both Enter and Space natively, so no extra handling is required." },
+  { keys: "Enter", behavior: "Also toggles the switch, <button> fires onClick for both Enter and Space natively, so no extra handling is required." },
 ];
 
 const SR_ROWS = [
@@ -63,7 +63,7 @@ const SR_ROWS = [
 ];
 
 const DEFECTS = [
-  { defect: "Built from a <div> with a sliding CSS animation", severity: "Critical" as const, description: "No default focusability and no keydown handling — the toggle can only be operated with a mouse or touch. Keyboard-only users cannot turn the setting on or off. Fails SC 2.1.1." },
+  { defect: "Built from a <div> with a sliding CSS animation", severity: "Critical" as const, description: "No default focusability and no keydown handling, the toggle can only be operated with a mouse or touch. Keyboard-only users cannot turn the setting on or off. Fails SC 2.1.1." },
   { defect: "Missing role=\"switch\" and aria-checked", severity: "Critical" as const, description: "A screen reader announces only the adjacent label text, with no indication an interactive control exists nearby or what its current state is. Fails SC 4.1.2." },
   { defect: "No visible focus indicator", severity: "Medium" as const, description: "Because the element is never a real focusable control, there is no way to tell via keyboard alone that the switch currently has focus. Fails SC 2.4.7 once focusability is fixed." },
   { defect: "Relying on the experimental switch attribute as the only accessibility layer", severity: "Low" as const, description: "Shipping <input type=\"checkbox\" switch> without a role=\"switch\" fallback means users on browser/AT combinations that don't yet support the attribute hear \"checkbox\" instead of \"switch\" with no fallback semantics. Not a hard WCAG failure, but flag as a robustness risk given current support levels." },
@@ -72,7 +72,7 @@ const DEFECTS = [
 const TEST_STEPS = [
   { action: "Tab to the switch.", expected: "Screen reader announces the label (e.g. \"Wi-Fi\"), the word \"switch,\" and the current state (\"on\" or \"off\")." },
   { action: "Press Space.", expected: "The switch's visual state flips (e.g. slider moves side to side) and the announced state updates immediately to match." },
-  { action: "Press Enter.", expected: "The switch also toggles — confirm both Space and Enter work, since <button> supports both natively." },
+  { action: "Press Enter.", expected: "The switch also toggles, confirm both Space and Enter work, since <button> supports both natively." },
   { action: "Zoom the page to 200%.", expected: "The switch remains fully visible, operable, and its target size still meets the 24x24 CSS pixel minimum." },
   { action: "With a screen reader running, compare a checkbox-styled-as-switch to a role=\"switch\" control.", expected: "Confirm which one announces \"switch\" vs. \"checkbox\" on your test browser/AT combination, and document the difference for testers." },
 ];
@@ -142,7 +142,7 @@ export function SwitchPageClient() {
           </PageSection>
           <PageSection id="focus" title="Focus management rules">
             <ul className="list-disc space-y-2 pl-5 text-sm text-muted-foreground">
-              <li>The switch is always a single Tab stop — there's no roving tabindex or sub-navigation involved.</li>
+              <li>The switch is always a single Tab stop, there's no roving tabindex or sub-navigation involved.</li>
               <li>Toggling the switch never moves focus away from it, so users can flip several switches in a row with repeated Space presses.</li>
               <li>Changing a switch's state must never trigger an unexpected context change (e.g. navigating away or opening a dialog) per SC 3.2.2 On Input.</li>
             </ul>

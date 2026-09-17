@@ -24,7 +24,7 @@ const HTML_CODE = `<button id="delete-trigger">Delete 12 items</button>
 
 <!-- role="alertdialog" (not "dialog") tells AT this needs a decision;
      aria-describedby points at the consequence text. There is NO
-     click-outside to close — the user must choose. Starts hidden. -->
+     click-outside to close, the user must choose. Starts hidden. -->
 <div id="alert-overlay" class="overlay" hidden>
   <div id="alert" role="alertdialog" aria-modal="true"
        aria-labelledby="alert-title" aria-describedby="alert-desc">
@@ -47,7 +47,7 @@ const FOCUSABLE = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1
 function open() {
   lastFocused = document.activeElement;
   overlay.hidden = false;
-  cancelBtn.focus(); // focus the LEAST destructive action — never "Delete"
+  cancelBtn.focus(); // focus the LEAST destructive action, never "Delete"
   document.addEventListener("keydown", onKeyDown);
 }
 
@@ -60,7 +60,7 @@ function close() {
 function onKeyDown(e) {
   if (e.key === "Escape") { close(); return; } // Escape cancels
   if (e.key !== "Tab") return;
-  // Focus trap — identical to the Dialog pattern.
+  // Focus trap, identical to the Dialog pattern.
   const f = [...dialog.querySelectorAll(FOCUSABLE)];
   const first = f[0], last = f[f.length - 1];
   if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
@@ -73,14 +73,14 @@ confirmBtn.addEventListener("click", () => {
   // ...perform the destructive action...
   close();
 });
-// Note: intentionally NO backdrop-click handler — an alert dialog
+// Note: intentionally NO backdrop-click handler, an alert dialog
 // requires an explicit choice.`;
 
 const ARIA_ROWS = [
   {
     target: "Dialog container",
     attribute: 'role="alertdialog"',
-    why: "Distinct from role=\"dialog\" — tells AT this interruption carries urgent, often destructive, information requiring explicit acknowledgment.",
+    why: "Distinct from role=\"dialog\", tells AT this interruption carries urgent, often destructive, information requiring explicit acknowledgment.",
   },
   {
     target: "Dialog container",
@@ -95,7 +95,7 @@ const ARIA_ROWS = [
   {
     target: "Dialog container",
     attribute: "aria-describedby",
-    why: "Points at the consequence text (e.g. \"This can't be undone\") so it's read immediately after the name — critical context for a destructive confirmation.",
+    why: "Points at the consequence text (e.g. \"This can't be undone\") so it's read immediately after the name, critical context for a destructive confirmation.",
   },
   {
     target: "Cancel button",
@@ -143,7 +143,7 @@ const DEFECTS = [
     defect: "Default focus lands on the destructive action, not Cancel",
     severity: "Critical" as const,
     description:
-      "On open, focus moves to the \"Delete\" button instead of \"Cancel.\" A user who reflexively presses Enter — out of habit, or intending to dismiss what they assumed was a toast — confirms an irreversible destructive action by accident. This is the exact scenario the APG's least-destructive-action-gets-focus rule is designed to prevent. Fails SC 2.4.3 (Focus Order) in effect, and represents a serious usability/safety defect independent of any single SC.",
+      "On open, focus moves to the \"Delete\" button instead of \"Cancel.\" A user who reflexively presses Enter, out of habit, or intending to dismiss what they assumed was a toast, confirms an irreversible destructive action by accident. This is the exact scenario the APG's least-destructive-action-gets-focus rule is designed to prevent. Fails SC 2.4.3 (Focus Order) in effect, and represents a serious usability/safety defect independent of any single SC.",
   },
   {
     defect: "Focus not trapped inside the alert dialog",
@@ -175,7 +175,7 @@ const CHECKLIST = [
   "Escape closes the dialog without performing the destructive action.",
   "Focus returns to the triggering element when the dialog closes, by any method.",
   "The dialog has an accessible name (aria-labelledby) and, where present, a description (aria-describedby) covering the consequence of confirming.",
-  "Clicking outside the dialog (scrim) does not silently dismiss or confirm — confirm this is the intended behavior for a true alert dialog.",
+  "Clicking outside the dialog (scrim) does not silently dismiss or confirm, confirm this is the intended behavior for a true alert dialog.",
 ];
 
 export function AlertDialogPageClient() {
@@ -245,10 +245,10 @@ export function AlertDialogPageClient() {
           </PageSection>
           <PageSection id="focus" title="Focus management rules">
             <ul className="list-disc space-y-2 pl-5 text-sm text-muted-foreground">
-              <li>On open: focus moves to the least destructive action (typically Cancel) — never to the confirm/destroy button.</li>
+              <li>On open: focus moves to the least destructive action (typically Cancel), never to the confirm/destroy button.</li>
               <li>While open: Tab/Shift+Tab cycle only within the dialog&apos;s focusable elements.</li>
               <li>On close (Escape, confirm, or cancel): focus returns to the element that opened the dialog.</li>
-              <li>Unlike a plain Dialog, clicking the scrim/overlay does not close a true alert dialog — the interruption should be resolved deliberately, not brushed aside accidentally.</li>
+              <li>Unlike a plain Dialog, clicking the scrim/overlay does not close a true alert dialog, the interruption should be resolved deliberately, not brushed aside accidentally.</li>
             </ul>
           </PageSection>
         </>

@@ -5,9 +5,9 @@ import { SiteFooter } from "@/components/site-footer";
 import { AriaExplorer } from "./aria-explorer";
 
 export const metadata = pageMetadata({
-  title: "ARIA Roles & Attributes – Accessibility Guide",
+  title: "ARIA Roles & Attributes - Accessibility Guide",
   description:
-    "A searchable reference of every WAI-ARIA attribute and role — value types, plain-language descriptions, and which a11yman components demonstrate each one.",
+    "A searchable reference of every WAI-ARIA attribute and role, value types, plain-language descriptions, and which a11yman components demonstrate each one.",
   path: "/aria",
 });
 
@@ -46,7 +46,7 @@ export default function AriaPage() {
                 ARIA (Accessible Rich Internet Applications) is a set of roles
                 and attributes that make custom interfaces understandable to
                 assistive technologies. Reach for it to express what native HTML
-                can&apos;t — and only when a native element genuinely won&apos;t do.
+                can&apos;t, and only when a native element genuinely won&apos;t do.
               </p>
             </div>
 

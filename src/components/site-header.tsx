@@ -55,7 +55,7 @@ export function SiteHeader() {
   const menuButtonRef = React.useRef<HTMLButtonElement>(null);
   const searchButtonRef = React.useRef<HTMLButtonElement>(null);
   const searchPanelRef = React.useRef<HTMLDivElement>(null);
-  // Whether the search flyout was opened via keyboard — decides if the focused
+  // Whether the search flyout was opened via keyboard, decides if the focused
   // input shows a visible focus ring (keyboard) or not (mouse).
   const searchOpenedViaKeyboard = React.useRef(false);
   const lastSearchLinkRef = React.useRef<HTMLAnchorElement>(null);
@@ -249,7 +249,7 @@ export function SiteHeader() {
       {/* Search panel. Overlays the (blurred) page below the bar rather than
           pushing content down, sliding + fading in. The input auto-focuses on
           open, Escape closes it, and it collapses when keyboard focus leaves the
-          panel — after the last quick link, Tab collapses it and moves focus to
+          panel, after the last quick link, Tab collapses it and moves focus to
           the theme toggle. */}
       <div
         ref={searchPanelRef}
@@ -257,7 +257,7 @@ export function SiteHeader() {
         onBlur={(e) => {
           // Only collapse when focus actually moves to another element (e.g.
           // keyboard Tab). On touch (iOS Safari) tapping a link/button does NOT
-          // focus it, so relatedTarget is null — closing here would cancel the
+          // focus it, so relatedTarget is null, closing here would cancel the
           // tap before the link/button activates. Outside taps still close via
           // the document mousedown listener.
           const next = e.relatedTarget as Node | null;

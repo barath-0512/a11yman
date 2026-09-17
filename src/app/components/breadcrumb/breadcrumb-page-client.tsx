@@ -38,12 +38,12 @@ const CUSTOM_CODE = NATIVE_CODE;
 const ARIA_ROWS = [
   { target: "<nav>", attribute: 'aria-label="Breadcrumb"', why: 'Gives this landmark a distinguishing accessible name so it appears as "Breadcrumb navigation" in a screen reader\'s landmark list, separate from the site\'s main nav.' },
   { target: "<ol>", attribute: "Native ordered list", why: "Communicates that the trail is an ordered sequence of steps from site root to current page, and gives AT users a position count (e.g. \"1 of 4\")." },
-  { target: "Last <li> (current page)", attribute: 'aria-current="page"', why: 'Identifies which crumb represents the page the user is currently on — announced as "current page."' },
+  { target: "Last <li> (current page)", attribute: 'aria-current="page"', why: 'Identifies which crumb represents the page the user is currently on, announced as "current page."' },
   { target: "Separator glyph/icon", attribute: 'aria-hidden="true"', why: "Hides the purely decorative visual separator (/, chevron) from assistive tech so it isn't read aloud between every crumb." },
 ];
 
 const KEYBOARD_ROWS = [
-  { keys: "Tab / Shift+Tab", behavior: "Moves focus through each breadcrumb link in document order — no custom key handling is needed or expected." },
+  { keys: "Tab / Shift+Tab", behavior: "Moves focus through each breadcrumb link in document order, no custom key handling is needed or expected." },
   { keys: "Enter", behavior: "Activates the focused link and navigates to that page." },
 ];
 
@@ -97,7 +97,7 @@ export function BreadcrumbPageClient() {
           <code className="font-mono">&lt;ol&gt;</code> of real links, with the
           current page marked by{" "}
           <code className="font-mono">aria-current="page"</code>. Semantic HTML
-          already covers this completely — there's no ARIA widget to reach for,
+          already covers this completely, there's no ARIA widget to reach for,
           so the native and custom approaches are identical.
         </div>
         <div className="mt-4 space-y-3">
@@ -132,7 +132,7 @@ export function BreadcrumbPageClient() {
           </PageSection>
           <PageSection id="focus" title="Focus management rules">
             <ul className="list-disc space-y-2 pl-5 text-sm text-muted-foreground">
-              <li>No custom focus management is required — the browser's native Tab order through the links is correct as-is.</li>
+              <li>No custom focus management is required, the browser's native Tab order through the links is correct as-is.</li>
               <li>The current page is not a focus stop unless it remains a real link; when rendered as plain text it is correctly skipped.</li>
               <li>Activating a crumb link navigates the page normally, so focus naturally resets to the top of the destination document.</li>
             </ul>

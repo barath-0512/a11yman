@@ -8,12 +8,12 @@ const SECTIONS = [
 ];
 
 /**
- * ⚠ Deliberately broken accordion — for learning only.
+ * ⚠ Deliberately broken accordion, for learning only.
  *
  * Defects, on purpose:
- * 1. Headers are <div>s with a click handler, not <button>s — not focusable
+ * 1. Headers are <div>s with a click handler, not <button>s, not focusable
  *    or keyboard-operable at all (fails 2.1.1 and 4.1.2).
- * 2. No aria-expanded — even a sighted keyboard user relying on
+ * 2. No aria-expanded, even a sighted keyboard user relying on
  *    high-contrast/zoom has no programmatic way to know panel state.
  * 3. No aria-controls linking header to panel.
  */

@@ -19,7 +19,7 @@ import * as React from "react";
  *   rebuild the tabular structure that div markup otherwise loses, so cell
  *   values are still announced with their row and column context.
  * - aria-readonly="true": this demo grid is navigable but not editable, so we
- *   declare it — an editable grid would omit this and expose per-cell editing.
+ *   declare it, an editable grid would omit this and expose per-cell editing.
  * - Roving tabindex: exactly one cell has tabindex=0 (the rest are -1), so the
  *   grid is one stop in the page Tab sequence and never traps the user in a
  *   thicket of dozens of tab stops.
@@ -90,7 +90,7 @@ export function GridPattern() {
         aria-colcount={COL_COUNT}
         className="inline-grid min-w-full rounded-2xl border border-border text-sm [grid-template-columns:repeat(5,minmax(6rem,1fr))]"
       >
-        {/* Column header row — presentational stop, not part of the roving set. */}
+        {/* Column header row, presentational stop, not part of the roving set. */}
         <div role="row" className="contents">
           {COLUMNS.map((label, col) => (
             <div

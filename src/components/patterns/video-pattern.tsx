@@ -4,7 +4,7 @@ import * as React from "react";
 import { FileText, ChevronDown } from "lucide-react";
 
 // CC0 sample clip (ambient music, no dialogue). In production, self-host your
-// media rather than hot-linking — this is a demo asset.
+// media rather than hot-linking, this is a demo asset.
 const SOURCES = [
   { src: "https://mdn.github.io/shared-assets/videos/flower.mp4", type: "video/mp4" },
   { src: "https://mdn.github.io/shared-assets/videos/flower.webm", type: "video/webm" },
@@ -49,11 +49,11 @@ export function VideoPattern() {
       </video>
 
       <figcaption className="text-sm text-muted-foreground">
-        Sample clip (CC0). Captions are on by default — toggle them from the
+        Sample clip (CC0). Captions are on by default, toggle them from the
         player&apos;s CC menu.
       </figcaption>
 
-      {/* Transcript — a hand-coded disclosure. Doubles as the media
+      {/* Transcript, a hand-coded disclosure. Doubles as the media
           alternative, since this clip has no narration. */}
       <div>
         <button
@@ -81,7 +81,7 @@ export function VideoPattern() {
           <p className="font-medium text-foreground">Transcript</p>
           <p className="text-muted-foreground">
             [No spoken dialogue.] Gentle ambient music plays throughout. A single
-            flower opens in timelapse — the bud swells, the petals unfurl one by
+            flower opens in timelapse, the bud swells, the petals unfurl one by
             one, and the bloom turns slowly toward the light before the shot
             fades.
           </p>

@@ -10,22 +10,22 @@ const DATA = [
 ];
 
 /**
- * ⚠ Deliberately broken data table — for learning only.
+ * ⚠ Deliberately broken data table, for learning only.
  *
  * Defects, on purpose:
- * 1. No <caption> — a screen reader user landing on this table gets no
+ * 1. No <caption>, a screen reader user landing on this table gets no
  *    statement of its purpose before navigating into it. Fails SC 1.3.1.
  * 2. Data cells have no header association at all: header row uses plain
  *    <td> instead of <th scope="col">, and there is no row header either.
  *    A screen reader user who jumps directly to a cell (common table
- *    navigation via NVDA/JAWS Ctrl+Alt+Arrow) hears just the raw value —
- *    e.g. "Active" — with no idea which row or column it belongs to.
+ *    navigation via NVDA/JAWS Ctrl+Alt+Arrow) hears just the raw value,
+ *    e.g. "Active", with no idea which row or column it belongs to.
  *    Fails SC 1.3.1 and 4.1.2.
  * 3. The sort control is the entire header <div onClick>, not a real
  *    <button>. It cannot receive keyboard focus and has no default
  *    Enter/Space activation, so keyboard users cannot sort at all.
  *    Fails SC 2.1.1 and 4.1.2.
- * 4. No aria-sort anywhere — even a sighted mouse user has no
+ * 4. No aria-sort anywhere, even a sighted mouse user has no
  *    programmatic indication of current sort state, and there's no way
  *    for AT to announce it.
  */

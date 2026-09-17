@@ -31,7 +31,7 @@ export function ModeProvider({ children }: { children: React.ReactNode }) {
     if (stored === "developer" || stored === "tester") {
       setModeState(stored);
     } else {
-      // No stored preference means this is a first-time visitor — greet them.
+      // No stored preference means this is a first-time visitor, greet them.
       setShowOnboarding(true);
     }
     setMounted(true);

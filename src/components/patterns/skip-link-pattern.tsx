@@ -2,13 +2,13 @@
 
 /**
  * Self-contained "Skip Link" demo. A skip link is just a native anchor whose
- * href points at the id of the main content region — there's no ARIA involved.
+ * href points at the id of the main content region, there's no ARIA involved.
  * Two details make it work:
  *  1. It is visually hidden until it receives keyboard focus (sr-only +
  *     focus:not-sr-only), so it never clutters the visual design but is the
  *     first thing a keyboard user reaches.
  *  2. Its target carries tabindex={-1} so that activating the link moves
- *     keyboard FOCUS there (not merely the scroll position) — the next Tab
+ *     keyboard FOCUS there (not merely the scroll position), the next Tab
  *     then continues from the main content, past the repeated navigation.
  *
  * The link here targets a demo region scoped to this component, so it works

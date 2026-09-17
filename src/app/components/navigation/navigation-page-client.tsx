@@ -41,11 +41,11 @@ const CUSTOM_CODE = NATIVE_CODE;
 
 const ARIA_ROWS = [
   { target: "Each <nav>", attribute: "aria-label (distinguishing)", why: 'A page commonly has more than one navigation landmark (header, footer, breadcrumb, in-page). Each needs a unique accessible name so a landmark list reads "Main navigation," "Footer navigation," etc. instead of three identical "navigation" entries.' },
-  { target: "Active link", attribute: 'aria-current="page"', why: "Identifies which link in the nav represents the page currently being viewed — announced as \"current page\" and commonly used as a CSS hook for the active-state style." },
+  { target: "Active link", attribute: 'aria-current="page"', why: "Identifies which link in the nav represents the page currently being viewed, announced as \"current page\" and commonly used as a CSS hook for the active-state style." },
 ];
 
 const KEYBOARD_ROWS = [
-  { keys: "Tab / Shift+Tab", behavior: "Moves through each nav link in document order — no arrow-key or roving-tabindex behavior is expected for a plain link list." },
+  { keys: "Tab / Shift+Tab", behavior: "Moves through each nav link in document order, no arrow-key or roving-tabindex behavior is expected for a plain link list." },
 ];
 
 const SR_ROWS = [
@@ -59,7 +59,7 @@ const DEFECTS = [
 ];
 
 const TEST_STEPS = [
-  { action: "Open a screen reader's landmark/region list.", expected: "Each navigation region has a distinct, descriptive name (e.g. \"Main,\" \"Footer\") — never duplicate unlabeled \"navigation\" entries." },
+  { action: "Open a screen reader's landmark/region list.", expected: "Each navigation region has a distinct, descriptive name (e.g. \"Main,\" \"Footer\"), never duplicate unlabeled \"navigation\" entries." },
   { action: "Tab through the demo nav below and activate a link.", expected: "The activated link is announced as the current page (aria-current) and this is reflected visually too." },
 ];
 
@@ -94,7 +94,7 @@ export function NavigationPageClient() {
           <code className="font-mono">aria-current="page"</code> on the active
           link. Semantic HTML is the whole solution, so the native and custom
           approaches are identical. (Bypassing that repeated navigation is its
-          own concern — see the{" "}
+          own concern, see the{" "}
           <a
             href="/components/skip-link"
             className="text-accent-text underline decoration-dotted underline-offset-2"
@@ -142,7 +142,7 @@ export function NavigationPageClient() {
           </PageSection>
           <PageSection id="focus" title="Focus management rules">
             <ul className="list-disc space-y-2 pl-5 text-sm text-muted-foreground">
-              <li>No roving tabindex or arrow-key handling is expected — a nav link list uses plain sequential Tab order.</li>
+              <li>No roving tabindex or arrow-key handling is expected, a nav link list uses plain sequential Tab order.</li>
               <li>Focus moves through links in document order; the active link (aria-current) does not change the tab sequence.</li>
             </ul>
           </PageSection>

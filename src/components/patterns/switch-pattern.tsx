@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 /**
  * Hand-coded APG "Switch" pattern: role="switch" on a <button>, with
  * aria-checked reflecting on/off state. role="switch" is deliberately
- * distinct from role="checkbox" — screen readers announce "switch,
+ * distinct from role="checkbox", screen readers announce "switch,
  * on/off" instead of "checkbox, checked/unchecked," which better matches
  * the instant-effect mental model a toggle switch implies (the setting
  * takes effect immediately, unlike a checkbox in a form that's often
@@ -22,7 +22,7 @@ export function SwitchPattern() {
   function onKeyDown(e: React.KeyboardEvent) {
     // Space toggles, matching native checkbox/button conventions. Enter is
     // also commonly supported for switches since <button> natively fires
-    // onClick for both — no extra handling required for Enter here.
+    // onClick for both, no extra handling required for Enter here.
     if (e.key === " ") {
       e.preventDefault();
       toggle();
@@ -38,7 +38,7 @@ export function SwitchPattern() {
         type="button"
         role="switch"
         // aria-checked (not aria-pressed) is what makes this a switch
-        // rather than a toggle button — it's a boolean-only state, there is
+        // rather than a toggle button, it's a boolean-only state, there is
         // no "mixed" for switches (unlike tri-state checkboxes).
         aria-checked={on}
         aria-labelledby="wifi-switch-label"

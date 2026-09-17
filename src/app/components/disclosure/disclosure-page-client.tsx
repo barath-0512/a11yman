@@ -49,9 +49,9 @@ trigger.addEventListener("click", () => {
 });`;
 
 const ARIA_ROWS = [
-  { target: "Trigger <button>", attribute: "aria-expanded", why: 'Communicates whether the panel is currently visible — announced as "expanded" or "collapsed." Must update synchronously with every toggle.' },
+  { target: "Trigger <button>", attribute: "aria-expanded", why: 'Communicates whether the panel is currently visible, announced as "expanded" or "collapsed." Must update synchronously with every toggle.' },
   { target: "Trigger <button>", attribute: "aria-controls", why: "Associates the trigger with the panel id it toggles, so AT can relate the two even though they aren't nested." },
-  { target: "Panel", attribute: "hidden attribute", why: "Removes the panel and everything inside it from the accessibility tree and the tab order while collapsed — stronger than a CSS-only visual hide." },
+  { target: "Panel", attribute: "hidden attribute", why: "Removes the panel and everything inside it from the accessibility tree and the tab order while collapsed, stronger than a CSS-only visual hide." },
 ];
 
 const KEYBOARD_ROWS = [
@@ -75,7 +75,7 @@ const TEST_STEPS = [
   { action: "Tab to the disclosure trigger.", expected: "Screen reader announces the trigger label, button role, and collapsed state." },
   { action: "Press Enter or Space.", expected: "Panel becomes visible; announcement updates to expanded." },
   { action: "Continue tabbing.", expected: "Focus moves into the now-visible panel content (e.g. the timeout field) before reaching the next page element." },
-  { action: "Collapse the panel while focus is inside it.", expected: "Focus moves to a sensible location (typically the trigger) — it never becomes lost or stuck on now-hidden content." },
+  { action: "Collapse the panel while focus is inside it.", expected: "Focus moves to a sensible location (typically the trigger), it never becomes lost or stuck on now-hidden content." },
 ];
 
 const CHECKLIST = [
@@ -141,9 +141,9 @@ export function DisclosurePageClient() {
           </PageSection>
           <PageSection id="focus" title="Focus management rules">
             <ul className="list-disc space-y-2 pl-5 text-sm text-muted-foreground">
-              <li>Panel content is only in the Tab order while expanded — collapsed content is never reachable.</li>
+              <li>Panel content is only in the Tab order while expanded, collapsed content is never reachable.</li>
               <li>Toggling the panel never moves focus away from the trigger.</li>
-              <li>There is no arrow-key model — a disclosure is a single control, not a group like Accordion.</li>
+              <li>There is no arrow-key model, a disclosure is a single control, not a group like Accordion.</li>
             </ul>
           </PageSection>
         </>
