@@ -147,7 +147,8 @@ export function TabsPageClient() {
       </PageSection>
       )}
 
-      <PageSection id="live-demo" title="Live demo">
+      {mode === "tester" && (
+        <PageSection id="live-demo" title="Live demo">
         <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-border bg-secondary/60 p-1 text-sm">
           <button
             type="button"
@@ -189,6 +190,7 @@ export function TabsPageClient() {
           }
         />
       </PageSection>
+      )}
 
       {mode === "developer" ? (
         <>

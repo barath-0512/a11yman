@@ -110,7 +110,8 @@ export function NavigationPageClient() {
       </PageSection>
       )}
 
-      <PageSection id="live-demo" title="Live demo">
+      {mode === "tester" && (
+        <PageSection id="live-demo" title="Live demo">
         <p className="text-sm text-muted-foreground">
           This demo nav is scoped with its own{" "}
           <code className="font-mono">aria-label="Demo navigation"</code> so
@@ -131,6 +132,7 @@ export function NavigationPageClient() {
           }
         />
       </PageSection>
+      )}
 
       {mode === "developer" ? (
         <>

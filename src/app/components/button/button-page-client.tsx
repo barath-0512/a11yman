@@ -109,7 +109,8 @@ export function ButtonPageClient() {
       </PageSection>
       )}
 
-      <PageSection id="live-demo" title="Live demo">
+      {mode === "tester" && (
+        <PageSection id="live-demo" title="Live demo">
         <p className="text-sm text-muted-foreground">
           A plain action button and a toggle button (aria-pressed), fixed vs.
           a mouse-only broken variant.
@@ -127,6 +128,7 @@ export function ButtonPageClient() {
           }
         />
       </PageSection>
+      )}
 
       {mode === "developer" ? (
         <>

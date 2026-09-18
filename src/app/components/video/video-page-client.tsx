@@ -160,11 +160,13 @@ export function VideoPageClient() {
         </PageSection>
       )}
 
-      <PageSection id="live-demo" title="Live demo">
+      {mode === "tester" && (
+        <PageSection id="live-demo" title="Live demo">
         <div className="rounded-2xl border border-border bg-card p-6">
           <VideoPattern />
         </div>
       </PageSection>
+      )}
 
       {mode === "developer" ? (
         <>

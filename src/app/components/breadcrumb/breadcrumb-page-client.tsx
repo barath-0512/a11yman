@@ -107,7 +107,8 @@ export function BreadcrumbPageClient() {
       </PageSection>
       )}
 
-      <PageSection id="live-demo" title="Live demo">
+      {mode === "tester" && (
+        <PageSection id="live-demo" title="Live demo">
         <BrokenFixedToggle
           fixed={
             <div className="rounded-2xl border border-border bg-card p-6">
@@ -121,6 +122,7 @@ export function BreadcrumbPageClient() {
           }
         />
       </PageSection>
+      )}
 
       {mode === "developer" ? (
         <>

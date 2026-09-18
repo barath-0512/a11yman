@@ -138,7 +138,8 @@ export function SkipLinkPageClient() {
         </PageSection>
       )}
 
-      <PageSection id="live-demo" title="Live demo">
+      {mode === "tester" && (
+        <PageSection id="live-demo" title="Live demo">
         <p className="text-sm text-muted-foreground">
           This skip link targets a demo region scoped to this example (its own{" "}
           <code className="font-mono">#skip-demo-main</code>), separate from the
@@ -147,6 +148,7 @@ export function SkipLinkPageClient() {
         </p>
         <SkipLinkPattern />
       </PageSection>
+      )}
 
       {mode === "developer" ? (
         <>

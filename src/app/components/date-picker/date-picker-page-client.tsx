@@ -176,7 +176,8 @@ export function DatePickerPageClient() {
       </PageSection>
       )}
 
-      <PageSection id="live-demo" title="Live demo">
+      {mode === "tester" && (
+        <PageSection id="live-demo" title="Live demo">
         <BrokenFixedToggle
           fixed={
             <div className="flex flex-wrap gap-4 rounded-2xl border border-border bg-card p-6">
@@ -190,6 +191,7 @@ export function DatePickerPageClient() {
           }
         />
       </PageSection>
+      )}
 
       {mode === "developer" ? (
         <>
