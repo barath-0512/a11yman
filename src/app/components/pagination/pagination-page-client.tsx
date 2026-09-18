@@ -106,7 +106,8 @@ export function PaginationPageClient() {
       </PageSection>
       )}
 
-      <PageSection id="live-demo" title="Live demo">
+      {mode === "tester" && (
+        <PageSection id="live-demo" title="Live demo">
         <BrokenFixedToggle
           fixed={
             <div className="rounded-2xl border border-border bg-card p-6">
@@ -120,6 +121,7 @@ export function PaginationPageClient() {
           }
         />
       </PageSection>
+      )}
 
       {mode === "developer" ? (
         <>

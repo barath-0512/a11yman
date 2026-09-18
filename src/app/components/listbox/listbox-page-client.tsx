@@ -142,7 +142,8 @@ export function ListboxPageClient() {
       </PageSection>
       )}
 
-      <PageSection id="live-demo" title="Live demo">
+      {mode === "tester" && (
+        <PageSection id="live-demo" title="Live demo">
         <BrokenFixedToggle
           fixed={
             <div className="space-y-6 rounded-2xl border border-border bg-card p-6">
@@ -158,6 +159,7 @@ export function ListboxPageClient() {
           }
         />
       </PageSection>
+      )}
 
       {mode === "developer" ? (
         <>
