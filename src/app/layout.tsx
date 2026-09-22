@@ -8,6 +8,7 @@ import { Onboarding } from "@/components/onboarding";
 import { BookmarkPrompt } from "@/components/bookmark-prompt";
 import { GoogleAnalytics } from "@/components/google-analytics";
 import { StructuredData } from "@/components/structured-data";
+import { Analytics } from "@vercel/analytics/next";
 import {
   SITE_URL,
   SITE_NAME,
@@ -112,6 +113,7 @@ export default function RootLayout({
           </ModeProvider>
         </ThemeProvider>
         <GoogleAnalytics />
+        <Analytics />
       </body>
     </html>
   );
