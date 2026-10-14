@@ -153,6 +153,7 @@ export function FormsPageClient() {
             Field-level aria-invalid/aria-describedby, a focus-managed error
             summary, and non-color error signaling.
           </p>
+          <FormsPattern />
           {mode === "developer" && (
             <CodeBlock
               tabs={[
