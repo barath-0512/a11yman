@@ -218,6 +218,11 @@ export function DialogPageClient() {
             Focus trap via Tab/Shift+Tab interception, Escape handling, and
             explicit focus restoration.
           </p>
+          <DialogPattern
+            triggerLabel="Open custom dialog"
+            title="Delete file?"
+            description="This action can't be undone."
+          />
           {mode === "developer" && (
             <CodeBlock
               tabs={[

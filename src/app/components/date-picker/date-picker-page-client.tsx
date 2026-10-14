@@ -164,6 +164,7 @@ export function DatePickerPageClient() {
             focus-trap/Escape/focus-restore logic as the flagship Dialog
             pattern, plus arrow-key date navigation.
           </p>
+          <DatePickerPattern />
           {mode === "developer" && (
             <CodeBlock
               tabs={[
