@@ -744,7 +744,7 @@ export const ROLE_DETAILS: Record<string, AriaRoleDetail> = {
   },
   heading: {
     usedOn: "A section heading. Prefer native <h1> to <h6>.",
-    requiredProps: [{ name: "aria-level", note: "the heading level, 1-6+" }],
+    requiredProps: [{ name: "aria-level", note: "the heading rank, a positive integer (1 or higher)" }],
     accessibleName: "From the heading's child text content.",
     example: `<div role="heading" aria-level="2">Section title</div>`,
   },
@@ -1037,7 +1037,7 @@ export const ARIA_LONG_DESCRIPTIONS: Record<string, string> = {
   region: "A landmark identifying a significant, self-contained section of the page that users may want to navigate to directly. It only becomes a landmark once given an accessible name via aria-label or aria-labelledby. The native `<section>` element takes on this role when it has a label.",
   form: "A landmark identifying a section that contains a group of form controls submitted together. Like region, it's only exposed as a landmark when it has an accessible name. A native `<form>` element conveys this role when labelled.",
   link: "An interactive reference that navigates to another resource or location when activated. It responds to Enter (not Space) and should make its destination clear. Always prefer a native `<a href>`; role='link' on other elements means adding keyboard and navigation behavior yourself.",
-  heading: "Identifies a heading that introduces a section of content, with its rank set by aria-level from 1 to 6. Headings form the document outline screen-reader users rely on to skim and navigate. Prefer native `<h1>` to `<h6>` elements, which set the level implicitly.",
+  heading: "Identifies a heading that introduces a section of content, with its rank set by aria-level, a positive integer starting at 1. Native `<h1>` to `<h6>` only reach level 6, but aria-level can go higher when a deeper structure genuinely needs it. Headings form the document outline screen-reader users rely on to skim and navigate, so prefer native `<h1>` to `<h6>` elements, which set the level implicitly.",
   list: "A container grouping a set of related, non-interactive items so assistive technologies announce the list and its item count. Its allowed children are listitems and grouping rows. Prefer a native `<ul>` or `<ol>`.",
   listitem: "A single item within a list, counted and announced as part of it ('2 of 5'). It must sit within a list role to be meaningful. It maps to the native `<li>` element.",
   table: "Static tabular data arranged in rows and columns for reading, not interaction. Its structure is conveyed through row, columnheader, rowheader, and cell descendants. Prefer a native `<table>`; for an interactive tabular widget use grid instead.",
