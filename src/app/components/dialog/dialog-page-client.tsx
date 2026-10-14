@@ -219,9 +219,11 @@ export function DialogPageClient() {
             explicit focus restoration.
           </p>
           <DialogPattern
-            triggerLabel="Open custom dialog"
-            title="Delete file?"
-            description="This action can't be undone."
+            triggerLabel="Open Dialog"
+            title="About a11yman"
+            description="a11yman is a free, practical reference for building and testing accessible UI components. Every component comes with a working demo, copy-paste HTML and vanilla JS, the ARIA and keyboard model, and ready-to-run test cases, so you can build it right and prove it works."
+            confirmLabel="That's awesome"
+            cancelLabel="Close"
           />
           {mode === "developer" && (
             <CodeBlock
