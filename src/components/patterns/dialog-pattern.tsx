@@ -8,6 +8,10 @@ interface DialogPatternProps {
   title: string;
   description?: string;
   children?: React.ReactNode;
+  /** Primary (accent) footer button label. */
+  confirmLabel?: string;
+  /** Secondary (outline) footer button label. */
+  cancelLabel?: string;
 }
 
 /**
@@ -25,6 +29,8 @@ export function DialogPattern({
   title,
   description,
   children,
+  confirmLabel = "Confirm",
+  cancelLabel = "Cancel",
 }: DialogPatternProps) {
   const [open, setOpen] = React.useState(false);
   const dialogRef = React.useRef<HTMLDivElement>(null);
@@ -140,14 +146,14 @@ export function DialogPattern({
                 onClick={close}
                 className="h-9 rounded-full border border-border px-4 text-sm font-medium hover:bg-secondary"
               >
-                Cancel
+                {cancelLabel}
               </button>
               <button
                 type="button"
                 onClick={close}
                 className="h-9 rounded-full bg-accent px-4 text-sm font-medium text-accent-foreground"
               >
-                Confirm
+                {confirmLabel}
               </button>
             </div>
           </div>
